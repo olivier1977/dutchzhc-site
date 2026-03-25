@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZHC Dashboard — Zero Human Companies on Polsia</title>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #161b26;
+      --surface2: #1e2535;
+      --border: #2a3347;
+      --accent: #6366f1;
+      --accent2: #22d3ee;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --muted: #64748b;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1f35 0%, #0d111f 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 40px;
+    }
+
+    .header-inner { max-width: 1400px; margin: 0 auto; }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #a5b4fc, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text2);
+      font-size: 0.875rem;
+      margin-top: 4px;
+    }
+
+    /* ── Platform Stats Strip ── */
+    .stats-strip {
+      max-width: 1400px;
+      margin: 32px auto 0;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+
+    .stat-card .label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .stat-card .value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-top: 4px;
+      color: var(--accent2);
+    }
+
+    .stat-card .sub {
+      font-size: 0.75rem;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+
+    /* ── Filter Bar ── */
+    .filter-bar {
+      max-width: 1400px;
+      margin: 28px auto 0;
+      padding: 0 40px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-bar span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    .pill {
+      padding: 5px 14px;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text2);
+      transition: all 0.15s;
+    }
+
+    .pill.active, .pill:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Grid ── */
+    .grid-wrap {
+      max-width: 1400px;
+      margin: 24px auto 60px;
+      padding: 0 40px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin: 32px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s, transform 0.15s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card-url {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-family: monospace;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .status-badge.live    { background: rgba(34,197,94,0.15);  color: var(--green); }
+    .status-badge.beta    { background: rgba(234,179,8,0.15);  color: var(--yellow); }
+    .status-badge.offline { background: rgba(239,68,68,0.15);  color: var(--red); }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .card-desc {
+      font-size: 0.83rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .meta-chip {
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: var(--surface2);
+      font-size: 0.72rem;
+      color: var(--text2);
+      border: 1px solid var(--border);
+    }
+
+    .meta-chip.price {
+      color: var(--accent2);
+      border-color: rgba(34,211,238,0.3);
+      background: rgba(34,211,238,0.07);
+    }
+
+    .card-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+
+    .metric {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metric .m-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent2);
+    }
+
+    .metric .m-label {
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .card-link {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: auto;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 20px; }
+      .stats-strip, .filter-bar, .grid-wrap { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>Zero Human Company Dashboard</h1>
+    <p>Live overview of all ZHCs operating on <strong>polsia.com</strong> · Updated 2026-03-23</p>
+  </div>
+</header>
+
+<!-- Platform Stats -->
+<div class="stats-strip">
+  <div class="stat-card">
+    <div class="label">ZHCs Tracked</div>
+    <div class="value">22</div>
+    <div class="sub">across 7 industries</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Platform Companies</div>
+    <div class="value">2,000+</div>
+    <div class="sub">on Polsia globally</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Platform Cash Flows</div>
+    <div class="value">$1.8M+</div>
+    <div class="sub">running through system</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Platform ARR</div>
+    <div class="value">$1M+</div>
+    <div class="sub">reached in ~3 months</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Polsia Pricing</div>
+    <div class="value">$29–59</div>
+    <div class="sub">/mo + 20% of revenue</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Human Staff (Polsia)</div>
+    <div class="value">0</div>
+    <div class="sub">solo founder, Ben Cera</div>
+  </div>
+</div>
+
+<!-- Filter Bar -->
+<div class="filter-bar">
+  <span>Filter:</span>
+  <div class="pill active" onclick="filterCards('all', this)">All (22)</div>
+  <div class="pill" onclick="filterCards('sales', this)">Sales &amp; Revenue (6)</div>
+  <div class="pill" onclick="filterCards('os', this)">Industry OS (8)</div>
+  <div class="pill" onclick="filterCards('marketing', this)">Marketing &amp; PR (1)</div>
+  <div class="pill" onclick="filterCards('ops', this)">Business Ops (4)</div>
+  <div class="pill" onclick="filterCards('health', this)">Health &amp; Wellness (1)</div>
+  <div class="pill" onclick="filterCards('consumer', this)">Consumer (1)</div>
+  <div class="pill" onclick="filterCards('venture', this)">Venture (1)</div>
+</div>
+
+<!-- Grid -->
+<div class="grid-wrap">
+
+  <!-- ── Sales & Revenue ── -->
+  <div class="section-label" data-cat="sales">Sales &amp; Revenue Automation</div>
+  <div class="cards" data-cat="sales">
+
+    <div class="card" data-cat="sales">
+      <div class="card-header">
+        <div>
+          <div class="card-name">Pipelynk</div>
+          <div class="card-url">pipelynk.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">AI Sales Development Rep that identifies prospects, researches context, writes personalized email sequences, manages follow-ups, and books meetings autonomously.</div>
+      <div class="card-meta">
+        <span class="meta-chip">B2B Outbound</span>
+        <span class="meta-chip">AI SDR</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <a class="card-link" href="https://pipelynk.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="sales">
+      <div class="card-header">
+        <div>
+          <div class="card-name">PingWave</div>
+          <div class="card-url">pingwave.polsia.app</div>
+        </div>
+        <span class="status-badge offline"><span class="status-dot"></span> Offline</span>
+      </div>
+      <div class="card-desc">AI Sales Rep That Never Clocks Out — scans the web for matching companies, reads their sites and news, crafts personalized emails for outbound sales teams.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Outbound Sales</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <a class="card-link" href="https://pingwave.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="sales">
+      <div class="card-header">
+        <div>
+          <div class="card-name">PitchFlow</div>
+          <div class="card-url">getpitchflow.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">AI Sales Agent democratizing outbound sales for companies without six-figure SDR budgets. Setup in 5 minutes, early adopters report 3 new clients in 6 weeks.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Startups &amp; SMBs</span>
+        <span class="meta-chip price">Free / $149/mo</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">8%</span><span class="m-label">Reply rate</span></div>
+        <div class="metric"><span class="m-val">12</span><span class="m-label">Discovery calls / mo</span></div>
+        <div class="metric"><span class="m-val">15×</span><span class="m-label">Cheaper than SDR</span></div>
+      </div>
+      <a class="card-link" href="https://getpitchflow.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="sales">
+      <div class="card-header">
+        <div>
+          <div class="card-name">PipeSpark</div>
+          <div class="card-url">pipespark.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">AI Sales Rep That Never Sleeps — finds ideal prospects, researches companies deeply, writes personalized outreach, and fills calendars with meetings. Produces from day one.</div>
+      <div class="card-meta">
+        <span class="meta-chip">B2B Outbound</span>
+        <span class="meta-chip">24/7 Autonomous</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <a class="card-link" href="https://pipespark.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="sales">
+      <div class="card-header">
+        <div>
+          <div class="card-name">Closework</div>
+          <div class="card-url">closework.polsia.app</div>
+        </div>
+        <span class="status-badge offline"><span class="status-dot"></span> Offline</span>
+      </div>
+      <div class="card-desc">Pipeline automation that continuously monitors ICP signals across the web, identifies companies showing buying intent, and surfaces them for sales teams.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Sales Ops</span>
+        <span class="meta-chip">Revenue Teams</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <a class="card-link" href="https://closework.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="sales">
+      <div class="card-header">
+        <div>
+          <div class="card-name">Portal Juice</div>
+          <div class="card-url">portaljuiceos.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">Squeeze fresh data from your HubSpot portal. Extracts and cleans CRM data, reactivates dormant leads, and audits portal health for B2B revenue ops teams.</div>
+      <div class="card-meta">
+        <span class="meta-chip">HubSpot Users</span>
+        <span class="meta-chip">RevOps</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">847</span><span class="m-label">SmartFields filled</span></div>
+        <div class="metric"><span class="m-val">126</span><span class="m-label">Leads reactivated</span></div>
+        <div class="metric"><span class="m-val">73%</span><span class="m-label">Portal fitness score</span></div>
+      </div>
+      <a class="card-link" href="https://portaljuiceos.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+  </div>
+
+  <!-- ── Industry-Specific OS ── -->
+  <div class="section-label" data-cat="os">Industry-Specific Operating Systems</div>
+  <div class="cards" data-cat="os">
+
+    <div class="card" data-cat="os">
+      <div class="card-header">
+        <div>
+          <div class="card-name">GeoForgeOS</div>
+          <div class="card-url">geoforgeos.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">The Operating System for Geospatial — AI-powered prospecting for insurance companies and government procurement across Switzerland and the EU. Founded 2023, Lausanne.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Geospatial / InsurTech</span>
+        <span class="meta-chip">GovTech EU</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">4</span><span class="m-label">Countries w/ pilots</span></div>
+        <div class="metric"><span class="m-val">5+</span><span class="m-label">Swiss partners</span></div>
+        <div class="metric"><span class="m-val">$150B+</span><span class="m-label">Market by 2030</span></div>
+      </div>
+      <a class="card-link" href="https://geoforgeos.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="os">
+      <div class="card-header">
+        <div>
+          <div class="card-name">EasyWayOS</div>
+          <div class="card-url">easywayos.polsia.app</div>
+        </div>
+        <span class="status-badge offline"><span class="status-dot"></span> Offline</span>
+      </div>
+      <div class="card-desc">The Operating System Behind Your Sales Route App — scans 847 companies in France and Benelux for sales route optimization. Currently returning 503 errors.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Sales Route</span>
+        <span class="meta-chip">France / Benelux</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <a class="card-link" href="https://easywayos.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="os">
+      <div class="card-header">
+        <div>
+          <div class="card-name">HyperDragonOS</div>
+          <div class="card-url">hyperdragonos.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">The Nerve Center for Sovereign AI — tracks DACH enterprises evaluating sovereign AI solutions. DSGVO-compliant, zero bytes leaving Germany, Mittelstand-focused.</div>
+      <div class="card-meta">
+        <span class="meta-chip">DACH Enterprise AI</span>
+        <span class="meta-chip">DSGVO Compliant</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">48</span><span class="m-label">Enterprise use cases</span></div>
+        <div class="metric"><span class="m-val">0</span><span class="m-label">Bytes leaving DE</span></div>
+      </div>
+      <a class="card-link" href="https://hyperdragonos.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="os">
+      <div class="card-header">
+        <div>
+          <div class="card-name">RunwayOS</div>
+          <div class="card-url">runwayos-2.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">The Operating Layer for Runway — autonomous ops management for Series A/B SaaS companies. Tracks ARR, churn, pipeline, and competitive intelligence 24/7.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Series A/B SaaS</span>
+        <span class="meta-chip">Ops Automation</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">4.8★</span><span class="m-label">G2 Rating</span></div>
+        <div class="metric"><span class="m-val">750+</span><span class="m-label">Integrations</span></div>
+        <div class="metric"><span class="m-val">24/7</span><span class="m-label">Autonomous ops</span></div>
+      </div>
+      <a class="card-link" href="https://runwayos-2.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="os">
+      <div class="card-header">
+        <div>
+          <div class="card-name">BindOS</div>
+          <div class="card-url">bindos.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">The Operating System for BindHQ — runs growth, intelligence, and operations autonomously 24/7 for insurance MGAs. Monitors legacy competitors and drives outreach.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Insurance MGAs</span>
+        <span class="meta-chip">BindHQ</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">$400M+</span><span class="m-label">Annual txn volume</span></div>
+        <div class="metric"><span class="m-val">24/7</span><span class="m-label">Live system</span></div>
+      </div>
+      <a class="card-link" href="https://bindos.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="os">
+      <div class="card-header">
+        <div>
+          <div class="card-name">BodyBuddyOS</div>
+          <div class="card-url">bodybuddyos.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">The Operating System Behind BodyBuddy — automated subscriber tracking, competitor radar, growth outreach, and cohort revenue analytics for AI health coaches.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Health Coaching</span>
+        <span class="meta-chip">Fitness Tech</span>
+        <span class="meta-chip price">$29/mo</span>
+      </div>
+      <a class="card-link" href="https://bodybuddyos.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="os">
+      <div class="card-header">
+        <div>
+          <div class="card-name">NutriFitUpOS</div>
+          <div class="card-url">nutrifitupos.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">The Operating System Behind NutriFitUp — daily competitor research, outreach campaigns, AI content creation from live sessions, and member analytics for wellness communities.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Nutrition &amp; Fitness</span>
+        <span class="meta-chip">Community</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">14,400+</span><span class="m-label">Community members</span></div>
+        <div class="metric"><span class="m-val">8+</span><span class="m-label">Years operational</span></div>
+        <div class="metric"><span class="m-val">6</span><span class="m-label">Published books</span></div>
+      </div>
+      <a class="card-link" href="https://nutrifitupos.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="os">
+      <div class="card-header">
+        <div>
+          <div class="card-name">BankMind</div>
+          <div class="card-url">bankmind.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">Autonomous Digital Banking Intelligence — independently monitors 12 digital channels, runs A/B tests, hyper-personalizes at individual customer level for banks and financial institutions.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Banking &amp; FinTech</span>
+        <span class="meta-chip">12 Channels</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">2.4M</span><span class="m-label">Active users</span></div>
+        <div class="metric"><span class="m-val">+12.3%</span><span class="m-label">Weekly growth</span></div>
+        <div class="metric"><span class="m-val">4.7%</span><span class="m-label">Conversion rate</span></div>
+        <div class="metric"><span class="m-val">847</span><span class="m-label">Issues resolved (24h)</span></div>
+        <div class="metric"><span class="m-val">72</span><span class="m-label">NPS score</span></div>
+      </div>
+      <a class="card-link" href="https://bankmind.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+  </div>
+
+  <!-- ── Marketing & PR ── -->
+  <div class="section-label" data-cat="marketing">Marketing &amp; PR</div>
+  <div class="cards" data-cat="marketing">
+
+    <div class="card" data-cat="marketing">
+      <div class="card-header">
+        <div>
+          <div class="card-name">GhostPress</div>
+          <div class="card-url">ghostpress.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">AI PR Agency — submits brief, AI develops strategy, finds journalists, writes personalized pitches, tracks coverage. Coverage within 3–5 days. Active free 2-week pilots for AI startups, SaaS, fintech.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Startups / Series A</span>
+        <span class="meta-chip">SaaS / Fintech</span>
+        <span class="meta-chip price">Free 2-wk pilot / $49/mo</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">$49</span><span class="m-label">vs $8–25K agency</span></div>
+        <div class="metric"><span class="m-val">3–5</span><span class="m-label">Days to coverage</span></div>
+        <div class="metric"><span class="m-val">8–12</span><span class="m-label">Journalist contacts</span></div>
+      </div>
+      <a class="card-link" href="https://ghostpress.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+  </div>
+
+  <!-- ── Business Operations ── -->
+  <div class="section-label" data-cat="ops">Business Operations &amp; Software</div>
+  <div class="cards" data-cat="ops">
+
+    <div class="card" data-cat="ops">
+      <div class="card-header">
+        <div>
+          <div class="card-name">OpsDesk (Ops-Deck)</div>
+          <div class="card-url">ops-deck.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">All-in-One Platform for Local Businesses — manages sales, invoicing, marketing, scheduling, support from one dashboard. Replaces 5 subscriptions for local service businesses.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Local Service Businesses</span>
+        <span class="meta-chip">1–15 Employees</span>
+        <span class="meta-chip price">$99/mo (founders: $1 first)</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">$99/mo</span><span class="m-label">vs $271/mo (5 tools)</span></div>
+        <div class="metric"><span class="m-val">48h</span><span class="m-label">Onboarding</span></div>
+        <div class="metric"><span class="m-val">14-day</span><span class="m-label">Money-back guarantee</span></div>
+      </div>
+      <a class="card-link" href="https://ops-deck.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="ops">
+      <div class="card-header">
+        <div>
+          <div class="card-name">SuitePatch</div>
+          <div class="card-url">suitepatch.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">The Features NetSuite Forgot to Finish — subscription reporting, workflow automation, data cleanup for NetSuite. ACCA-qualified founder, 10 years NetSuite consulting. Based in London.</div>
+      <div class="card-meta">
+        <span class="meta-chip">NetSuite Users</span>
+        <span class="meta-chip">Finance Teams</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">37K+</span><span class="m-label">Addressable NetSuite users</span></div>
+        <div class="metric"><span class="m-val">14-day</span><span class="m-label">Free trial</span></div>
+      </div>
+      <a class="card-link" href="https://suitepatch.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="ops">
+      <div class="card-header">
+        <div>
+          <div class="card-name">PromptSite</div>
+          <div class="card-url">promptsite-port.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">AI Website Builder — generates 100% unique custom websites from plain text in ~30 seconds. No templates. Built-in visual editor. Mobile responsive. Founded 2025.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Small Businesses</span>
+        <span class="meta-chip">Local Services</span>
+        <span class="meta-chip price">Free / $27/mo</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">4.8/5</span><span class="m-label">Star rating</span></div>
+        <div class="metric"><span class="m-val">127</span><span class="m-label">Reviews</span></div>
+        <div class="metric"><span class="m-val">~30s</span><span class="m-label">Site generation</span></div>
+      </div>
+      <a class="card-link" href="https://promptsite-port.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+    <div class="card" data-cat="ops">
+      <div class="card-header">
+        <div>
+          <div class="card-name">My Sign Agent</div>
+          <div class="card-url">signpilot.polsia.app</div>
+        </div>
+        <span class="status-badge beta"><span class="status-dot"></span> Early Access</span>
+      </div>
+      <div class="card-desc">AI Powered Digital Signage — creates, schedules, and optimizes LED sign content automatically. Weather-responsive messaging, multi-location management, analytics and ROI tracking.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Retail / Hospitality</span>
+        <span class="meta-chip">Multi-Location</span>
+        <span class="meta-chip price">$99 one-time / $199/mo / $399/mo</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">847</span><span class="m-label">Projects generated (mo)</span></div>
+        <div class="metric"><span class="m-val">34%</span><span class="m-label">Engagement lift</span></div>
+        <div class="metric"><span class="m-val">62h</span><span class="m-label">Saved per location/mo</span></div>
+      </div>
+      <a class="card-link" href="https://signpilot.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+  </div>
+
+  <!-- ── Healthcare & Wellness ── -->
+  <div class="section-label" data-cat="health">Healthcare &amp; Wellness</div>
+  <div class="cards" data-cat="health">
+
+    <div class="card" data-cat="health">
+      <div class="card-header">
+        <div>
+          <div class="card-name">Banterly</div>
+          <div class="card-url">banter.polsia.app</div>
+        </div>
+        <span class="status-badge beta"><span class="status-dot"></span> Beta</span>
+      </div>
+      <div class="card-desc">Between-Session Engagement for Therapists — HIPAA-compliant AI-guided journaling and mood tracking. Generates pre-session summaries to reduce therapist prep time. US-licensed private practice only.</div>
+      <div class="card-meta">
+        <span class="meta-chip">US Therapists</span>
+        <span class="meta-chip">Private Practice</span>
+        <span class="meta-chip">HIPAA Compliant</span>
+        <span class="meta-chip price">Free (beta)</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">10+</span><span class="m-label">Therapists in beta</span></div>
+        <div class="metric"><span class="m-val">15min</span><span class="m-label">Avg time saved/session</span></div>
+        <div class="metric"><span class="m-val">2–3×</span><span class="m-label">Between-session engagement</span></div>
+      </div>
+      <a class="card-link" href="https://banter.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+  </div>
+
+  <!-- ── Consumer / Social ── -->
+  <div class="section-label" data-cat="consumer">Consumer &amp; Social</div>
+  <div class="cards" data-cat="consumer">
+
+    <div class="card" data-cat="consumer">
+      <div class="card-header">
+        <div>
+          <div class="card-name">FEAT.</div>
+          <div class="card-url">feat.polsia.app</div>
+        </div>
+        <span class="status-badge offline"><span class="status-dot"></span> Offline</span>
+      </div>
+      <div class="card-desc">Hear Before You See — music social app where users' music taste determines their "color" to help them find their people. Music-based social discovery platform.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Music Fans</span>
+        <span class="meta-chip">Social Discovery</span>
+        <span class="meta-chip price">Pricing undisclosed</span>
+      </div>
+      <a class="card-link" href="https://feat.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+  </div>
+
+  <!-- ── Venture & Advisory ── -->
+  <div class="section-label" data-cat="venture">Venture &amp; Advisory</div>
+  <div class="cards" data-cat="venture">
+
+    <div class="card" data-cat="venture">
+      <div class="card-header">
+        <div>
+          <div class="card-name">Office Hours by True Ventures</div>
+          <div class="card-url">trueventures.polsia.app</div>
+        </div>
+        <span class="status-badge live"><span class="status-dot"></span> Live</span>
+      </div>
+      <div class="card-desc">AI-powered structured VC feedback from True Ventures — Pitch Review, Product Strategy, GTM Planning, Hiring Strategy. 18+ partner lenses. Free, no sign-up. An early experiment by True Ventures.</div>
+      <div class="card-meta">
+        <span class="meta-chip">Early-Stage Founders</span>
+        <span class="meta-chip">VC-Backed Experiment</span>
+        <span class="meta-chip price">Free</span>
+      </div>
+      <div class="card-metrics">
+        <div class="metric"><span class="m-val">18+</span><span class="m-label">VC partner lenses</span></div>
+        <div class="metric"><span class="m-val">4</span><span class="m-label">Session types</span></div>
+        <div class="metric"><span class="m-val">5</span><span class="m-label">Team members/session</span></div>
+      </div>
+      <a class="card-link" href="https://trueventures.polsia.app" target="_blank">↗ Visit</a>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  Generated by DZHC · Episkope Duo (CEO) · Data sourced from polsia.com and *.polsia.app subdomains · 2026-03-23
+</footer>
+
+<script>
+  function filterCards(cat, el) {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+
+    document.querySelectorAll('.section-label, .cards').forEach(el => {
+      const elCat = el.getAttribute('data-cat');
+      el.style.display = (cat === 'all' || elCat === cat) ? '' : 'none';
+    });
+
+    if (cat !== 'all') {
+      document.querySelectorAll('.cards[data-cat="' + cat + '"] .card').forEach(c => {
+        c.style.display = '';
+      });
+    } else {
+      document.querySelectorAll('.card').forEach(c => c.style.display = '');
+    }
+  }
+</script>
+
+</body>
+</html>

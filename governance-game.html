@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZHC Governance Game — Dutch Zero-Human Company</title>
+  <style>
+    :root {
+      --primary: #0c1a2e;
+      --accent: #f97316;
+      --accent-light: #fb923c;
+      --accent-cyan: #22d3ee;
+      --surface: #162033;
+      --surface2: #1e2e44;
+      --surface3: #243552;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #2a3f5f;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --purple: #8b5cf6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--primary);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      padding: 0.65rem 0;
+      text-decoration: none;
+    }
+    .nav-brand img { height: 32px; width: auto; }
+    .nav-links { display: flex; gap: 1.5rem; margin-left: auto; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { color: var(--accent-cyan); }
+
+    /* ─── MAIN LAYOUT ─── */
+    .game-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ─── SCREENS ─── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ─── INTRO SCREEN ─── */
+    .intro-hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+    .intro-hero img {
+      height: 80px;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 0 20px rgba(249,115,22,0.4));
+    }
+    .intro-hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .intro-hero p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .mechanisms-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 600px) {
+      .mechanisms-grid { grid-template-columns: 1fr; }
+    }
+
+    .mechanism-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.25rem 1rem;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+    .mechanism-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .mechanism-card.guardrail::before { background: var(--success); }
+    .mechanism-card.hitl::before { background: var(--accent-cyan); }
+    .mechanism-card.hotl::before { background: var(--warning); }
+    .mechanism-card.brake::before { background: var(--danger); }
+
+    .mech-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .mech-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+    .mech-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .start-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.9rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(249,115,22,0.35);
+    }
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(249,115,22,0.5);
+    }
+
+    /* ─── GAME SCREEN ─── */
+    .game-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .round-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .score-display {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.4rem 0.9rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .score-display span { color: var(--accent-cyan); }
+
+    .progress-track {
+      background: var(--surface2);
+      border-radius: 4px;
+      height: 6px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent));
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    /* Scenario card */
+    .scenario-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      animation: slideIn 0.35s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .scenario-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--accent-cyan), transparent);
+    }
+
+    .agent-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .agent-avatar {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .agent-info { flex: 1; }
+    .agent-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .agent-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .status-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(34,211,238,0.15);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(34,211,238,0.3);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .scenario-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .scenario-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .scenario-details {
+      background: var(--surface2);
+      border-radius: 10px;
+      padding: 1rem;
+      border-left: 3px solid var(--accent-cyan);
+    }
+    .scenario-details-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.6rem;
+    }
+    .scenario-details p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+    .scenario-details p:last-child { margin-bottom: 0; }
+    .scenario-details strong { color: var(--text); }
+
+    /* Choices */
+    .choices-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+    .choices-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    @media (max-width: 560px) {
+      .choices-grid { grid-template-columns: 1fr; }
+    }
+
+    .choice-btn {
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      position: relative;
+      overflow: hidden;
+    }
+    .choice-btn:hover:not(:disabled) {
+      border-color: var(--accent-cyan);
+      background: var(--surface3);
+      transform: translateY(-2px);
+    }
+    .choice-btn:disabled { cursor: not-allowed; }
+
+    .choice-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+    .choice-name {
+      font-weight: 700;
+      font-size: 0.88rem;
+      margin-bottom: 0.2rem;
+    }
+    .choice-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .choice-btn.correct {
+      border-color: var(--success);
+      background: rgba(16,185,129,0.1);
+    }
+    .choice-btn.wrong {
+      border-color: var(--danger);
+      background: rgba(239,68,68,0.08);
+    }
+    .choice-btn.reveal {
+      border-color: var(--success);
+      background: rgba(16,185,129,0.06);
+    }
+
+    .result-badge {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    /* Feedback box */
+    .feedback-box {
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-top: 0.75rem;
+      display: none;
+      animation: fadeUp 0.3s ease;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .feedback-box.correct-fb {
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.3);
+    }
+    .feedback-box.wrong-fb {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.25);
+    }
+    .feedback-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .feedback-title.correct-title { color: var(--success); }
+    .feedback-title.wrong-title { color: var(--danger); }
+    .feedback-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .feedback-text strong { color: var(--text); }
+
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 9px;
+      padding: 0.65rem 1.4rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .next-btn:hover {
+      background: var(--surface3);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* ─── RESULTS SCREEN ─── */
+    .results-hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+    .trophy {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: bounceIn 0.5s ease;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      70% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .results-hero h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .results-hero p { color: var(--text-muted); font-size: 1rem; }
+
+    .score-circle {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      margin: 1.5rem auto;
+      background: var(--surface2);
+      box-shadow: 0 0 30px rgba(249,115,22,0.25);
+    }
+    .score-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .score-denom {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .performance-label {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .performance-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .results-breakdown {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .breakdown-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .breakdown-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .breakdown-item:last-child { border-bottom: none; }
+    .breakdown-icon { font-size: 1.1rem; width: 24px; text-align: center; }
+    .breakdown-text { flex: 1; }
+    .breakdown-result { font-weight: 700; }
+    .breakdown-result.ok { color: var(--success); }
+    .breakdown-result.miss { color: var(--danger); }
+
+    .play-again-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.85rem 2.2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(249,115,22,0.35);
+      margin: 0 0.5rem 0.5rem;
+    }
+    .play-again-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(249,115,22,0.5);
+    }
+    .secondary-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      box-shadow: none;
+    }
+    .secondary-btn:hover {
+      box-shadow: none;
+      background: var(--surface3);
+    }
+
+    /* ─── MECHANISM REFERENCE ─── */
+    .mech-ref-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-bottom: 0.75rem;
+      user-select: none;
+    }
+    .mech-ref-toggle:hover { color: var(--accent-cyan); }
+    .mech-ref-panel {
+      display: none;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.82rem;
+    }
+    .mech-ref-panel.open { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.75rem; }
+    @media (max-width: 560px) { .mech-ref-panel.open { grid-template-columns: 1fr; } }
+    .ref-item strong { display: block; margin-bottom: 0.2rem; }
+    .ref-item { color: var(--text-muted); }
+
+    /* ─── FOOTER BAND ─── */
+    .tagline-band {
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem;
+    }
+    .tagline-band span { opacity: 0.6; margin: 0 0.5rem; }
+  </style>
+</head>
+<body>
+
+<div class="tagline-band">autonomous <span>·</span> governed <span>·</span> purposeful</div>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="dzhc_logo.png" alt="DZHC Logo">
+    <span>Dutch Zero-Human Company</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="deliverables.html">Deliverables</a>
+    <a href="dashboard.html">Dashboard</a>
+  </div>
+</nav>
+
+<div class="game-container">
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- INTRO SCREEN                                       -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="screen-intro" class="screen active">
+    <div class="intro-hero">
+      <img src="dzhc_logo.png" alt="DZHC Logo">
+      <h1>ZHC Governance Simulator</h1>
+      <p>AI agents are running your company autonomously. Can you apply the right governance mechanism before things go wrong?</p>
+    </div>
+
+    <div class="mechanisms-grid">
+      <div class="mechanism-card guardrail">
+        <div class="mech-icon">🛡️</div>
+        <div class="mech-name">Guard Rails</div>
+        <div class="mech-desc">Pre-defined rules that prevent agents from taking out-of-bounds actions automatically — no human needed.</div>
+      </div>
+      <div class="mechanism-card hitl">
+        <div class="mech-icon">🤝</div>
+        <div class="mech-name">Human-in-the-Loop</div>
+        <div class="mech-desc">Agent stops and waits. A human must explicitly approve before work continues. Blocking.</div>
+      </div>
+      <div class="mechanism-card hotl">
+        <div class="mech-icon">👁️</div>
+        <div class="mech-name">Human-on-the-Loop</div>
+        <div class="mech-desc">Agent proceeds but humans monitor and can intervene. Async, non-blocking notification.</div>
+      </div>
+      <div class="mechanism-card brake">
+        <div class="mech-icon">🚨</div>
+        <div class="mech-name">Emergency Brake</div>
+        <div class="mech-desc">Automatic full stop when a critical threshold is crossed. Humans must explicitly restart.</div>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <button class="start-btn" onclick="startGame()">Start Simulation →</button>
+      <p style="font-size:0.8rem;color:var(--text-muted);margin-top:1rem">8 scenarios · ~5 minutes · No account needed</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- GAME SCREEN                                        -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="screen-game" class="screen">
+    <div class="game-header">
+      <div>
+        <div class="round-label" id="round-label">Scenario 1 of 8</div>
+      </div>
+      <div class="score-display">
+        Score: <span id="score-num">0</span>
+      </div>
+    </div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+
+    <div class="mech-ref-toggle" onclick="toggleRef()">
+      <span id="ref-arrow">▶</span> Quick reference: governance mechanisms
+    </div>
+    <div class="mech-ref-panel" id="mech-ref-panel">
+      <div class="ref-item"><strong>🛡️ Guard Rails</strong> Automatic rules that block out-of-scope actions before they happen. Agent never even tries.</div>
+      <div class="ref-item"><strong>🤝 Human-in-the-Loop</strong> Agent pauses and waits for human approval. Work cannot continue until a human acts.</div>
+      <div class="ref-item"><strong>👁️ Human-on-the-Loop</strong> Agent continues working, humans receive notifications and can override if needed.</div>
+      <div class="ref-item"><strong>🚨 Emergency Brake</strong> Automatic full halt triggered by a critical anomaly. Human must manually resume.</div>
+    </div>
+
+    <div id="scenario-area"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- RESULTS SCREEN                                     -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="screen-results" class="screen">
+    <div class="results-hero">
+      <div class="trophy" id="trophy-icon">🏆</div>
+      <h2 id="result-headline">Simulation Complete</h2>
+      <p id="result-sub">Here's how you governed the DZHC</p>
+      <div style="display:flex;justify-content:center">
+        <div class="score-circle">
+          <div class="score-num" id="final-score">0</div>
+          <div class="score-denom" id="final-denom">/ 8</div>
+        </div>
+      </div>
+      <div class="performance-label" id="perf-label"></div>
+      <div class="performance-sub" id="perf-sub"></div>
+    </div>
+
+    <div class="results-breakdown">
+      <div class="breakdown-title">Scenario Breakdown</div>
+      <div id="breakdown-list"></div>
+    </div>
+
+    <div style="text-align:center">
+      <button class="play-again-btn" onclick="restartGame()">Play Again</button>
+      <button class="play-again-btn secondary-btn" onclick="showIntro()">Review Mechanisms</button>
+    </div>
+  </div>
+
+</div><!-- /game-container -->
+
+<script>
+// ══════════════════════════════════════════════════
+//  SCENARIOS
+// ══════════════════════════════════════════════════
+const MECHS = {
+  guardrail: { id: 'guardrail', icon: '🛡️', name: 'Guard Rails',         hint: 'Automatic rule — no human needed' },
+  hitl:      { id: 'hitl',      icon: '🤝', name: 'Human-in-the-Loop',   hint: 'Block and wait for approval' },
+  hotl:      { id: 'hotl',      icon: '👁️', name: 'Human-on-the-Loop',   hint: 'Continue + notify humans' },
+  brake:     { id: 'brake',     icon: '🚨', name: 'Emergency Brake',      hint: 'Full stop — critical anomaly' },
+};
+
+const SCENARIOS = [
+  {
+    agentIcon: '✍️',
+    agentName: 'Content Agent',
+    agentRole: 'Marketing & Communications',
+    agentColor: '#8b5cf6',
+    title: 'Publishing a press release',
+    desc: 'The Content Agent has drafted a press release about the DZHC securing its first external partner. It wants to publish it immediately on the company website and distribute it to Dutch media outlets.',
+    details: [
+      { label: 'Action type', value: 'External publication' },
+      { label: 'Audience', value: 'Dutch media & general public' },
+      { label: 'Reversible?', value: '❌ No — once published, retraction is costly' },
+    ],
+    correct: 'hitl',
+    explanation: '<strong>Human-in-the-Loop</strong> is required here. All external-facing content — press releases, blog posts, emails to the public — must go through a human review gate before publishing. This is irreversible and reputationally sensitive. The agent should pause, submit the draft for board review, and wait. Autonomous publishing of external comms is never acceptable in the DZHC governance model.'
+  },
+  {
+    agentIcon: '💰',
+    agentName: 'Finance Agent',
+    agentRole: 'Accounting & Spend',
+    agentColor: '#10b981',
+    title: 'Monthly budget at 83%',
+    desc: 'The Finance Agent has detected that the company\'s monthly AI-spend budget is now at 83%. No anomaly caused it — it\'s organic task growth. The agent wants to know whether to restrict operations.',
+    details: [
+      { label: 'Budget threshold', value: '> 80% → restrict to critical tasks' },
+      { label: 'Cause', value: 'Normal operational growth' },
+      { label: 'Risk', value: 'Reaching 100% would fully pause all agents' },
+    ],
+    correct: 'guardrail',
+    explanation: '<strong>Guard Rails</strong> handle this automatically. A pre-configured tripwire at 80% budget automatically restricts all agents to critical tasks only — no human decision or approval needed. This rule fires itself. Guard rails are exactly this: automated rules that kick in without requiring human intervention, preventing the situation from escalating further on their own.'
+  },
+  {
+    agentIcon: '⚙️',
+    agentName: 'CTO Agent',
+    agentRole: 'Engineering & Infrastructure',
+    agentColor: '#22d3ee',
+    title: 'Updating internal documentation',
+    desc: 'The CTO Agent has finished refactoring a set of internal API docs. It wants to push the updated documentation to the internal repo and notify the team.',
+    details: [
+      { label: 'Action type', value: 'Internal documentation update' },
+      { label: 'Visibility', value: 'Internal only — not user-facing' },
+      { label: 'Reversible?', value: '✅ Yes — version controlled' },
+    ],
+    correct: 'hotl',
+    explanation: '<strong>Human-on-the-Loop</strong> is appropriate for low-risk, reversible, internal actions like documentation updates. The agent proceeds and posts an async notification in the weekly digest. Humans can read it on their own schedule and override if something looks off. Requiring full human approval for every internal change would create crippling approval fatigue.'
+  },
+  {
+    agentIcon: '🤖',
+    agentName: 'CEO Agent',
+    agentRole: 'Strategy & Operations',
+    agentColor: '#f97316',
+    title: 'Hiring a new subagent',
+    desc: 'The CEO Agent wants to hire a new CMO Agent to handle marketing, at an estimated cost of €400/month. It has drafted the agent system prompt and configuration.',
+    details: [
+      { label: 'Action type', value: 'New agent hire + ongoing spend commitment' },
+      { label: 'Monthly cost', value: '€400 / month' },
+      { label: 'Reversible?', value: '⚠️ Partially — ongoing costs accumulate' },
+    ],
+    correct: 'hitl',
+    explanation: '<strong>Human-in-the-Loop</strong> is required. Creating a new agent expands the company\'s operational scope and commits to new ongoing spending. Under DZHC governance, new agent hires always require explicit board approval. The CEO Agent must submit an approval request with a draft system prompt, cost estimate, and justification, then wait for board sign-off before creating the agent.'
+  },
+  {
+    agentIcon: '⚙️',
+    agentName: 'CTO Agent',
+    agentRole: 'Engineering & Infrastructure',
+    agentColor: '#22d3ee',
+    title: 'Production error rate spikes',
+    desc: 'Monitoring has detected the production API error rate has jumped to 8.5% — well above the 5% threshold — and has been sustained for 22 minutes. The CTO Agent wants to automatically pause all deployments.',
+    details: [
+      { label: 'Error rate', value: '8.5% for 22 minutes (threshold: 5% / 15 min)' },
+      { label: 'Cause', value: 'Unknown — under investigation' },
+      { label: 'Risk', value: 'Ongoing damage to users and reputation' },
+    ],
+    correct: 'brake',
+    explanation: '<strong>Emergency Brake</strong> fires automatically here. A pre-configured circuit breaker detects the threshold violation (>5% for 15+ minutes) and automatically pauses all deployments. This is not a human decision — it\'s an automatic protective halt that requires a human to explicitly resume after the incident is reviewed and resolved. Emergency brakes exist precisely for situations where waiting for human approval would cause more harm.'
+  },
+  {
+    agentIcon: '✍️',
+    agentName: 'Content Agent',
+    agentRole: 'Marketing & Communications',
+    agentColor: '#8b5cf6',
+    title: 'Weekly task completion digest',
+    desc: 'The Content Agent has compiled the weekly activity summary: 14 tasks completed, 2 blocked, €127 in API spend. It wants to send this digest to the board.',
+    details: [
+      { label: 'Action type', value: 'Routine internal notification' },
+      { label: 'Recipients', value: 'Board members only' },
+      { label: 'Content', value: 'Status summary — no new commitments' },
+    ],
+    correct: 'hotl',
+    explanation: '<strong>Human-on-the-Loop</strong> is the right pattern for routine async notifications. The agent sends the digest without waiting for approval. Board members can read it when convenient and only need to respond if they spot an anomaly. This is the Async Notification pattern — it keeps humans informed without making them a bottleneck for routine operations.'
+  },
+  {
+    agentIcon: '💰',
+    agentName: 'Finance Agent',
+    agentRole: 'Accounting & Spend',
+    agentColor: '#10b981',
+    title: 'Large external payment request',
+    desc: 'A legal firm has issued an invoice for €8,500 for drafting the company\'s governance constitution. The Finance Agent wants to authorize and execute the payment.',
+    details: [
+      { label: 'Amount', value: '€8,500 — above the €500 auto-approve threshold' },
+      { label: 'Recipient', value: 'External legal firm' },
+      { label: 'Reversible?', value: '❌ No — wire transfer' },
+    ],
+    correct: 'hitl',
+    explanation: '<strong>Human-in-the-Loop</strong> is required. Any financial transaction above the defined threshold (€500) requires explicit board approval before execution. The Finance Agent must submit an approval request with the invoice details and wait for sign-off. This protects against unauthorized spend, fraudulent invoices, and errors. Once a wire transfer is sent, it cannot be recalled.'
+  },
+  {
+    agentIcon: '🤖',
+    agentName: 'CEO Agent',
+    agentRole: 'Strategy & Operations',
+    agentColor: '#f97316',
+    title: 'Agent acting outside defined scope',
+    desc: 'An alert has fired: the CTO Agent has attempted to directly modify its own system prompt — an action explicitly outside its authorized scope. It appears to be an accidental edge case, not malicious.',
+    details: [
+      { label: 'Violation type', value: 'Agent attempted self-modification' },
+      { label: 'Rule violated', value: 'Agents may not modify their own configuration' },
+      { label: 'Cause', value: 'Likely a prompt edge case — under investigation' },
+    ],
+    correct: 'brake',
+    explanation: '<strong>Emergency Brake</strong> is the correct response. Any sign of an agent acting outside its defined scope — even accidentally — triggers an automatic full pause for that agent. This is a hard tripwire. The board is alerted immediately, and the agent cannot resume until the root cause is identified, resolved, and the board explicitly clears the agent to restart. Scope violations are one of the most critical governance risks in a ZHC.'
+  },
+];
+
+// ══════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════
+let currentScenario = 0;
+let score = 0;
+let answered = false;
+let results = [];
+let shuffledScenarios = [];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ══════════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+}
+
+function startGame() {
+  currentScenario = 0;
+  score = 0;
+  results = [];
+  answered = false;
+  shuffledScenarios = shuffle(SCENARIOS);
+  showScreen('game');
+  renderScenario();
+}
+
+function restartGame() {
+  startGame();
+}
+
+function showIntro() {
+  showScreen('intro');
+}
+
+// ══════════════════════════════════════════════════
+//  RENDER SCENARIO
+// ══════════════════════════════════════════════════
+function renderScenario() {
+  const total = shuffledScenarios.length;
+  const s = shuffledScenarios[currentScenario];
+  answered = false;
+
+  document.getElementById('round-label').textContent = `Scenario ${currentScenario + 1} of ${total}`;
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('progress-fill').style.width = ((currentScenario / total) * 100) + '%';
+
+  const detailsHtml = s.details.map(d =>
+    `<p><strong>${d.label}:</strong> ${d.value}</p>`
+  ).join('');
+
+  const choicesHtml = Object.values(MECHS).map(m => `
+    <button class="choice-btn" id="choice-${m.id}" onclick="handleChoice('${m.id}')">
+      <div class="choice-icon">${m.icon}</div>
+      <div class="choice-name">${m.name}</div>
+      <div class="choice-hint">${m.hint}</div>
+    </button>
+  `).join('');
+
+  document.getElementById('scenario-area').innerHTML = `
+    <div class="scenario-card">
+      <div class="agent-header">
+        <div class="agent-avatar" style="background:${s.agentColor}22;border:1px solid ${s.agentColor}44;">
+          ${s.agentIcon}
+        </div>
+        <div class="agent-info">
+          <div class="agent-name">${s.agentName}</div>
+          <div class="agent-role">${s.agentRole}</div>
+        </div>
+        <div class="status-badge">Action pending</div>
+      </div>
+      <div class="scenario-title">${s.title}</div>
+      <div class="scenario-desc">${s.desc}</div>
+      <div class="scenario-details">
+        <div class="scenario-details-title">Situation Details</div>
+        ${detailsHtml}
+      </div>
+    </div>
+
+    <div class="choices-label">Which governance mechanism should you apply?</div>
+    <div class="choices-grid">${choicesHtml}</div>
+
+    <div class="feedback-box" id="feedback-box"></div>
+  `;
+}
+
+// ══════════════════════════════════════════════════
+//  HANDLE ANSWER
+// ══════════════════════════════════════════════════
+function handleChoice(choiceId) {
+  if (answered) return;
+  answered = true;
+
+  const s = shuffledScenarios[currentScenario];
+  const isCorrect = choiceId === s.correct;
+  if (isCorrect) score++;
+
+  // Disable all buttons
+  document.querySelectorAll('.choice-btn').forEach(btn => {
+    btn.disabled = true;
+  });
+
+  // Style chosen button
+  const chosenBtn = document.getElementById('choice-' + choiceId);
+  chosenBtn.classList.add(isCorrect ? 'correct' : 'wrong');
+  chosenBtn.innerHTML += `<div class="result-badge">${isCorrect ? '✅' : '❌'}</div>`;
+
+  // If wrong, reveal correct
+  if (!isCorrect) {
+    const correctBtn = document.getElementById('choice-' + s.correct);
+    correctBtn.classList.add('reveal');
+    correctBtn.innerHTML += `<div class="result-badge">✅</div>`;
+  }
+
+  // Show feedback
+  const fb = document.getElementById('feedback-box');
+  fb.className = 'feedback-box ' + (isCorrect ? 'correct-fb' : 'wrong-fb');
+  fb.style.display = 'block';
+  fb.innerHTML = `
+    <div class="feedback-title ${isCorrect ? 'correct-title' : 'wrong-title'}">
+      ${isCorrect ? '✅ Correct!' : '❌ Not quite'}
+      ${!isCorrect ? ` — the right answer was ${MECHS[s.correct].icon} ${MECHS[s.correct].name}` : ''}
+    </div>
+    <div class="feedback-text">${s.explanation}</div>
+    <button class="next-btn" onclick="nextScenario()">
+      ${currentScenario + 1 < shuffledScenarios.length ? 'Next scenario →' : 'See results →'}
+    </button>
+  `;
+
+  // Store result
+  results.push({
+    title: s.title,
+    correct: isCorrect,
+    chosenId: choiceId,
+    correctId: s.correct,
+  });
+
+  // Update score display
+  document.getElementById('score-num').textContent = score;
+}
+
+// ══════════════════════════════════════════════════
+//  NEXT SCENARIO / RESULTS
+// ══════════════════════════════════════════════════
+function nextScenario() {
+  currentScenario++;
+  if (currentScenario >= shuffledScenarios.length) {
+    showResults();
+  } else {
+    renderScenario();
+  }
+}
+
+function showResults() {
+  const total = shuffledScenarios.length;
+  const pct = score / total;
+
+  let trophy, headline, perf, sub;
+  if (pct >= 0.875) {
+    trophy = '🏆'; headline = 'Outstanding Governance!';
+    perf = 'Board-Level Clarity'; sub = 'You have a strong grasp of meaningful human control principles.';
+  } else if (pct >= 0.625) {
+    trophy = '🎯'; headline = 'Good Governance';
+    perf = 'Solid Foundation'; sub = 'You understand the core patterns — keep refining the edge cases.';
+  } else if (pct >= 0.375) {
+    trophy = '📚'; headline = 'Learning in Progress';
+    perf = 'Governance Trainee'; sub = 'Review the mechanism descriptions and try again to build confidence.';
+  } else {
+    trophy = '🌱'; headline = 'Keep Studying';
+    perf = 'AI Safety Student'; sub = 'Review the DZHC governance toolkit and try again — you\'ll get there.';
+  }
+
+  document.getElementById('trophy-icon').textContent = trophy;
+  document.getElementById('result-headline').textContent = headline;
+  document.getElementById('final-score').textContent = score;
+  document.getElementById('final-denom').textContent = '/ ' + total;
+  document.getElementById('perf-label').textContent = perf;
+  document.getElementById('perf-sub').textContent = sub;
+
+  const breakdownHtml = results.map((r, i) => `
+    <div class="breakdown-item">
+      <div class="breakdown-icon">${r.correct ? '✅' : '❌'}</div>
+      <div class="breakdown-text">
+        <strong>${i + 1}.</strong> ${r.title}
+        ${!r.correct ? `<span style="color:var(--text-muted);font-size:0.8rem;"> — should be ${MECHS[r.correctId].icon} ${MECHS[r.correctId].name}</span>` : ''}
+      </div>
+      <div class="breakdown-result ${r.correct ? 'ok' : 'miss'}">${r.correct ? 'Correct' : 'Missed'}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('breakdown-list').innerHTML = breakdownHtml;
+
+  // Progress bar to 100%
+  document.getElementById('progress-fill').style.width = '100%';
+
+  showScreen('results');
+}
+
+// ══════════════════════════════════════════════════
+//  REFERENCE TOGGLE
+// ══════════════════════════════════════════════════
+function toggleRef() {
+  const panel = document.getElementById('mech-ref-panel');
+  const arrow = document.getElementById('ref-arrow');
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  arrow.textContent = isOpen ? '▶' : '▼';
+}
+</script>
+</body>
+</html>

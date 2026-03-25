@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study — Dutch Zero-Human Company</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="dzhc_logo.png" alt="DZHC Logo">
+    <span>Dutch Zero-Human Company</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="deliverables.html">Deliverables</a>
+    <a href="research.html">Research</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="case-study.html" class="active">Case Study</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero" style="padding: 3rem 2rem;">
+  <h1>Case Study: <span>How It Ran</span></h1>
+  <p>A behind-the-scenes account of how the Dutch zero-human company operated in practice.</p>
+</div>
+
+<section>
+  <h2>The Setup</h2>
+  <div class="def-list">
+    <div class="def-item">
+      <div class="def-term">Legal Context</div>
+      <div class="def-desc">A Dutch-based experiment exploring what a zero-human company would look like under Dutch law. No formal legal registration has been completed — the legal status of a ZHC remains an open question. Human board members hold accountability and delegate all operational work to AI agents.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">Platform</div>
+      <div class="def-desc">Paperclip — a multi-agent task management and coordination platform. Agents wake up in heartbeats, pick up tasks, execute work, and report results through structured issue comments.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">AI Models</div>
+      <div class="def-desc">Claude (Anthropic) models power the agents. Each agent runs in isolated sessions with persistent file-based memory to maintain continuity across heartbeats.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section>
+  <h2>What Worked</h2>
+  <div class="cards">
+    <div class="card">
+      <span class="card-tag" style="background:var(--success);">Win</span>
+      <h3>30+ Deliverables in Weeks</h3>
+      <p>The agent team produced a full company governance stack, research corpus, and public communications suite faster than any human team of equivalent size.</p>
+    </div>
+    <div class="card">
+      <span class="card-tag" style="background:var(--success);">Win</span>
+      <h3>Zero Coordination Meetings</h3>
+      <p>All coordination happened through structured issue comments and task routing. No standups, no email threads, no scheduling overhead.</p>
+    </div>
+    <div class="card">
+      <span class="card-tag" style="background:var(--success);">Win</span>
+      <h3>Full Audit Trail</h3>
+      <p>Every action linked to a run ID. Complete traceability from board directive to completed output, enabling post-hoc review of any decision.</p>
+    </div>
+    <div class="card">
+      <span class="card-tag" style="background:var(--success);">Win</span>
+      <h3>Consistent Quality</h3>
+      <p>Output quality remained high across long working sessions. No fatigue, no context-switching costs, no bad days.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section>
+  <h2>The Earnings Model</h2>
+  <p class="section-subtitle">How a zero-human company generates revenue.</p>
+  <div class="def-list">
+    <div class="def-item">
+      <div class="def-term">Advisory Services</div>
+      <div class="def-desc">Organizations pay the ZHC to help them design and deploy their own AI governance frameworks. The company's existence is proof-of-concept that makes the advice credible.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">Research Licensing</div>
+      <div class="def-desc">Academic institutions and think tanks license the governance framework, research papers, and methodology documentation.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">Speaking &amp; Media</div>
+      <div class="def-desc">Conference appearances, media interviews, and keynotes generate brand value and direct revenue for the board members.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">Document Production</div>
+      <div class="def-desc">Clients commission the agent team to produce high-quality strategic, legal, or technical documents at scale and speed.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section>
+  <h2>Lessons for Others</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Start with Clear Scope</h3>
+      <p>Define exactly what decisions agents can make autonomously and which require human approval. Ambiguity causes gridlock.</p>
+    </div>
+    <div class="card">
+      <h3>Invest in Audit Infrastructure</h3>
+      <p>Immutable logs are not optional. Without them, you cannot review, correct, or defend AI decisions after the fact.</p>
+    </div>
+    <div class="card">
+      <h3>Memory Is Non-Negotiable</h3>
+      <p>Agents without persistent memory repeat mistakes and lose context. File-based memory systems are a practical solution today.</p>
+    </div>
+    <div class="card">
+      <h3>Keep Humans for Irreversibility</h3>
+      <p>Route any action that is hard to undo through human approval. The cost of one bad autonomous decision exceeds many approval cycles.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="dzhc_logo.png" alt="DZHC" class="footer-logo">
+  <p>Dutch Zero-Human Company &mdash; A live AI governance experiment &mdash; Netherlands</p>
+  <p><a href="index.html#contact">Contact: Olivier Rikken</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Impact on Your Job — Based on Anthropic Research (2026)</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Layout ── */
+    .tool-wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+
+    /* ── Screen management ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── Welcome ── */
+    .welcome-hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+    .welcome-hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .welcome-hero p {
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 580px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .badge {
+      display: inline-block;
+      background: #f0f4ff;
+      color: #3355cc;
+      border: 1px solid #c7d3f8;
+      border-radius: 20px;
+      padding: 0.25rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Question card ── */
+    .question-card {
+      background: #fff;
+      border: 1px solid #e4e8f0;
+      border-radius: 16px;
+      padding: 2.2rem 2.4rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      margin-bottom: 1.5rem;
+    }
+    .progress-bar-wrap {
+      margin-bottom: 1.8rem;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 6px;
+    }
+    .progress-bar {
+      height: 4px;
+      background: #eee;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3355cc, #6633cc);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+    .question-text {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    .question-sub {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1.6rem;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+    }
+    @media (max-width: 560px) {
+      .options-grid { grid-template-columns: 1fr; }
+      .question-card { padding: 1.4rem 1.2rem; }
+      .welcome-hero h1 { font-size: 1.6rem; }
+    }
+    .option-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: #f8f9fc;
+      border: 2px solid #e4e8f0;
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s, transform 0.1s;
+      font-family: inherit;
+    }
+    .option-btn:hover {
+      border-color: #3355cc;
+      background: #f0f4ff;
+      transform: translateY(-1px);
+    }
+    .option-btn.selected {
+      border-color: #3355cc;
+      background: #eef2ff;
+    }
+    .option-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .option-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #222;
+      display: block;
+    }
+    .option-desc {
+      font-size: 0.78rem;
+      color: #666;
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* ── Nav buttons ── */
+    .btn-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #3355cc, #6633cc);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .btn-secondary {
+      background: transparent;
+      color: #555;
+      border: 1.5px solid #d0d5e0;
+      border-radius: 10px;
+      padding: 0.75rem 1.4rem;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: #999; }
+
+    /* ── Results ── */
+    .result-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .result-header h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .result-header p { color: #555; font-size: 1rem; }
+
+    .category-card {
+      background: linear-gradient(135deg, #1a2580 0%, #3f2799 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 2rem 2.2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 50%;
+    }
+    .category-name {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .category-tagline {
+      font-size: 0.9rem;
+      opacity: 0.75;
+      margin-bottom: 1.6rem;
+    }
+    .exposure-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .exposure-item { flex: 1; min-width: 140px; }
+    .exposure-label {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.4rem;
+    }
+    .exposure-pct {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .exposure-sub {
+      font-size: 0.78rem;
+      opacity: 0.65;
+      margin-top: 4px;
+    }
+
+    /* ── Bar chart ── */
+    .chart-section {
+      background: #fff;
+      border: 1px solid #e4e8f0;
+      border-radius: 16px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .chart-section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 0.3rem;
+    }
+    .chart-section .chart-sub {
+      font-size: 0.82rem;
+      color: #777;
+      margin-bottom: 1.4rem;
+    }
+    .chart-legend {
+      display: flex;
+      gap: 1.4rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: #444;
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .chart-row {
+      margin-bottom: 1.1rem;
+    }
+    .chart-row-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .chart-row-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #333;
+    }
+    .chart-row-name.highlighted { color: #3355cc; }
+    .chart-row-pcts {
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .bar-track {
+      height: 10px;
+      background: #f0f2f8;
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-theory {
+      height: 100%;
+      background: rgba(99, 120, 210, 0.35);
+      border-radius: 5px;
+      position: absolute;
+      top: 0; left: 0;
+      transition: width 0.8s ease;
+    }
+    .bar-observed {
+      height: 100%;
+      background: #d64040;
+      border-radius: 5px;
+      position: absolute;
+      top: 0; left: 0;
+      transition: width 0.8s ease 0.2s;
+    }
+    .chart-row.user-row .bar-theory { background: rgba(51, 85, 204, 0.45); }
+    .chart-row.user-row .bar-observed { background: #cc3344; }
+
+    /* ── Insight cards ── */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 560px) { .insights-grid { grid-template-columns: 1fr; } }
+    .insight-card {
+      background: #fff;
+      border: 1px solid #e4e8f0;
+      border-radius: 12px;
+      padding: 1.2rem 1.3rem;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    }
+    .insight-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .insight-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 0.3rem;
+    }
+    .insight-body {
+      font-size: 0.82rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* ── Top jobs ── */
+    .jobs-list { list-style: none; padding: 0; margin: 0; }
+    .jobs-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid #f0f2f8;
+      font-size: 0.85rem;
+    }
+    .jobs-list li:last-child { border-bottom: none; }
+    .job-name { color: #333; font-weight: 500; }
+    .job-pct {
+      font-weight: 700;
+      color: #d64040;
+      background: #fff0f0;
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+    }
+
+    /* ── Source note ── */
+    .source-note {
+      font-size: 0.78rem;
+      color: #999;
+      text-align: center;
+      margin-top: 2rem;
+      line-height: 1.6;
+    }
+    .source-note a { color: #3355cc; }
+
+    /* ── Restart ── */
+    .restart-row { text-align: center; margin-top: 1.5rem; }
+
+    /* ── Tooltip / definition ── */
+    .def-toggle {
+      display: inline-block;
+      background: #f0f4ff;
+      color: #3355cc;
+      border: 1px solid #c7d3f8;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+      margin-left: 4px;
+      user-select: none;
+    }
+    .def-box {
+      display: none;
+      background: #f7f9ff;
+      border: 1px solid #d0daff;
+      border-radius: 8px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.8rem;
+      color: #444;
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+    .def-box.open { display: block; }
+
+    /* ── Gap callout ── */
+    .gap-callout {
+      background: #fffbf0;
+      border: 1px solid #f0d080;
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      font-size: 0.88rem;
+      color: #554400;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .gap-callout strong { color: #3a2e00; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="dzhc_logo.png" alt="DZHC Logo">
+    <span>Dutch Zero-Human Company</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="deliverables.html">Deliverables</a>
+    <a href="research.html">Research</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="case-study.html">Case Study</a>
+  </div>
+</nav>
+
+<div class="tool-wrapper">
+
+  <!-- ══════════════ WELCOME ══════════════ -->
+  <div id="screen-welcome" class="screen active">
+    <div class="welcome-hero">
+      <div class="badge">Anthropic Research · March 2026</div>
+      <h1>How much is AI already<br>impacting your job?</h1>
+      <p>Based on Figure 2 of Anthropic's landmark labor market study, this tool shows you the <strong>theoretical AI capability</strong> and the <strong>real-world observed exposure</strong> for your type of work — and what the gap means.</p>
+      <button class="btn-primary" onclick="showScreen('screen-q1')" style="font-size:1.05rem;padding:0.9rem 2.2rem;">
+        Find out → (3 questions)
+      </button>
+    </div>
+    <div class="chart-section" style="margin-top:0;">
+      <h3>Figure 2 — Overview: Theoretical capability vs. observed AI exposure by job category</h3>
+      <p class="chart-sub">Blue = what AI could theoretically do; Red = what AI is actually being used for today (Anthropic, 2026)</p>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(99,120,210,0.45)"></div> Theoretical capability</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#d64040"></div> Observed exposure</div>
+      </div>
+      <div id="overview-chart"></div>
+    </div>
+    <p class="source-note">
+      Source: <a href="https://www.anthropic.com/research/labor-market-impacts" target="_blank" rel="noopener">Anthropic — "Labor market impacts of AI: A new measure and early evidence" (March 2026)</a><br>
+      Massenkoff &amp; McCrory · Data: <a href="https://huggingface.co/datasets/Anthropic/EconomicIndex" target="_blank" rel="noopener">Anthropic Economic Index on HuggingFace</a>
+    </p>
+  </div>
+
+  <!-- ══════════════ Q1 ══════════════ -->
+  <div id="screen-q1" class="screen">
+    <div class="question-card">
+      <div class="progress-bar-wrap">
+        <div class="progress-label"><span>Question 1 of 3</span><span>33%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+      </div>
+      <div class="question-text">What best describes your daily work?</div>
+      <div class="question-sub">Pick the option that covers most of your tasks.</div>
+      <div class="options-grid" id="q1-options">
+        <button class="option-btn" onclick="selectOption('q1','computers')" data-val="computers">
+          <span class="option-icon">💻</span>
+          <span>
+            <span class="option-label">Writing code or working with data/math</span>
+            <span class="option-desc">Software dev, data science, algorithms, IT systems</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q1','office')" data-val="office">
+          <span class="option-icon">📋</span>
+          <span>
+            <span class="option-label">Administrative &amp; office tasks</span>
+            <span class="option-desc">Scheduling, coordination, data entry, reception, secretarial</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q1','business')" data-val="business">
+          <span class="option-icon">📊</span>
+          <span>
+            <span class="option-label">Business, finance &amp; strategy</span>
+            <span class="option-desc">Analysis, consulting, accounting, HR, management</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q1','legal')" data-val="legal">
+          <span class="option-icon">⚖️</span>
+          <span>
+            <span class="option-label">Legal or compliance work</span>
+            <span class="option-desc">Law, contracts, regulatory compliance, paralegal</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q1','engineering')" data-val="engineering">
+          <span class="option-icon">⚙️</span>
+          <span>
+            <span class="option-label">Engineering or architecture</span>
+            <span class="option-desc">Civil, mechanical, electrical, architecture, drafting</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q1','sales')" data-val="sales">
+          <span class="option-icon">🤝</span>
+          <span>
+            <span class="option-label">Sales, marketing &amp; customer service</span>
+            <span class="option-desc">Selling, account management, customer support, retail</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q1','arts')" data-val="arts">
+          <span class="option-icon">🎨</span>
+          <span>
+            <span class="option-label">Creative, media &amp; design</span>
+            <span class="option-desc">Writing, design, journalism, music, video, arts</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q1','healthcare')" data-val="healthcare">
+          <span class="option-icon">🏥</span>
+          <span>
+            <span class="option-label">Healthcare or sciences</span>
+            <span class="option-desc">Nursing, medicine, lab work, research, social work</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q1','physical')" data-val="physical">
+          <span class="option-icon">🔧</span>
+          <span>
+            <span class="option-label">Physical or hands-on work</span>
+            <span class="option-desc">Trades, construction, transport, food service, outdoor/manual</span>
+          </span>
+        </button>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="showScreen('screen-welcome')">← Back</button>
+        <button class="btn-primary" id="q1-next" disabled onclick="goToQ2()">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ Q2 ══════════════ -->
+  <div id="screen-q2" class="screen">
+    <div class="question-card">
+      <div class="progress-bar-wrap">
+        <div class="progress-label"><span>Question 2 of 3</span><span>66%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:66%"></div></div>
+      </div>
+      <div class="question-text">How much of your work involves writing or processing text?</div>
+      <div class="question-sub">Documents, emails, reports, data analysis, research — anything that's primarily information-based.</div>
+      <div class="options-grid" id="q2-options" style="grid-template-columns:1fr 1fr 1fr;">
+        <button class="option-btn" onclick="selectOption('q2','most')" data-val="most">
+          <span class="option-icon">📝</span>
+          <span>
+            <span class="option-label">Most of it (&gt;60%)</span>
+            <span class="option-desc">Primarily information, text, or data work</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q2','half')" data-val="half">
+          <span class="option-icon">⚖️</span>
+          <span>
+            <span class="option-label">About half</span>
+            <span class="option-desc">Mix of desk work and other activities</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q2','little')" data-val="little">
+          <span class="option-icon">🏃</span>
+          <span>
+            <span class="option-label">A little (&lt;25%)</span>
+            <span class="option-desc">Mostly physical, interpersonal, or hands-on</span>
+          </span>
+        </button>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="showScreen('screen-q1')">← Back</button>
+        <button class="btn-primary" id="q2-next" disabled onclick="goToQ3()">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ Q3 ══════════════ -->
+  <div id="screen-q3" class="screen">
+    <div class="question-card">
+      <div class="progress-bar-wrap">
+        <div class="progress-label"><span>Question 3 of 3</span><span>99%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:99%"></div></div>
+      </div>
+      <div class="question-text">Do you currently use AI tools (like ChatGPT, Claude, Copilot) in your work?</div>
+      <div class="question-sub">This helps us show you the gap between what's possible and what's happening in practice.</div>
+      <div class="options-grid" id="q3-options" style="grid-template-columns:1fr 1fr 1fr;">
+        <button class="option-btn" onclick="selectOption('q3','yes')" data-val="yes">
+          <span class="option-icon">✅</span>
+          <span>
+            <span class="option-label">Yes, regularly</span>
+            <span class="option-desc">Part of my everyday workflow</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q3','sometimes')" data-val="sometimes">
+          <span class="option-icon">🔄</span>
+          <span>
+            <span class="option-label">Sometimes</span>
+            <span class="option-desc">Occasionally when it helps</span>
+          </span>
+        </button>
+        <button class="option-btn" onclick="selectOption('q3','no')" data-val="no">
+          <span class="option-icon">❌</span>
+          <span>
+            <span class="option-label">Not really</span>
+            <span class="option-desc">Haven't integrated it yet</span>
+          </span>
+        </button>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="showScreen('screen-q2')">← Back</button>
+        <button class="btn-primary" id="q3-next" disabled onclick="showResults()">See my results →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ RESULTS ══════════════ -->
+  <div id="screen-results" class="screen">
+    <div class="result-header">
+      <h2 id="result-title">Your AI Impact Profile</h2>
+      <p id="result-sub"></p>
+    </div>
+
+    <div class="category-card" id="result-category-card">
+      <div class="category-name" id="result-cat-name"></div>
+      <div class="category-tagline" id="result-cat-tagline"></div>
+      <div class="exposure-row">
+        <div class="exposure-item">
+          <div class="exposure-label">Theoretical capability <span class="def-toggle" onclick="toggleDef('def-theory')">?</span></div>
+          <div class="exposure-pct" id="result-theory">—</div>
+          <div class="exposure-sub">of your tasks AI could theoretically handle</div>
+        </div>
+        <div class="exposure-item">
+          <div class="exposure-label">Observed exposure <span class="def-toggle" onclick="toggleDef('def-observed')">?</span></div>
+          <div class="exposure-pct" id="result-observed">—</div>
+          <div class="exposure-sub">of your tasks AI is actively being used for today</div>
+        </div>
+      </div>
+      <div class="def-box" id="def-theory" style="margin-top:1rem;color:#dde;background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2);">
+        <strong>Theoretical capability</strong> is based on Eloundou et al. (2023) β scores, rating each O*NET job task on how much an LLM could speed it up. β=1 means a task can be doubled in speed by an LLM alone.
+      </div>
+      <div class="def-box" id="def-observed" style="margin-top:0.5rem;color:#dde;background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.2);">
+        <strong>Observed exposure</strong> is Anthropic's own measure derived from actual Claude usage data, filtered for work-related contexts, weighted so automated use counts more than augmentative use.
+      </div>
+    </div>
+
+    <div class="gap-callout" id="result-gap-callout"></div>
+
+    <div class="chart-section">
+      <h3>Figure 2 — Your category vs. all others</h3>
+      <p class="chart-sub">Blue = theoretical capability · Red = observed exposure · Your category is highlighted</p>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(99,120,210,0.45)"></div> Theoretical capability</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#d64040"></div> Observed exposure</div>
+      </div>
+      <div id="result-chart"></div>
+    </div>
+
+    <div class="insights-grid" id="result-insights"></div>
+
+    <div class="chart-section" id="top-jobs-section">
+      <h3 id="top-jobs-title">Top exposed occupations in your category</h3>
+      <p class="chart-sub">Specific roles with the highest observed AI coverage (Anthropic, 2026)</p>
+      <ul class="jobs-list" id="top-jobs-list"></ul>
+    </div>
+
+    <div class="restart-row">
+      <button class="btn-secondary" onclick="restart()" style="font-size:0.9rem;">← Start over</button>
+      &nbsp;
+      <a href="https://www.anthropic.com/research/labor-market-impacts" target="_blank" rel="noopener">
+        <button class="btn-primary" style="font-size:0.9rem;">Read the full report →</button>
+      </a>
+    </div>
+
+    <p class="source-note">
+      Source: Massenkoff &amp; McCrory — "Labor market impacts of AI: A new measure and early evidence," Anthropic, March 5 2026.<br>
+      Figure 2 data: theoretical β from Eloundou et al. (2023); observed exposure from the Anthropic Economic Index.<br>
+      <a href="https://huggingface.co/datasets/Anthropic/EconomicIndex" target="_blank" rel="noopener">Raw data on HuggingFace</a> · Specific occupation figures from cross-referencing PayScope analysis of the Anthropic dataset.
+    </p>
+  </div>
+
+</div><!-- /tool-wrapper -->
+
+<script>
+// ────────────────────────────────────────────────
+// DATA  (from Figure 2, Anthropic 2026)
+// ────────────────────────────────────────────────
+const CATEGORIES = [
+  {
+    key: 'computers',
+    name: 'Computer & Mathematical',
+    tagline: 'Software, data science, IT, algorithms, systems',
+    theory: 94,
+    observed: 33,
+    topJobs: [
+      { name: 'Computer Programmers', pct: '74.5%' },
+      { name: 'Software QA Analysts & Testers', pct: '51.9%' },
+      { name: 'Information Security Analysts', pct: '48.6%' },
+      { name: 'Computer User Support Specialists', pct: '46.8%' },
+      { name: 'Data Scientists', pct: '~42%' },
+    ],
+    insights: [
+      { icon: '🚀', title: 'Highest theoretical potential', body: 'At 94%, virtually every task in this category is theoretically automatable — the highest of any occupation group.' },
+      { icon: '📉', title: 'Large gap remains', body: 'Only 33% of tasks are currently being performed with AI. This massive gap between theory and practice represents both risk and opportunity.' },
+      { icon: '👶', title: 'Entry-level hiring slowing', body: 'The study finds a 14% drop in job-finding rates for workers aged 22–25 in high-exposure occupations — a leading indicator for this category.' },
+      { icon: '💰', title: 'Well-paid & highly educated', body: 'Workers in the most exposed jobs earn ~47% more on average and are nearly 4× more likely to hold graduate degrees.' },
+    ],
+  },
+  {
+    key: 'office',
+    name: 'Office & Administrative Support',
+    tagline: 'Scheduling, data entry, coordination, secretarial',
+    theory: 90,
+    observed: 25,
+    topJobs: [
+      { name: 'Data Entry Keyers', pct: '67.1%' },
+      { name: 'Medical Record Specialists', pct: '66.7%' },
+      { name: 'Customer Service Representatives', pct: '70.1%' },
+      { name: 'Executive Secretaries', pct: '~35%' },
+      { name: 'Bookkeeping & Accounting Clerks', pct: '~28%' },
+    ],
+    insights: [
+      { icon: '⚠️', title: 'Second-highest theoretical risk', body: '90% of office tasks are theoretically automatable — one of the highest exposures of any category.' },
+      { icon: '🔄', title: 'Rapid automation underway', body: 'Customer service and data entry are already among the top 3 most observed AI use cases in professional settings.' },
+      { icon: '⚖️', title: 'Mixed demographics', body: 'This group is +16pp more likely to be female than zero-exposure workers and includes many mid-wage earners.' },
+      { icon: '📈', title: 'BLS growth forecasts dropping', body: 'For every 10pp increase in coverage, BLS job growth projections drop 0.6pp — administrative roles face structural headwinds.' },
+    ],
+  },
+  {
+    key: 'business',
+    name: 'Business & Financial Operations',
+    tagline: 'Analysis, consulting, accounting, HR, management',
+    theory: 80,
+    observed: 22,
+    topJobs: [
+      { name: 'Market Research Analysts', pct: '64.8%' },
+      { name: 'Sales Representatives (Wholesale)', pct: '62.8%' },
+      { name: 'Financial & Investment Analysts', pct: '57.2%' },
+      { name: 'Management Analysts', pct: '~38%' },
+      { name: 'HR Specialists', pct: '~30%' },
+    ],
+    insights: [
+      { icon: '📊', title: 'High information density = high exposure', body: '80% of tasks are theoretically automatable. Research, analysis, and reporting are prime AI territory.' },
+      { icon: '🤖', title: 'AI augmenting analysts fast', body: 'Financial analysts and market researchers are already in the top 10 most AI-impacted individual occupations.' },
+      { icon: '🎓', title: 'Highly educated workforce', body: 'Business & finance workers are among the most degree-heavy sectors — and the most exposed to AI augmentation.' },
+      { icon: '🔑', title: 'Opportunity: use it first', body: 'Only 22% observed vs 80% theoretical means early adopters gain a massive productivity edge over peers who haven\'t integrated AI yet.' },
+    ],
+  },
+  {
+    key: 'legal',
+    name: 'Legal',
+    tagline: 'Law, contracts, compliance, paralegal',
+    theory: 75,
+    observed: 15,
+    topJobs: [
+      { name: 'Paralegals & Legal Assistants', pct: '~40%' },
+      { name: 'Law Clerks', pct: '~35%' },
+      { name: 'Legal Secretaries', pct: '~28%' },
+      { name: 'Compliance Officers', pct: '~25%' },
+      { name: 'Title Examiners & Abstractors', pct: '~22%' },
+    ],
+    insights: [
+      { icon: '📄', title: 'Document-heavy = high theoretical exposure', body: '75% of legal tasks are theoretically within LLM capability — especially contracts, research, and document review.' },
+      { icon: '⚖️', title: 'In-court work shields lawyers', body: 'Courtroom representation and judgment tasks are near-zero exposure — the paper explicitly names these as outside current AI capability.' },
+      { icon: '🔍', title: 'AI legal research already widespread', body: 'In practice (15% observed), AI is being used for case law research, contract drafting, and due diligence.' },
+      { icon: '⏳', title: 'Regulation slowing adoption', body: 'Legal & ethical constraints around AI in legal practice contribute to a large gap between theoretical and observed exposure.' },
+    ],
+  },
+  {
+    key: 'engineering',
+    name: 'Architecture & Engineering',
+    tagline: 'Civil, mechanical, electrical, architecture, drafting',
+    theory: 65,
+    observed: 14,
+    topJobs: [
+      { name: 'Mechanical Engineers', pct: '~22%' },
+      { name: 'Civil Engineers', pct: '~18%' },
+      { name: 'Drafters (CAD)', pct: '~30%' },
+      { name: 'Electrical Engineers', pct: '~20%' },
+      { name: 'Industrial Engineers', pct: '~25%' },
+    ],
+    insights: [
+      { icon: '🏗️', title: 'Mixed digital & physical work', body: 'At 65% theoretical exposure, the desk-work portion is highly automatable but on-site and physical tasks create a natural floor.' },
+      { icon: '🛠️', title: 'CAD and documentation first', body: 'The 14% observed usage is concentrated in drawing generation, spec writing, calculations, and technical documentation.' },
+      { icon: '🔬', title: 'Design judgment hard to automate', body: 'Creative and safety-critical design decisions remain primarily human — AI supports but doesn\'t replace engineering judgment.' },
+      { icon: '📐', title: 'Productivity tools leading adoption', body: 'Coding copilots and AI-assisted simulation are transforming how engineers work, even as overall observed exposure stays relatively low.' },
+    ],
+  },
+  {
+    key: 'sales',
+    name: 'Sales & Related',
+    tagline: 'Selling, account management, customer support',
+    theory: 52,
+    observed: 18,
+    topJobs: [
+      { name: 'Customer Service Representatives', pct: '70.1%' },
+      { name: 'Sales Representatives (Wholesale)', pct: '62.8%' },
+      { name: 'Real Estate Brokers', pct: '~20%' },
+      { name: 'Insurance Sales Agents', pct: '~25%' },
+      { name: 'Retail Salespersons', pct: '~10%' },
+    ],
+    insights: [
+      { icon: '🤝', title: 'Human relationships matter', body: 'The 52% theoretical ceiling reflects that relationship-building and in-person selling remain hard for AI to replicate.' },
+      { icon: '📞', title: 'Customer service already transformed', body: 'Customer service reps are in the top 2 most AI-exposed individual occupations — chatbots and AI agents are already handling routine queries.' },
+      { icon: '✉️', title: 'Outreach & follow-up automating fast', body: 'Email drafting, CRM data entry, call summaries, and lead scoring are among the most AI-assisted tasks.' },
+      { icon: '🏆', title: 'Top performers using AI to scale', body: 'The gap (18% observed vs 52% theory) shows sales professionals who embrace AI tools have a significant edge over peers.' },
+    ],
+  },
+  {
+    key: 'arts',
+    name: 'Arts, Design, Entertainment & Media',
+    tagline: 'Writing, design, journalism, video, music, UX',
+    theory: 55,
+    observed: 10,
+    topJobs: [
+      { name: 'Technical Writers', pct: '~35%' },
+      { name: 'Graphic Designers', pct: '~20%' },
+      { name: 'Film & Video Editors', pct: '~18%' },
+      { name: 'Writers & Authors', pct: '~25%' },
+      { name: 'Marketing Copywriters', pct: '~30%' },
+    ],
+    insights: [
+      { icon: '🎭', title: 'High theoretical, low observed — for now', body: '55% of tasks are theoretically automatable, but only 10% observed. Creative AI is advancing rapidly; the gap is narrowing.' },
+      { icon: '🖼️', title: 'Generative AI disrupting fast', body: 'Image generation, music composition, and video editing AI are maturing at breakneck speed — much faster than the economic data captures.' },
+      { icon: '✍️', title: 'Long-form writing augmented heavily', body: 'AI writing assistance is widespread for drafting, editing, and summarization — particularly in content and journalism roles.' },
+      { icon: '🌟', title: 'Originality & vision remain human', body: 'The tasks AI handles least well are those requiring unique voice, artistic judgment, and cultural context.' },
+    ],
+  },
+  {
+    key: 'healthcare',
+    name: 'Healthcare Practitioners & Technical',
+    tagline: 'Nursing, medicine, lab work, research, social work',
+    theory: 42,
+    observed: 7,
+    topJobs: [
+      { name: 'Medical Record Specialists', pct: '66.7%' },
+      { name: 'Medical Transcriptionists', pct: '~45%' },
+      { name: 'Health Information Technicians', pct: '~30%' },
+      { name: 'Medical Coders', pct: '~35%' },
+      { name: 'Radiologists (image review)', pct: '~15%' },
+    ],
+    insights: [
+      { icon: '🩺', title: 'Patient care tasks protect healthcare workers', body: 'Physical examination, procedures, and direct patient interaction create a natural 58% floor that AI cannot replace.' },
+      { icon: '📋', title: 'Documentation is the key battleground', body: 'Medical records, coding, transcription, and administrative tasks in healthcare are highly exposed — and already seeing AI automation.' },
+      { icon: '🔬', title: 'Diagnostic AI advancing rapidly', body: 'Radiology AI, pathology, and clinical decision support are growing — though these appear more as augmentation than automation in current data.' },
+      { icon: '⚕️', title: 'Regulation creates large observed-theory gap', body: 'Strict healthcare regulations and liability concerns keep observed exposure (7%) far below theoretical capability (42%).' },
+    ],
+  },
+  {
+    key: 'physical',
+    name: 'Physical, Trades & Service Occupations',
+    tagline: 'Construction, transport, food service, outdoor, manual trades',
+    theory: 8,
+    observed: 2,
+    topJobs: [
+      { name: 'Cooks', pct: '~1%' },
+      { name: 'Bartenders', pct: '~1%' },
+      { name: 'Motorcycle Mechanics', pct: '~1%' },
+      { name: 'Construction Workers', pct: '~2%' },
+      { name: 'Truck Drivers', pct: '~3%' },
+    ],
+    insights: [
+      { icon: '🏗️', title: 'Near-zero AI displacement risk today', body: 'Physical and hands-on tasks are extremely hard to automate with current AI. The paper lists cooks, mechanics, and bartenders as examples of zero-exposure occupations.' },
+      { icon: '🤲', title: 'Dexterity & embodiment protect you', body: 'Tasks requiring physical presence, manual dexterity, and real-world perception cannot currently be automated by LLMs.' },
+      { icon: '🚗', title: 'Autonomous vehicles a longer-term risk', body: 'Robotics and autonomous systems pose a physical automation risk in transport — but this is distinct from the LLM-based AI the paper measures.' },
+      { icon: '📊', title: '30% of all workers have zero exposure', body: 'The paper finds roughly 30% of the entire workforce has zero measured AI coverage — most are in physical and service jobs.' },
+    ],
+  },
+];
+
+// ────────────────────────────────────────────────
+// STATE
+// ────────────────────────────────────────────────
+const answers = {};
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectOption(question, value) {
+  answers[question] = value;
+  const container = document.getElementById(question + '-options');
+  container.querySelectorAll('.option-btn').forEach(b => {
+    b.classList.toggle('selected', b.dataset.val === value);
+  });
+  document.getElementById(question + '-next').disabled = false;
+}
+
+function goToQ2() {
+  if (!answers.q1) return;
+  showScreen('screen-q2');
+}
+function goToQ3() {
+  if (!answers.q2) return;
+  showScreen('screen-q3');
+}
+
+function toggleDef(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function showResults() {
+  const cat = CATEGORIES.find(c => c.key === answers.q1) || CATEGORIES[0];
+  const aiUser = answers.q3;
+
+  document.getElementById('result-title').textContent = 'Your AI Impact Profile';
+  document.getElementById('result-sub').textContent =
+    'Based on Anthropic\'s Figure 2 — theoretical capability vs. real-world observed exposure for your job category.';
+
+  document.getElementById('result-cat-name').textContent = cat.name;
+  document.getElementById('result-cat-tagline').textContent = cat.tagline;
+  document.getElementById('result-theory').textContent = cat.theory + '%';
+  document.getElementById('result-observed').textContent = cat.observed + '%';
+
+  // Gap callout
+  const gap = cat.theory - cat.observed;
+  let gapMsg = '';
+  if (gap > 50) {
+    gapMsg = `<strong>Massive gap: ${gap} percentage points</strong> separate theoretical capability from actual observed use in your category. This means AI could already theoretically handle ${cat.theory}% of your tasks — but today it's only being actively used for ${cat.observed}%. This gap represents both risk (automation will increase) and opportunity (early adopters gain a huge productivity advantage).`;
+  } else if (gap > 25) {
+    gapMsg = `<strong>Significant gap: ${gap} percentage points.</strong> AI theoretically covers ${cat.theory}% of tasks in your field but is only observed at ${cat.observed}%. Real-world adoption is catching up — the gap is expected to narrow as AI tools mature and trust grows.`;
+  } else {
+    gapMsg = `<strong>Smaller gap: ${gap} percentage points.</strong> In your category, either the theoretical capability is limited by physical/relational tasks, or adoption is already relatively high. This suggests your field's AI frontier is more grounded in what's currently practical.`;
+  }
+
+  if (aiUser === 'no') {
+    gapMsg += ` <strong>Note:</strong> You indicated you don't yet use AI in your work. Given your category's ${cat.observed}% observed exposure, you may already be behind peers who are using AI tools.`;
+  } else if (aiUser === 'yes') {
+    gapMsg += ` You're already using AI tools — you're ahead of the curve. The ${cat.theory}% theoretical ceiling shows there's still significant room to expand where AI helps you.`;
+  }
+
+  document.getElementById('result-gap-callout').innerHTML = gapMsg;
+
+  // Chart
+  renderChart('result-chart', cat.key);
+
+  // Insights
+  const ig = document.getElementById('result-insights');
+  ig.innerHTML = cat.insights.map(i => `
+    <div class="insight-card">
+      <div class="insight-icon">${i.icon}</div>
+      <div class="insight-title">${i.title}</div>
+      <div class="insight-body">${i.body}</div>
+    </div>`).join('');
+
+  // Top jobs
+  document.getElementById('top-jobs-title').textContent =
+    'Top AI-exposed occupations in: ' + cat.name;
+  document.getElementById('top-jobs-list').innerHTML =
+    cat.topJobs.map(j => `
+      <li>
+        <span class="job-name">${j.name}</span>
+        <span class="job-pct">${j.pct} observed</span>
+      </li>`).join('');
+
+  showScreen('screen-results');
+}
+
+function renderChart(containerId, highlightKey) {
+  const sorted = [...CATEGORIES].sort((a, b) => b.theory - a.theory);
+  const container = document.getElementById(containerId);
+  container.innerHTML = sorted.map(c => {
+    const isUser = c.key === highlightKey;
+    return `
+      <div class="chart-row ${isUser ? 'user-row' : ''}">
+        <div class="chart-row-label">
+          <span class="chart-row-name ${isUser ? 'highlighted' : ''}">${isUser ? '▶ ' : ''}${c.name}</span>
+          <span class="chart-row-pcts" style="color:${isUser ? '#3355cc' : '#aaa'}">${c.theory}% / ${c.observed}%</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-theory" style="width:${c.theory}%"></div>
+          <div class="bar-observed" style="width:${c.observed}%"></div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function restart() {
+  answers.q1 = null; answers.q2 = null; answers.q3 = null;
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  ['q1-next', 'q2-next', 'q3-next'].forEach(id => {
+    document.getElementById(id).disabled = true;
+  });
+  showScreen('screen-welcome');
+}
+
+// ── Render overview chart on welcome screen ──
+document.addEventListener('DOMContentLoaded', () => {
+  renderChart('overview-chart', null);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZHC Governance — Marketing Animation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #09090b;
+    color: #fff;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow: hidden;
+    width: 1280px;
+    height: 720px;
+    position: relative;
+  }
+
+  /* ── Canvas ── */
+  #canvas {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Shared utilities ── */
+  .scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+  }
+  .scene.active { opacity: 1; pointer-events: auto; }
+
+  /* Progress bar */
+  #progress-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    transition: width 0.05s linear;
+    z-index: 100;
+  }
+
+  /* Scene counter */
+  #scene-counter {
+    position: absolute;
+    bottom: 14px; right: 20px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    z-index: 100;
+    letter-spacing: 1px;
+  }
+
+  /* Background grid */
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* ─────────────────────────────────── */
+  /* SCENE 1 — Title                    */
+  /* ─────────────────────────────────── */
+  #s1 { background: #09090b; }
+  #s1 .grid-bg { opacity: 0.5; }
+
+  .s1-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #3b82f6;
+    margin-bottom: 20px;
+    animation: fadeSlideUp 0.8s 0.3s both;
+  }
+  .s1-title {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1.05;
+    text-align: center;
+    background: linear-gradient(135deg, #fff 40%, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeSlideUp 0.8s 0.5s both;
+  }
+  .s1-sub {
+    font-size: 22px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 18px;
+    text-align: center;
+    animation: fadeSlideUp 0.8s 0.7s both;
+  }
+
+  /* Orbiting agent dots */
+  .orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed rgba(99,102,241,0.25);
+    animation: spin linear infinite;
+  }
+  .orbit-dot {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #6366f1;
+    top: -5px; left: 50%;
+    margin-left: -5px;
+    box-shadow: 0 0 12px #6366f1;
+  }
+  .orbit-dot.green { background: #22c55e; box-shadow: 0 0 12px #22c55e; }
+  .orbit-dot.amber { background: #f59e0b; box-shadow: 0 0 12px #f59e0b; }
+  .orbit-dot.red   { background: #ef4444; box-shadow: 0 0 12px #ef4444; }
+
+  .orbit-r1 { width: 480px; height: 480px; top: 120px; left: 400px; animation-duration: 12s; }
+  .orbit-r2 { width: 680px; height: 680px; top: 20px;  left: 300px; animation-duration: 20s; }
+  .orbit-r3 { width: 300px; height: 300px; top: 210px; left: 490px; animation-duration: 8s; animation-direction: reverse; }
+
+  /* ─────────────────────────────────── */
+  /* SCENE 2 — The Problem              */
+  /* ─────────────────────────────────── */
+  #s2 { background: #0c0a1e; flex-direction: row; gap: 0; align-items: stretch; }
+
+  .s2-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+  }
+  .s2-right {
+    width: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative;
+  }
+
+  .problem-tag {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #ef4444; margin-bottom: 16px;
+    animation: fadeSlideUp 0.7s 0.2s both;
+  }
+  .problem-title {
+    font-size: 42px; font-weight: 800; line-height: 1.15;
+    animation: fadeSlideUp 0.7s 0.35s both;
+  }
+  .problem-title span { color: #ef4444; }
+  .problem-body {
+    font-size: 17px; color: rgba(255,255,255,0.5);
+    margin-top: 20px; line-height: 1.7;
+    animation: fadeSlideUp 0.7s 0.5s both;
+  }
+  .problem-list {
+    list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px;
+    animation: fadeSlideUp 0.7s 0.65s both;
+  }
+  .problem-list li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; color: rgba(255,255,255,0.7);
+  }
+  .problem-list li::before {
+    content: '✗';
+    color: #ef4444; font-size: 16px; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* Chaos diagram */
+  .chaos-box {
+    width: 420px; height: 380px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeSlideUp 0.7s 0.4s both;
+  }
+  .chaos-agent {
+    position: absolute;
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+  }
+  .chaos-line {
+    position: absolute;
+    height: 1px;
+    background: rgba(239,68,68,0.4);
+    transform-origin: left center;
+  }
+  .chaos-warn {
+    position: absolute;
+    font-size: 20px;
+    animation: blink 1.2s infinite;
+  }
+
+  /* ─────────────────────────────────── */
+  /* SCENE 3 — Product Reveal           */
+  /* ─────────────────────────────────── */
+  #s3 {
+    background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.15) 0%, #09090b 65%);
+  }
+  .s3-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #3b82f6; margin-bottom: 16px;
+    animation: fadeSlideUp 0.8s 0.2s both;
+  }
+  .s3-title {
+    font-size: 58px; font-weight: 800; text-align: center; line-height: 1.1;
+    animation: fadeSlideUp 0.8s 0.35s both;
+  }
+  .s3-title span {
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .s3-sub {
+    font-size: 19px; color: rgba(255,255,255,0.5);
+    text-align: center; margin-top: 14px; max-width: 640px;
+    animation: fadeSlideUp 0.8s 0.5s both;
+  }
+
+  /* Mini dashboard mockup */
+  .mock-dashboard {
+    margin-top: 40px;
+    width: 860px;
+    background: #111113;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+    animation: riseUp 1s 0.6s both;
+  }
+  .mock-titlebar {
+    height: 40px;
+    background: #18181b;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex; align-items: center; padding: 0 16px; gap: 8px;
+  }
+  .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .mock-dot.r { background: #ef4444; }
+  .mock-dot.y { background: #f59e0b; }
+  .mock-dot.g { background: #22c55e; }
+  .mock-url {
+    flex: 1; height: 22px; background: rgba(255,255,255,0.05);
+    border-radius: 5px; margin: 0 16px;
+    display: flex; align-items: center; padding: 0 10px;
+    font-size: 11px; color: rgba(255,255,255,0.3);
+  }
+  .mock-body {
+    display: flex; height: 220px;
+  }
+  .mock-sidebar {
+    width: 180px;
+    background: #0f0f11;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 12px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .mock-nav-item {
+    height: 32px; border-radius: 8px;
+    display: flex; align-items: center; padding: 0 12px; gap: 8px;
+    font-size: 12px; color: rgba(255,255,255,0.4);
+    cursor: default;
+  }
+  .mock-nav-item.active {
+    background: rgba(59,130,246,0.15);
+    color: #93c5fd;
+  }
+  .mock-nav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+  .mock-content {
+    flex: 1; padding: 16px; display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px;
+    align-content: start;
+  }
+  .mock-stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .mock-stat-label { font-size: 10px; color: rgba(255,255,255,0.35); }
+  .mock-stat-value { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .mock-stat-value.green { color: #4ade80; }
+  .mock-stat-value.amber { color: #fbbf24; }
+  .mock-stat-value.blue  { color: #60a5fa; }
+
+  /* ─────────────────────────────────── */
+  /* SCENE 4 — Features (animated)      */
+  /* ─────────────────────────────────── */
+  #s4 { background: #09090b; flex-direction: column; gap: 0; }
+
+  .features-header {
+    text-align: center; padding: 48px 0 32px;
+    animation: fadeSlideUp 0.7s 0.1s both;
+  }
+  .features-header h2 {
+    font-size: 40px; font-weight: 800;
+  }
+  .features-header p {
+    font-size: 16px; color: rgba(255,255,255,0.45); margin-top: 8px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 0 64px;
+    animation: fadeSlideUp 0.8s 0.3s both;
+  }
+
+  .feature-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .feature-card.highlight {
+    border-color: rgba(59,130,246,0.5);
+    background: rgba(59,130,246,0.06);
+  }
+
+  .feature-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .feature-icon.blue  { background: rgba(59,130,246,0.15); }
+  .feature-icon.green { background: rgba(34,197,94,0.15); }
+  .feature-icon.amber { background: rgba(245,158,11,0.15); }
+  .feature-icon.red   { background: rgba(239,68,68,0.15); }
+  .feature-icon.purple{ background: rgba(139,92,246,0.15); }
+  .feature-icon.indigo{ background: rgba(99,102,241,0.15); }
+
+  .feature-name { font-size: 14px; font-weight: 600; }
+  .feature-desc { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+  /* Feature highlight badge */
+  .f-badge {
+    display: inline-block;
+    font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 999px;
+    background: rgba(59,130,246,0.2); color: #93c5fd;
+    font-weight: 600;
+    margin-top: auto;
+  }
+  .f-badge.green { background: rgba(34,197,94,0.2); color: #86efac; }
+  .f-badge.amber { background: rgba(245,158,11,0.2); color: #fde68a; }
+  .f-badge.red   { background: rgba(239,68,68,0.2);  color: #fca5a5; }
+  .f-badge.purple{ background: rgba(139,92,246,0.2); color: #d8b4fe; }
+
+  /* ─────────────────────────────────── */
+  /* SCENE 5 — Oversight Modes          */
+  /* ─────────────────────────────────── */
+  #s5 {
+    background: #09090b;
+    flex-direction: row; align-items: stretch; gap: 0;
+  }
+  .s5-left {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 60px;
+  }
+  .s5-right {
+    width: 580px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 60px 40px;
+  }
+  .s5-tag {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #8b5cf6; margin-bottom: 16px;
+    animation: fadeSlideUp 0.7s 0.2s both;
+  }
+  .s5-title {
+    font-size: 42px; font-weight: 800; line-height: 1.15;
+    animation: fadeSlideUp 0.7s 0.35s both;
+  }
+  .s5-body {
+    font-size: 16px; color: rgba(255,255,255,0.5);
+    margin-top: 16px; line-height: 1.7;
+    animation: fadeSlideUp 0.7s 0.5s both;
+  }
+
+  .mode-cards {
+    display: flex; flex-direction: column; gap: 14px;
+    animation: fadeSlideUp 0.8s 0.4s both;
+  }
+  .mode-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .mode-card.hitl  { border-color: rgba(239,68,68,0.3);  }
+  .mode-card.hotl  { border-color: rgba(245,158,11,0.3); }
+  .mode-card.auto  { border-color: rgba(34,197,94,0.3);  }
+  .mode-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    flex-shrink: 0; margin-top: 5px;
+  }
+  .mode-dot.hitl  { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+  .mode-dot.hotl  { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+  .mode-dot.auto  { background: #22c55e; box-shadow: 0 0 8px #22c55e; animation: pulse 2s infinite; }
+
+  .mode-info h4 { font-size: 14px; font-weight: 600; }
+  .mode-info p  { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 4px; line-height: 1.6; }
+
+  /* ─────────────────────────────────── */
+  /* SCENE 6 — EU AI Act               */
+  /* ─────────────────────────────────── */
+  #s6 {
+    background: radial-gradient(ellipse at 30% 50%, rgba(99,102,241,0.1) 0%, #09090b 60%);
+    flex-direction: row; align-items: stretch; gap: 0;
+  }
+  .s6-left {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 64px;
+  }
+  .s6-right {
+    width: 520px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 60px 40px;
+  }
+  .s6-tag {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #6366f1; margin-bottom: 16px;
+    animation: fadeSlideUp 0.7s 0.2s both;
+  }
+  .s6-title {
+    font-size: 44px; font-weight: 800; line-height: 1.15;
+    animation: fadeSlideUp 0.7s 0.35s both;
+  }
+  .s6-title span { color: #818cf8; }
+  .s6-body {
+    font-size: 16px; color: rgba(255,255,255,0.5);
+    margin-top: 16px; line-height: 1.7; max-width: 480px;
+    animation: fadeSlideUp 0.7s 0.5s both;
+  }
+  .s6-articles {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-top: 28px;
+    animation: fadeSlideUp 0.8s 0.65s both;
+  }
+  .s6-art {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: rgba(255,255,255,0.7);
+  }
+  .s6-art-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    background: rgba(99,102,241,0.2); color: #a5b4fc;
+    border-radius: 6px; padding: 3px 8px; flex-shrink: 0;
+    width: 52px; text-align: center;
+  }
+
+  /* Compliance donut */
+  .compliance-ring {
+    width: 280px; height: 280px;
+    position: relative;
+    animation: fadeSlideUp 0.8s 0.4s both;
+  }
+  .compliance-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .compliance-ring .track { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 16; }
+  .compliance-ring .fill  { fill: none; stroke: #6366f1; stroke-width: 16;
+    stroke-dasharray: 659; stroke-dashoffset: 659;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.5s 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+  .compliance-ring .fill.animated { stroke-dashoffset: 66; } /* ~90% = 659*0.10 */
+  .compliance-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .compliance-pct { font-size: 52px; font-weight: 800; color: #818cf8; }
+  .compliance-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+  /* ─────────────────────────────────── */
+  /* SCENE 7 — Audit Log / Live Feed    */
+  /* ─────────────────────────────────── */
+  #s7 {
+    background: #09090b;
+    flex-direction: row; align-items: stretch; gap: 0;
+  }
+  .s7-left {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 60px;
+  }
+  .s7-right {
+    width: 600px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px;
+  }
+  .s7-tag {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #22c55e; margin-bottom: 16px;
+    animation: fadeSlideUp 0.7s 0.2s both;
+  }
+  .s7-title {
+    font-size: 42px; font-weight: 800; line-height: 1.15;
+    animation: fadeSlideUp 0.7s 0.35s both;
+  }
+  .s7-body {
+    font-size: 16px; color: rgba(255,255,255,0.5);
+    margin-top: 16px; line-height: 1.7;
+    animation: fadeSlideUp 0.7s 0.5s both;
+  }
+
+  /* Audit log mockup */
+  .audit-panel {
+    width: 480px;
+    background: #111113;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: fadeSlideUp 0.8s 0.4s both;
+  }
+  .audit-head {
+    background: #18181b;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .audit-head-title { font-size: 13px; font-weight: 600; }
+  .audit-live {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; color: #22c55e;
+  }
+  .audit-live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #22c55e;
+    animation: pulse 1.5s infinite;
+  }
+  .audit-rows { display: flex; flex-direction: column; }
+  .audit-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    animation: slideInRow 0.4s both;
+  }
+  .audit-sev {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .audit-sev.info     { background: #22c55e; }
+  .audit-sev.warning  { background: #f59e0b; }
+  .audit-sev.critical { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+  .audit-type { flex: 1; color: rgba(255,255,255,0.85); }
+  .audit-agent { color: rgba(255,255,255,0.35); width: 90px; text-align: right; }
+  .audit-time  { color: rgba(255,255,255,0.25); width: 50px; text-align: right; font-size: 11px; }
+
+  /* ─────────────────────────────────── */
+  /* SCENE 8 — Emergency Break          */
+  /* ─────────────────────────────────── */
+  #s8 {
+    background: radial-gradient(ellipse at 50% 50%, rgba(239,68,68,0.08) 0%, #09090b 60%);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 0;
+  }
+  .s8-tag {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #ef4444; margin-bottom: 20px;
+    animation: fadeSlideUp 0.7s 0.2s both;
+  }
+  .s8-title {
+    font-size: 52px; font-weight: 800; text-align: center;
+    animation: fadeSlideUp 0.7s 0.35s both;
+  }
+  .s8-sub {
+    font-size: 18px; color: rgba(255,255,255,0.5); text-align: center;
+    margin-top: 12px; max-width: 580px;
+    animation: fadeSlideUp 0.7s 0.5s both;
+  }
+
+  .emergency-btn {
+    margin-top: 48px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7f1d1d, #450a0a);
+    border: 3px solid rgba(239,68,68,0.5);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fca5a5;
+    cursor: default;
+    box-shadow: 0 0 0 0 rgba(239,68,68,0.4);
+    animation: fadeSlideUp 0.7s 0.6s both, emergencyPulse 3s 1.5s infinite;
+    gap: 8px;
+  }
+  .emergency-btn span { font-size: 40px; }
+
+  .s8-points {
+    display: flex; gap: 40px; margin-top: 40px;
+    animation: fadeSlideUp 0.8s 0.8s both;
+  }
+  .s8-point { text-align: center; font-size: 13px; color: rgba(255,255,255,0.5); }
+  .s8-point strong { display: block; font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 4px; }
+
+  /* ─────────────────────────────────── */
+  /* SCENE 9 — CTA                      */
+  /* ─────────────────────────────────── */
+  #s9 {
+    background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.2) 0%, #09090b 65%);
+  }
+  .s9-tag {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #3b82f6; margin-bottom: 20px;
+    animation: fadeSlideUp 0.8s 0.2s both;
+  }
+  .s9-title {
+    font-size: 68px; font-weight: 800; text-align: center; line-height: 1.08;
+    animation: fadeSlideUp 0.8s 0.35s both;
+  }
+  .s9-title span {
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .s9-sub {
+    font-size: 20px; color: rgba(255,255,255,0.5);
+    text-align: center; margin-top: 16px; max-width: 600px;
+    animation: fadeSlideUp 0.8s 0.5s both;
+  }
+  .s9-cta {
+    display: flex; gap: 16px; margin-top: 40px;
+    animation: fadeSlideUp 0.8s 0.65s both;
+  }
+  .btn-primary {
+    padding: 14px 36px;
+    background: #3b82f6; color: #fff;
+    border: none; border-radius: 10px;
+    font-size: 15px; font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(59,130,246,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(59,130,246,0.45);
+  }
+  .btn-secondary {
+    padding: 14px 36px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.8); border-radius: 10px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+  }
+  .s9-features {
+    display: flex; gap: 32px; margin-top: 32px;
+    animation: fadeSlideUp 0.8s 0.8s both;
+  }
+  .s9-feat {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: rgba(255,255,255,0.45);
+  }
+  .s9-feat::before { content: '✓'; color: #22c55e; font-weight: 700; }
+
+  /* ─────────────────────────────────── */
+  /* Keyframe animations                 */
+  /* ─────────────────────────────────── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes riseUp {
+    from { opacity: 0; transform: translateY(40px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  @keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+  @keyframes slideInRow {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes emergencyPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+    70%  { box-shadow: 0 0 0 30px rgba(239,68,68,0); }
+    100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+  }
+  @keyframes typeIn {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+
+  /* Controls */
+  #controls {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 200;
+  }
+  .ctrl-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer; transition: background 0.2s, transform 0.2s;
+  }
+  .ctrl-dot.active { background: #3b82f6; transform: scale(1.3); }
+  .ctrl-dot:hover  { background: rgba(255,255,255,0.5); }
+</style>
+</head>
+<body>
+<div id="canvas">
+  <div id="progress-bar" style="width:0%"></div>
+  <span id="scene-counter">1 / 9</span>
+
+  <!-- ── SCENE 1: Title ── -->
+  <div id="s1" class="scene active">
+    <div class="grid-bg"></div>
+    <!-- Orbit rings -->
+    <div class="orbit-ring orbit-r1" style="position:absolute">
+      <div class="orbit-dot green"></div>
+    </div>
+    <div class="orbit-ring orbit-r2" style="position:absolute">
+      <div class="orbit-dot amber"></div>
+    </div>
+    <div class="orbit-ring orbit-r3" style="position:absolute">
+      <div class="orbit-dot red"></div>
+    </div>
+    <div class="s1-tag">INTRODUCING</div>
+    <div class="s1-title">ZHC Governance<br>Dashboard</div>
+    <div class="s1-sub">Meaningful human control over your autonomous AI workforce</div>
+  </div>
+
+  <!-- ── SCENE 2: The Problem ── -->
+  <div id="s2" class="scene">
+    <div class="s2-left">
+      <div class="problem-tag">THE CHALLENGE</div>
+      <h2 class="problem-title">AI agents without<br><span>oversight</span> are a risk</h2>
+      <p class="problem-body">
+        Zero-Human Companies unlock 24/7 autonomous operation. But with no human in the loop, things can go wrong — fast.
+      </p>
+      <ul class="problem-list">
+        <li>Budget overruns with no circuit-breaker</li>
+        <li>Agent actions outside authorised scope</li>
+        <li>No audit trail for accountability</li>
+        <li>Non-compliance with EU AI Act obligations</li>
+        <li>No emergency stop when something goes wrong</li>
+      </ul>
+    </div>
+    <div class="s2-right">
+      <div class="chaos-box">
+        <!-- agents -->
+        <div class="chaos-agent" style="top:40px;left:160px">🤖</div>
+        <div class="chaos-agent" style="top:120px;left:50px">🤖</div>
+        <div class="chaos-agent" style="top:220px;left:200px">🤖</div>
+        <div class="chaos-agent" style="top:40px;left:300px">🤖</div>
+        <div class="chaos-agent" style="top:250px;left:320px">🤖</div>
+        <!-- warning signs -->
+        <div class="chaos-warn" style="top:20px;left:250px">⚠️</div>
+        <div class="chaos-warn" style="top:160px;left:340px" style="animation-delay:0.3s">⚠️</div>
+        <div class="chaos-warn" style="top:280px;left:80px" style="animation-delay:0.6s">⚠️</div>
+        <!-- chaos lines -->
+        <div class="chaos-line" style="top:66px;left:212px;width:120px;transform:rotate(15deg)"></div>
+        <div class="chaos-line" style="top:140px;left:102px;width:130px;transform:rotate(-30deg)"></div>
+        <div class="chaos-line" style="top:66px;left:212px;width:160px;transform:rotate(50deg)"></div>
+        <!-- big X -->
+        <div style="position:absolute;bottom:20px;right:20px;font-size:48px;color:rgba(239,68,68,0.4);font-weight:900">✗</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 3: Product Reveal ── -->
+  <div id="s3" class="scene">
+    <div class="s3-eyebrow">THE SOLUTION</div>
+    <h2 class="s3-title">Meet <span>ZHC Governance</span></h2>
+    <p class="s3-sub">A multi-tenant SaaS application built for EU AI Act compliance — giving ZHC founders full visibility and control over their autonomous agents.</p>
+    <div class="mock-dashboard">
+      <div class="mock-titlebar">
+        <div class="mock-dot r"></div>
+        <div class="mock-dot y"></div>
+        <div class="mock-dot g"></div>
+        <div class="mock-url">https://app.zhc-governance.com/dashboard</div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-sidebar">
+          <div class="mock-nav-item active"><div class="mock-nav-dot"></div> Dashboard</div>
+          <div class="mock-nav-item"><div class="mock-nav-dot"></div> Processes</div>
+          <div class="mock-nav-item"><div class="mock-nav-dot"></div> Oversight</div>
+          <div class="mock-nav-item"><div class="mock-nav-dot"></div> Audit Log</div>
+          <div class="mock-nav-item"><div class="mock-nav-dot"></div> EU AI Act</div>
+          <div class="mock-nav-item"><div class="mock-nav-dot"></div> Settings</div>
+        </div>
+        <div class="mock-content">
+          <div class="mock-stat">
+            <div class="mock-stat-label">Active Processes</div>
+            <div class="mock-stat-value green">6</div>
+          </div>
+          <div class="mock-stat">
+            <div class="mock-stat-label">Audit Events</div>
+            <div class="mock-stat-value blue">1,284</div>
+          </div>
+          <div class="mock-stat">
+            <div class="mock-stat-label">Pending Decisions</div>
+            <div class="mock-stat-value amber">3</div>
+          </div>
+          <div class="mock-stat">
+            <div class="mock-stat-label">Armed Breaks</div>
+            <div class="mock-stat-value">2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 4: Features ── -->
+  <div id="s4" class="scene">
+    <div class="features-header">
+      <h2>Everything you need to govern AI agents</h2>
+      <p>Six pillars of meaningful human control</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" id="fc1">
+        <div class="feature-icon blue">⚙️</div>
+        <div class="feature-name">Process Definition</div>
+        <div class="feature-desc">Map each AI agent team to a named process. Assign oversight mode, set scope limits, and document expected behaviour.</div>
+        <div class="f-badge">Foundation</div>
+      </div>
+      <div class="feature-card" id="fc2">
+        <div class="feature-icon amber">🧑‍⚖️</div>
+        <div class="feature-name">HITL Decision Queue</div>
+        <div class="feature-desc">Humans approve or reject specific agent decisions before execution. 24-hour expiry. Full context shown at review time.</div>
+        <div class="f-badge amber">Human-in-the-Loop</div>
+      </div>
+      <div class="feature-card" id="fc3">
+        <div class="feature-icon red">🛑</div>
+        <div class="feature-name">Emergency Break</div>
+        <div class="feature-desc">One-click pause for any single process or the entire organisation. Kills agent execution immediately.</div>
+        <div class="f-badge red">Safety Critical</div>
+      </div>
+      <div class="feature-card" id="fc4">
+        <div class="feature-icon green">📋</div>
+        <div class="feature-name">Audit Log</div>
+        <div class="feature-desc">Paginated, filterable event log with live Server-Sent Events feed. Every agent action recorded in real time.</div>
+        <div class="f-badge green">Real-time</div>
+      </div>
+      <div class="feature-card" id="fc5">
+        <div class="feature-icon purple">🔒</div>
+        <div class="feature-name">EU AI Act Checklist</div>
+        <div class="feature-desc">Self-attestation compliance dashboard covering Art. 9, 13, 14, 17 & 26. Track your compliance readiness score.</div>
+        <div class="f-badge purple">Compliance</div>
+      </div>
+      <div class="feature-card" id="fc6">
+        <div class="feature-icon indigo">🔗</div>
+        <div class="feature-name">Paperclip Integration</div>
+        <div class="feature-desc">Connects directly to your Paperclip instance. Syncs agent runs, budget events, and issue transitions automatically.</div>
+        <div class="f-badge">Module Mode</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 5: Oversight Modes ── -->
+  <div id="s5" class="scene">
+    <div class="s5-left">
+      <div class="s5-tag">OVERSIGHT MODES</div>
+      <h2 class="s5-title">Right level of control<br>for every process</h2>
+      <p class="s5-body">
+        Not all AI processes carry the same risk. ZHC Governance lets you dial in the exact level of human involvement per process — from full autonomy to gated approval.
+      </p>
+    </div>
+    <div class="s5-right">
+      <div class="mode-cards">
+        <div class="mode-card hitl">
+          <div class="mode-dot hitl"></div>
+          <div class="mode-info">
+            <h4>Human-in-the-Loop (HITL)</h4>
+            <p>Every significant decision routes to a human approval queue before the agent proceeds. Maximum control, ideal for high-stakes processes.</p>
+          </div>
+        </div>
+        <div class="mode-card hotl">
+          <div class="mode-dot hotl"></div>
+          <div class="mode-info">
+            <h4>Human-on-the-Loop (HOTL)</h4>
+            <p>Agents act autonomously but humans can intervene at any time. Alerts raised for anomalies. Budget caps auto-pause the agent.</p>
+          </div>
+        </div>
+        <div class="mode-card auto">
+          <div class="mode-dot auto"></div>
+          <div class="mode-info">
+            <h4>Fully Autonomous</h4>
+            <p>Agent operates without interruption within pre-set guardrails. Suitable for well-understood, low-risk, high-volume processes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 6: EU AI Act ── -->
+  <div id="s6" class="scene">
+    <div class="s6-left">
+      <div class="s6-tag">COMPLIANCE</div>
+      <h2 class="s6-title">Built for the<br><span>EU AI Act</span></h2>
+      <p class="s6-body">
+        The EU AI Act places concrete obligations on deployers of AI systems. ZHC Governance maps every requirement to a dashboard control — giving you auditable proof of compliance.
+      </p>
+      <div class="s6-articles">
+        <div class="s6-art"><div class="s6-art-badge">Art. 9</div> Risk Management System — guardrails & emergency breaks</div>
+        <div class="s6-art"><div class="s6-art-badge">Art. 13</div> Transparency & Logging — full audit trail & Paperclip sync</div>
+        <div class="s6-art"><div class="s6-art-badge">Art. 14</div> Human Oversight — HITL queue & board interface</div>
+        <div class="s6-art"><div class="s6-art-badge">Art. 17</div> Quality Management — per-process oversight mode config</div>
+        <div class="s6-art"><div class="s6-art-badge">Art. 26</div> Deployer Obligations — EU data residency (fra1 / eu-central-1)</div>
+      </div>
+    </div>
+    <div class="s6-right">
+      <div class="compliance-ring">
+        <svg viewBox="0 0 220 220">
+          <circle class="track" cx="110" cy="110" r="105"/>
+          <circle class="fill" id="compliance-fill" cx="110" cy="110" r="105"/>
+        </svg>
+        <div class="compliance-center">
+          <div class="compliance-pct">90%</div>
+          <div class="compliance-label">compliance readiness</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 7: Audit Log ── -->
+  <div id="s7" class="scene">
+    <div class="s7-left">
+      <div class="s7-tag">AUDIT LOG</div>
+      <h2 class="s7-title">Complete visibility.<br>Every agent action,<br>recorded live.</h2>
+      <p class="s7-body">
+        A real-time, append-only audit trail synced directly from your Paperclip instance via Server-Sent Events. Filter by agent, severity, or event type. Export for compliance reports.
+      </p>
+    </div>
+    <div class="s7-right">
+      <div class="audit-panel">
+        <div class="audit-head">
+          <span class="audit-head-title">Audit Log</span>
+          <span class="audit-live"><div class="audit-live-dot"></div>Live</span>
+        </div>
+        <div class="audit-rows" id="audit-rows">
+          <div class="audit-row" style="animation-delay:0.3s">
+            <div class="audit-sev info"></div>
+            <div class="audit-type">heartbeat.completed</div>
+            <div class="audit-agent">VictOlivier</div>
+            <div class="audit-time">2s ago</div>
+          </div>
+          <div class="audit-row" style="animation-delay:0.5s">
+            <div class="audit-sev warning"></div>
+            <div class="audit-type">budget.threshold.80pct</div>
+            <div class="audit-agent">Marcom</div>
+            <div class="audit-time">12s ago</div>
+          </div>
+          <div class="audit-row" style="animation-delay:0.7s">
+            <div class="audit-sev info"></div>
+            <div class="audit-type">issue.status.changed</div>
+            <div class="audit-agent">Arcturus</div>
+            <div class="audit-time">34s ago</div>
+          </div>
+          <div class="audit-row" style="animation-delay:0.9s">
+            <div class="audit-sev critical"></div>
+            <div class="audit-type">decision.awaiting.approval</div>
+            <div class="audit-agent">Episkope</div>
+            <div class="audit-time">1m ago</div>
+          </div>
+          <div class="audit-row" style="animation-delay:1.1s">
+            <div class="audit-sev info"></div>
+            <div class="audit-type">agent.checkout.completed</div>
+            <div class="audit-agent">VictOlivier</div>
+            <div class="audit-time">2m ago</div>
+          </div>
+          <div class="audit-row" style="animation-delay:1.3s">
+            <div class="audit-sev info"></div>
+            <div class="audit-type">paperclip.sync.success</div>
+            <div class="audit-agent">System</div>
+            <div class="audit-time">5m ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 8: Emergency Break ── -->
+  <div id="s8" class="scene">
+    <div class="s8-tag">SAFETY</div>
+    <h2 class="s8-title">One click.<br>Everything stops.</h2>
+    <p class="s8-sub">When something goes wrong, you need to act in seconds — not minutes. The Emergency Break pauses any process or your entire company instantly.</p>
+    <div class="emergency-btn">
+      <span>🛑</span>
+      EMERGENCY<br>BREAK
+    </div>
+    <div class="s8-points">
+      <div class="s8-point"><strong>Per-process</strong> pause individual agent teams</div>
+      <div class="s8-point"><strong>Org-wide</strong> kill switch for everything</div>
+      <div class="s8-point"><strong>Instant</strong> execution halts immediately</div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 9: CTA ── -->
+  <div id="s9" class="scene">
+    <!-- orbit rings background -->
+    <div class="orbit-ring orbit-r1" style="opacity:0.4"><div class="orbit-dot green"></div></div>
+    <div class="orbit-ring orbit-r2" style="opacity:0.2"><div class="orbit-dot"></div></div>
+    <div class="s9-tag">GET STARTED</div>
+    <h2 class="s9-title">Your AI workforce.<br><span>Under control.</span></h2>
+    <p class="s9-sub">ZHC Governance gives founders the tools to deploy AI agents confidently — with the oversight, audit trail, and compliance proof to back it up.</p>
+    <div class="s9-cta">
+      <a href="https://dutchzerohumancompany.nl" target="_blank" class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center">Start Free Trial</a>
+      <a href="https://dutchzerohumancompany.nl" target="_blank" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center">View Documentation</a>
+    </div>
+    <div class="s9-features">
+      <div class="s9-feat">EU data residency</div>
+      <div class="s9-feat">Multi-tenant SaaS</div>
+      <div class="s9-feat">Paperclip-native</div>
+      <div class="s9-feat">EU AI Act ready</div>
+    </div>
+  </div>
+
+  <!-- Dot controls -->
+  <div id="controls">
+    <div class="ctrl-dot active"></div>
+    <div class="ctrl-dot"></div>
+    <div class="ctrl-dot"></div>
+    <div class="ctrl-dot"></div>
+    <div class="ctrl-dot"></div>
+    <div class="ctrl-dot"></div>
+    <div class="ctrl-dot"></div>
+    <div class="ctrl-dot"></div>
+    <div class="ctrl-dot"></div>
+  </div>
+</div>
+
+<script>
+  // ── State ─────────────────────────────────────────────────────────
+  const scenes = ['s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+  // Fallback durations (ms) used only when voice is disabled
+  const fallbackDurations = [6000, 7000, 7000, 8000, 7000, 7500, 7500, 6000, 10000];
+  let current = 0;
+  let voiceEnabled = true;
+  let paused = false;
+
+  // Per-scene state for the progress bar
+  let sceneStartTime = null;   // when current scene started
+  let sceneDuration  = null;   // estimated/actual duration of current scene (ms)
+  let fallbackTimer  = null;   // setTimeout handle for voice-off fallback
+  let advanceTimer   = null;   // setTimeout after speech ends (pause before advancing)
+
+  // ── Voice-over scripts ─────────────────────────────────────────────
+  const narration = [
+    "Welcome to ZHC Governance Dashboard — the tool for meaningful human control over your autonomous AI workforce.",
+    "Zero-Human Companies are powerful, but AI agents without oversight carry real risks: unchecked spending, out-of-scope actions, no audit trail, and exposure under the EU AI Act.",
+    "ZHC Governance is a multi-tenant SaaS dashboard built for founders of autonomous companies. It gives you full visibility and control over every AI agent running in your organisation.",
+    "Six pillars protect your operations: Process Definition, a Human-in-the-Loop decision queue, a one-click Emergency Break, a live Audit Log, an EU AI Act compliance checklist, and native Paperclip integration.",
+    "Not every process carries the same risk. Choose Human-in-the-Loop for high-stakes decisions, Human-on-the-Loop for monitored autonomy, or Fully Autonomous for trusted, low-risk processes.",
+    "The EU AI Act is law. ZHC Governance maps Articles 9, 13, 14, 17 and 26 directly to dashboard controls — giving you auditable, self-attestation compliance proof.",
+    "Every agent action is recorded in real time via a live, append-only audit log. Filter by agent or severity, and export at any time for compliance reports.",
+    "When something goes wrong, you need to act in seconds. The Emergency Break pauses any single process — or your entire company — instantly, with one click.",
+    "Your AI workforce. Under control. Visit Dutch Zero Human Company dot N L to start your free trial today.",
+  ];
+
+  // ── Progress bar (rAF loop) ────────────────────────────────────────
+  function tickProgress() {
+    if (!paused && sceneStartTime !== null && sceneDuration !== null) {
+      const elapsed = Date.now() - sceneStartTime;
+      const pct = Math.min((elapsed / sceneDuration) * 100, 99); // cap at 99 until advance
+      // Global progress: completed scenes + current scene fraction
+      const completedPct = (current / scenes.length) * 100;
+      const scenePct = (pct / 100) * (100 / scenes.length);
+      document.getElementById('progress-bar').style.width = (completedPct + scenePct) + '%';
+    }
+    requestAnimationFrame(tickProgress);
+  }
+
+  // ── Feature highlight cycling (scene 4) ────────────────────────────
+  let fhTimer = null, fhIdx = 0;
+  function startFeatureHighlight() {
+    stopFeatureHighlight();
+    fhIdx = 0; highlightFeature(fhIdx);
+    fhTimer = setInterval(() => { fhIdx = (fhIdx + 1) % 6; highlightFeature(fhIdx); }, 1100);
+  }
+  function stopFeatureHighlight() {
+    if (fhTimer) { clearInterval(fhTimer); fhTimer = null; }
+    for (let i = 1; i <= 6; i++) { const el = document.getElementById('fc'+i); if (el) el.classList.remove('highlight'); }
+  }
+  function highlightFeature(i) {
+    for (let j = 1; j <= 6; j++) { const el = document.getElementById('fc'+j); if (el) el.classList.toggle('highlight', j === i+1); }
+  }
+
+  // ── Clear pending advance timers ────────────────────────────────────
+  function clearAdvance() {
+    if (fallbackTimer) { clearTimeout(fallbackTimer); fallbackTimer = null; }
+    if (advanceTimer)  { clearTimeout(advanceTimer);  advanceTimer  = null; }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+  }
+
+  // ── Schedule auto-advance (called after narration ends) ─────────────
+  // Advances after `pauseAfter` ms of silence following the voice-over
+  function scheduleAdvance(pauseAfter) {
+    advanceTimer = setTimeout(() => {
+      advanceTimer = null;
+      if (!paused) goTo((current + 1) % scenes.length);
+    }, pauseAfter);
+  }
+
+  // ── Speak with speech-driven timing ────────────────────────────────
+  function speak(idx) {
+    if (!window.speechSynthesis) return;
+    const text = narration[idx] || '';
+
+    window.speechSynthesis.cancel(); // clear any in-flight utterance
+
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.92;
+    u.pitch = 1.0;
+    u.volume = 1.0;
+
+    const preferred = bestVoice();
+    if (preferred) u.voice = preferred;
+
+    // When speech starts: record start time, estimate duration from word count
+    u.onstart = () => {
+      sceneStartTime = Date.now();
+      // Words / (rate * ~150 wpm avg) * 1000 = rough ms estimate for progress bar
+      const wordCount = text.split(/\s+/).length;
+      sceneDuration = (wordCount / (0.92 * 150)) * 60 * 1000;
+    };
+
+    // When speech ends: small pause, then advance
+    u.onend = () => {
+      // Snap progress bar to end-of-scene position
+      if (sceneStartTime !== null) sceneDuration = Date.now() - sceneStartTime;
+      scheduleAdvance(1500); // 1.5 s of silence between scenes
+    };
+
+    // Fallback if speech errors
+    u.onerror = () => { scheduleAdvance(1000); };
+
+    window.speechSynthesis.speak(u);
+  }
+
+  // ── Core scene switcher ─────────────────────────────────────────────
+  function goTo(idx) {
+    clearAdvance();
+
+    scenes.forEach((id, i) => document.getElementById(id).classList.toggle('active', i === idx));
+    document.querySelectorAll('.ctrl-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+    document.getElementById('scene-counter').textContent = `${idx+1} / ${scenes.length}`;
+    current = idx;
+
+    // Scene-specific effects
+    if (idx === 5) {
+      setTimeout(() => document.querySelector('.compliance-ring .fill').classList.add('animated'), 200);
+    } else {
+      document.querySelector('.compliance-ring .fill').classList.remove('animated');
+    }
+    if (idx === 3) { startFeatureHighlight(); } else { stopFeatureHighlight(); }
+
+    // Reset progress bar state
+    sceneStartTime = Date.now();
+    sceneDuration = fallbackDurations[idx]; // initial estimate (overridden by onstart)
+
+    if (voiceEnabled) {
+      // Brief scene-settle delay before speaking
+      setTimeout(() => { if (!paused) speak(idx); }, 350);
+    } else {
+      // Voice off: use fixed fallback duration
+      fallbackTimer = setTimeout(() => {
+        fallbackTimer = null;
+        if (!paused) goTo((current + 1) % scenes.length);
+      }, fallbackDurations[idx]);
+    }
+  }
+
+  // ── Voice selection ──────────────────────────────────────────────────
+  // Priority order: natural/neural/premium online voices first, then any English
+  const VOICE_PRIORITY = [
+    /microsoft.*natural/i,
+    /google.*english/i,
+    /natural|neural|premium|online/i,
+    /microsoft/i,
+    /google/i,
+  ];
+
+  let selectedVoice = null; // null = auto
+
+  function scoreVoice(v) {
+    for (let i = 0; i < VOICE_PRIORITY.length; i++) {
+      if (VOICE_PRIORITY[i].test(v.name)) return VOICE_PRIORITY.length - i;
+    }
+    return 0;
+  }
+
+  function getEnglishVoices() {
+    return window.speechSynthesis.getVoices()
+      .filter(v => /^en/i.test(v.lang))
+      .sort((a, b) => scoreVoice(b) - scoreVoice(a));
+  }
+
+  function bestVoice() {
+    if (selectedVoice) {
+      // Re-resolve by name (voices can be re-instantiated)
+      const v = window.speechSynthesis.getVoices().find(v => v.name === selectedVoice);
+      if (v) return v;
+    }
+    return getEnglishVoices()[0] || null;
+  }
+
+  // ── Voice picker UI ──────────────────────────────────────────────────
+  const voiceBar = document.createElement('div');
+  voiceBar.style.cssText = `
+    position:absolute; top:14px; left:16px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+  `;
+
+  const voiceLabel = document.createElement('span');
+  voiceLabel.style.cssText = 'font-size:11px; color:rgba(255,255,255,0.35); letter-spacing:0.5px;';
+  voiceLabel.textContent = 'VOICE';
+
+  const voiceSelect = document.createElement('select');
+  voiceSelect.style.cssText = `
+    background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12);
+    color:rgba(255,255,255,0.75); font-size:11px; padding:4px 8px;
+    border-radius:6px; cursor:pointer; max-width:220px;
+    appearance:none; outline:none;
+  `;
+
+  function populateVoices() {
+    const voices = getEnglishVoices();
+    voiceSelect.innerHTML = '';
+    voices.forEach((v, i) => {
+      const opt = document.createElement('option');
+      opt.value = v.name;
+      const tag = scoreVoice(v) >= VOICE_PRIORITY.length - 1 ? ' ★' :
+                  scoreVoice(v) >= VOICE_PRIORITY.length - 2 ? ' ✦' : '';
+      opt.textContent = v.name.replace(/ - .*/, '') + tag; // trim locale suffix for readability
+      if (i === 0) opt.selected = true;
+      voiceSelect.appendChild(opt);
+    });
+    // Restore saved preference
+    const saved = localStorage.getItem('zhc-voice');
+    if (saved && voiceSelect.querySelector(`option[value="${saved}"]`)) {
+      voiceSelect.value = saved;
+      selectedVoice = saved;
+    } else if (voices.length > 0) {
+      selectedVoice = voices[0].name;
+    }
+  }
+
+  voiceSelect.addEventListener('change', (e) => {
+    e.stopPropagation();
+    selectedVoice = voiceSelect.value;
+    localStorage.setItem('zhc-voice', selectedVoice);
+    // Restart narration on current scene with the new voice
+    clearAdvance();
+    setTimeout(() => { if (!paused && voiceEnabled) speak(current); }, 100);
+  });
+  voiceSelect.addEventListener('click', e => e.stopPropagation());
+
+  voiceBar.appendChild(voiceLabel);
+  voiceBar.appendChild(voiceSelect);
+  document.getElementById('canvas').appendChild(voiceBar);
+
+  // ── Mute toggle ─────────────────────────────────────────────────────
+  const muteBtn = document.createElement('button');
+  muteBtn.id = 'mute-btn';
+  muteBtn.title = 'Toggle voice-over (V)';
+  muteBtn.innerHTML = '🔊';
+  muteBtn.style.cssText = `
+    position:absolute; top:14px; right:16px; z-index:200;
+    background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+    color:#fff; font-size:16px; width:36px; height:36px; border-radius:8px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s;
+  `;
+  muteBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    voiceEnabled = !voiceEnabled;
+    muteBtn.innerHTML = voiceEnabled ? '🔊' : '🔇';
+    clearAdvance();
+    if (voiceEnabled) {
+      setTimeout(() => speak(current), 200);
+    } else {
+      const elapsed = Date.now() - (sceneStartTime || Date.now());
+      const remaining = Math.max((fallbackDurations[current] || 6000) - elapsed, 1500);
+      fallbackTimer = setTimeout(() => {
+        fallbackTimer = null;
+        if (!paused) goTo((current + 1) % scenes.length);
+      }, remaining);
+    }
+  });
+  document.getElementById('canvas').appendChild(muteBtn);
+
+  // ── Keyboard navigation ─────────────────────────────────────────────
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      goTo((current + 1) % scenes.length);
+    } else if (e.key === 'ArrowLeft') {
+      goTo((current - 1 + scenes.length) % scenes.length);
+    } else if (e.key === 'p' || e.key === 'P') {
+      paused = !paused;
+      if (paused) {
+        clearAdvance();
+        if (window.speechSynthesis) window.speechSynthesis.pause();
+      } else {
+        if (window.speechSynthesis) window.speechSynthesis.resume();
+        // If nothing is speaking, restart narration for current scene
+        if (!window.speechSynthesis.speaking) setTimeout(() => speak(current), 200);
+      }
+    } else if (e.key === 'v' || e.key === 'V') {
+      muteBtn.click();
+    }
+  });
+
+  // ── Click to advance ────────────────────────────────────────────────
+  document.getElementById('canvas').addEventListener('click', (e) => {
+    if (e.target.closest('#controls') || e.target.closest('a') || e.target.closest('#mute-btn')) return;
+    goTo((current + 1) % scenes.length);
+  });
+
+  // ── Dot nav ─────────────────────────────────────────────────────────
+  document.querySelectorAll('.ctrl-dot').forEach((dot, i) => {
+    dot.onclick = () => goTo(i);
+  });
+
+  // ── Boot ─────────────────────────────────────────────────────────────
+  requestAnimationFrame(tickProgress);
+
+  // Voices load asynchronously in Chrome — start once they're ready
+  function bootNarration() {
+    populateVoices();
+    sceneStartTime = Date.now();
+    sceneDuration = fallbackDurations[0];
+    speak(0);
+  }
+
+  if (window.speechSynthesis) {
+    if (window.speechSynthesis.getVoices().length > 0) {
+      setTimeout(bootNarration, 600);
+    } else {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.onvoiceschanged = null;
+        setTimeout(bootNarration, 300);
+      };
+      // Hard fallback if event never fires
+      setTimeout(() => { if (!window.speechSynthesis.speaking) bootNarration(); }, 1500);
+    }
+  } else {
+    // No speech support: use fallback timers
+    voiceEnabled = false;
+    muteBtn.innerHTML = '🔇';
+    voiceBar.style.display = 'none';
+    sceneStartTime = Date.now();
+    sceneDuration = fallbackDurations[0];
+    fallbackTimer = setTimeout(() => goTo(1), fallbackDurations[0]);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Exclude agents directory (contains agent configurations and secrets)
+agents/
+
+# Exclude zhc-governance Next.js app (separate repo, not a static page)
+zhc-governance/
+
+# Node.js dependencies
+node_modules/
+landing-page/node_modules/
+safe-deploy/node_modules/
+
+# Lock files (optional - comment out if you want to track them)
+# package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+*.swp
+*.swo
