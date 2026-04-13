@@ -18,6 +18,7 @@ import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
 import { authRoutes } from "./auth/index.js";
 import { getAuthConfig } from "./auth/config.js";
+import { closeDb } from "./db/index.js";
 
 async function buildApp() {
   const cfg = getAuthConfig();
@@ -95,10 +96,21 @@ async function buildApp() {
 
 async function start() {
   const app = await buildApp();
+
+  const shutdown = async () => {
+    await app.close();
+    await closeDb();
+    process.exit(0);
+  };
+
+  process.on("SIGTERM", shutdown);
+  process.on("SIGINT", shutdown);
+
   try {
     await app.listen({ port: 3001, host: "0.0.0.0" });
   } catch (err) {
     app.log.error(err);
+    await closeDb();
     process.exit(1);
   }
 }
