@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-background: #0f1117;
+    --color-surface: #161b22;
+    --color-border: #21262d;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-accent-cyan: #22d3ee;
+    --color-accent-indigo: #818cf8;
+  }
+
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: 'Outfit', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface-1 border border-surface-3 rounded-xl p-6;
+  }
+
+  .badge-green {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-emerald-900/40 text-emerald-400 px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-amber {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-amber-900/40 text-amber-400 px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-red {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-red-900/40 text-red-400 px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-4 py-2 text-sm font-semibold text-surface-0 hover:bg-cyan-400 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 rounded-lg border border-surface-3 bg-surface-2 px-4 py-2 text-sm font-semibold text-text-primary hover:bg-surface-3 transition-colors;
+  }
+}

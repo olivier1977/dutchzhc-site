@@ -8,6 +8,22 @@ zhc-governance/
 node_modules/
 landing-page/node_modules/
 safe-deploy/node_modules/
+token-deploy/node_modules/
+
+# DID private keys — NEVER commit these
+did/private-keys/
+
+# Environment / secrets — NEVER commit these
+.env
+.env.*
+*.env
+*.secret
+*.key
+*.pem
+
+# Allow example/template env files
+!.env.example
+!**/.env.example
 
 # Lock files (optional - comment out if you want to track them)
 # package-lock.json
