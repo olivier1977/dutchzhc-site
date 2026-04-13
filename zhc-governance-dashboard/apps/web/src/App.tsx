@@ -5,12 +5,14 @@ import AgentsPage from './pages/AgentsPage';
 import ProcessesPage from './pages/ProcessesPage';
 import IntegrationsPage from './pages/IntegrationsPage';
 import PublicTraProfilePage from './pages/PublicTraProfilePage';
+import OnboardingPage from './pages/OnboardingPage';
 
 export default function App() {
   return (
     <Routes>
       {/* Public routes — no auth */}
       <Route path="/public/agents/:id/tra-score" element={<PublicTraProfilePage />} />
+      <Route path="/onboarding" element={<OnboardingPage />} />
 
       {/* Authenticated app shell */}
       <Route path="/" element={<Layout />}>
