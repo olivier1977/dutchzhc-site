@@ -4,10 +4,15 @@ import DashboardPage from './pages/DashboardPage';
 import AgentsPage from './pages/AgentsPage';
 import ProcessesPage from './pages/ProcessesPage';
 import IntegrationsPage from './pages/IntegrationsPage';
+import PublicTraProfilePage from './pages/PublicTraProfilePage';
 
 export default function App() {
   return (
     <Routes>
+      {/* Public routes — no auth */}
+      <Route path="/public/agents/:id/tra-score" element={<PublicTraProfilePage />} />
+
+      {/* Authenticated app shell */}
       <Route path="/" element={<Layout />}>
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="dashboard" element={<DashboardPage />} />

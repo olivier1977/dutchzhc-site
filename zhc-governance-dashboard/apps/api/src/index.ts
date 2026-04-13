@@ -22,6 +22,7 @@ import { processRoutes } from "./routes/processes.js";
 import { integrationRoutes } from "./routes/integrations.js";
 import { traRoutes } from "./routes/tra.js";
 import { dashboardRoutes } from "./routes/dashboard.js";
+import { publicRoutes } from "./routes/public.js";
 import { getAuthConfig } from "./auth/config.js";
 import { closeDb } from "./db/index.js";
 
@@ -86,6 +87,7 @@ async function buildApp() {
   await app.register(integrationRoutes);
   await app.register(traRoutes);
   await app.register(dashboardRoutes);
+  await app.register(publicRoutes);
 
   // Apply rate limiting specifically to auth endpoints
   app.addHook("onRoute", (routeOptions) => {
