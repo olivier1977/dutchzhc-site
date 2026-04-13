@@ -19,6 +19,7 @@ import rateLimit from "@fastify/rate-limit";
 import { authRoutes } from "./auth/index.js";
 import { agentRoutes } from "./routes/agents.js";
 import { processRoutes } from "./routes/processes.js";
+import { integrationRoutes } from "./routes/integrations.js";
 import { getAuthConfig } from "./auth/config.js";
 import { closeDb } from "./db/index.js";
 
@@ -80,6 +81,7 @@ async function buildApp() {
   // ---------------------------------------------------------------------------
   await app.register(agentRoutes);
   await app.register(processRoutes);
+  await app.register(integrationRoutes);
 
   // Apply rate limiting specifically to auth endpoints
   app.addHook("onRoute", (routeOptions) => {
