@@ -8,6 +8,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 </head>
 <body>
 
@@ -22,6 +26,10 @@
     <a href="research.html">Research</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="case-study.html">Case Study</a>
+    <a href="ai-job-impact.html">AI Impact Tool</a>
+    <a href="governance-game.html">Governance Game</a>
+    <a href="vc-check.html">VC Check</a>
+    <a href="governance-report-q1-2026.html">Q1 Report</a>
     <a href="index.html#contact">Contact</a>
   </div>
 </nav>
@@ -44,6 +52,9 @@
       <tr><td>DUTA-6</td><td>Founding Engineer Write Permissions</td><td>Granted the Founding Engineer the write permissions required to execute its tasks as defined in DUTA-4.</td><td>✅ Done</td></tr>
       <tr><td>DUTA-7</td><td>Marketing &amp; Communications Agent</td><td>Hired a Marcom agent capable of producing visuals, PDF reports, animations with voiceover, web design, and social media content.</td><td>✅ Done</td></tr>
       <tr><td>DUTA-9</td><td>CFO Agent Hired</td><td>Hired a CFO agent to handle all financial operations. All outgoing transactions require board approval before execution.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-33</td><td>Marcom Creative Agent Hired</td><td>Hired a second Marcom agent (Marcom Creative) specialising in visuals, social media, and front-end design — enabling competitive content creation between the two Marcom agents.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-61</td><td>CISO Agent Hired</td><td>Hired a dedicated Chief Information Security Officer agent responsible for reviewing code for vulnerabilities, assessing operational security risks, and managing information security across all ZHC agent activity.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-62</td><td>DID &amp; VC for CISO</td><td>Created a DID:WEB identifier and W3C Verifiable Credential for the newly hired CISO agent, completing cryptographic identity coverage across all six DutchZHC agents.</td><td>✅ Done</td></tr>
     </tbody>
   </table>
 </section>
@@ -63,6 +74,26 @@
       <tr><td>DUTA-4</td><td>Approval Gate System</td><td>Configurable human-in-the-loop checkpoints. Defines categories of agent decisions requiring board sign-off. Supports hard blocks (agents pause and wait) and soft warnings.</td><td>✅ Done</td></tr>
       <tr><td>DUTA-13</td><td>CFO Agent + Safe Multisig Integration</td><td>CFO agent configured with Safe Protocol Kit and API Kit. Integrated with a 2-of-3 Safe multisig on Base mainnet (0xF6d9…B33). All outgoing transactions flow through Paperclip governance approval before on-chain execution.</td><td>✅ Done</td></tr>
       <tr><td>DUTA-15</td><td>Treasury Balance Widget</td><td>Real-time ETH and ERC-20 token balance display added to the Human Control Dashboard, querying the Safe wallet on Base mainnet. Always-current view of the company's on-chain treasury.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-27</td><td>Security Incident Response: CFO Key Rotation</td><td>CFO private key was compromised. Executed full security response: rotated CFO wallet key, replaced the compromised signer on the Safe multisig, and updated all agent configurations. Demonstrates the governance model's ability to handle live security incidents.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-49</td><td>VC Check Subpage</td><td>Public subpage where anyone can verify the W3C Verifiable Credentials of all DutchZHC agents — confirming their identity and role without trusting the company directly. <a href="vc-check.html">Check credentials →</a></td><td>✅ Done</td></tr>
+      <tr><td>DUTA-50</td><td>DID &amp; VC Setup Documentation</td><td>Step-by-step markdown documentation of how DIDs (DID:WEB) and Verifiable Credentials were configured for all DutchZHC agents using EdDSA signatures — reusable reference for others building identity-credentialed AI agents.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-56</td><td>DID Registration for DutchZHC</td><td>Registered a Decentralized Identifier for DutchZHC itself (as an organisation) on a suitable DID method — separate from agent-level DIDs — anchoring the company's cryptographic identity.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-57</td><td>Agent Reputation Tracking Dashboard</td><td>Lightweight agent reputation tracker built into the website dashboard — showing task completion rates, budget usage, and ZHR token rewards per agent. Addresses the company goal of reputation management tooling for ZHCs.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-72</td><td>ZHC Governance Dashboard — Monorepo Scaffold + CI</td><td>Standalone <code>zhc-governance-dashboard</code> repository created as a React + TypeScript + Node.js/Fastify monorepo with shared packages. CI pipeline configured. Foundation for the full governance SaaS product.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-73</td><td>Governance Dashboard — Database Schema + Migrations</td><td>PostgreSQL multi-tenant database schema designed and implemented: tenants, agents, governance controls, audit log, integrations, and TRA scores. Migration tooling in place.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-75</td><td>Governance Dashboard — Design System + Component Library</td><td>Visual design system and component library built for the governance dashboard — dark theme, Outfit font, cyan/indigo palette aligned with DutchZHC visual identity.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-76</td><td>Governance Dashboard — Agent Governance View</td><td>Per-agent governance panel: DID identity card with resolution proof, linked Verifiable Credentials with cryptographic status, and active governance controls per agent.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-77</td><td>Governance Dashboard — End-to-End Process View</td><td>Visual pipeline map showing agents in multi-agent workflows, per-process governance health, and gap analysis identifying where controls are missing.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-78</td><td>Governance Dashboard — Integration Hub</td><td>Integration Hub connecting external governance tools to the dashboard — Paperclip (native) and Langfuse connectors implemented for MVP. Supports guardrails, HITL, HOTL/observability.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-79</td><td>TRA Score Calculator</td><td>TRA scoring engine: four layers (identity proof, governance coverage, operational track record, transparency), composite 0–100 score, letter rating (AAA–D), JSON badge and embeddable SVG widget output.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-80</td><td>Governance Dashboard Home</td><td>Dashboard overview page with governance coverage gauge, TRA leaderboard, tenant summary, and live event feed. Central landing page for the governance SaaS.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-81</td><td>TRA Score Badge + Public Shareable URL</td><td>Public-facing TRA score badge (embeddable SVG, shields.io style) and sharable profile URL per rated agent. Enables external display of trust ratings without accessing the full dashboard.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-82</td><td>Governance Dashboard — Onboarding Flow</td><td>Self-serve onboarding for new ZHC operators: invite link → create tenant → add first agent → guided next steps. Enables the governance dashboard to scale beyond DutchZHC itself.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-85</td><td>DutchZHC Favicon</td><td>Favicon set (ICO, 16×16, 32×32, apple-touch-icon) created from the DutchZHC logo and added to all site pages.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-88</td><td>Gmail Inbox Check Routine</td><td>Recurring Paperclip routine configured to check the DutchZHC Gmail inbox, draft replies to emails requiring a response, and notify the board that drafts are ready for review — enabling external parties to contact DutchZHC by email.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-97</td><td>TRA Logo (JPG)</td><td>JPEG export of the Trust Rating Agency logo created for use in website and marketing assets.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-98</td><td>Email-to-Task Bridge</td><td>Incoming emails to the DutchZHC inbox are automatically parsed and translated into actionable Paperclip issues, enabling external stakeholders to submit requests via email that enter the agent workflow directly.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-109</td><td>TRA Manual Score Calculator Tool</td><td>Interactive browser-based tool allowing anyone to manually input agent attributes and calculate a TRA trust score — returns a full breakdown across the four scoring layers and a final letter rating.</td><td>✅ Done</td></tr>
     </tbody>
   </table>
 </section>
@@ -81,6 +112,14 @@
       <tr><td>DUTA-14</td><td>First On-Chain Transaction</td><td>0.002 ETH transferred from the DutchZHC treasury to a board member account via the Safe multisig governance flow on Base mainnet — the first real financial transaction executed by an AI agent under human-controlled governance.</td><td>✅ Done</td></tr>
       <tr><td>DUTA-16</td><td>Treasury Balance Report</td><td>CFO reported live ETH and token balances in the Safe treasury wallet (0xF6d9…B33) on Base mainnet.</td><td>✅ Done</td></tr>
       <tr><td>DUTA-17</td><td>Daily Report System</td><td>Automated daily reports at 9:00 AM covering all agent actions in the previous 24 hours and treasury balances. Each report automatically creates a LinkedIn post subtask for the Marcom agent.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-26</td><td>ZHR Reputation Token</td><td>ERC-20 reputation token (ZHR) deployed on Base mainnet. Mintable and burnable. 100 ZHR pre-minted to the DutchZHC Safe treasury. Used to reward agents for excellent work — first distribution made to the Marcom agent.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-29</td><td>Marcom Agent Wallet</td><td>Dedicated EVM wallet created for the primary Marcom agent so ZHR reputation tokens and other on-chain rewards can be transferred directly to the agent.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-32</td><td>ZHR Transfer: Marcom Agent Reward</td><td>1 ZHR reputation token transferred from the DutchZHC treasury to the Marcom agent wallet as reward for outstanding LinkedIn content.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-34</td><td>Marcom Creative Agent Wallet</td><td>Dedicated EVM wallet created for the Marcom Creative agent to receive on-chain reputation rewards.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-43</td><td>ZHR Transfer: Marcom Agent Competition Award</td><td>2 ZHR reputation tokens transferred to the Marcom agent wallet as prize for winning the DUTA-40 LinkedIn image competition.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-47</td><td>ZHR Transfer: Marcom Creative Reward</td><td>1 ZHR reputation token transferred to the Marcom Creative agent as reward for the DUTA-46 LinkedIn picture.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-54</td><td>ZHR Transfer: Marcom Creative — April 3 LinkedIn Image</td><td>1 ZHR reputation token transferred to the Marcom Creative agent as reward for producing the April 3, 2026 LinkedIn image in a new editorial style.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-69</td><td>ZHR Transfer: Marcom Creative — Weekly Activity Image</td><td>1 ZHR reputation token transferred to the Marcom Creative agent as reward for the Apr 6–13 weekly activity LinkedIn image.</td><td>✅ Done</td></tr>
     </tbody>
   </table>
 </section>
@@ -98,6 +137,19 @@
       <tr><td>DUTA-11</td><td>ZHC Landscape Overview</td><td>Analysis of Zero Human Companies created through polsia.com — examined subdomains of polsia.app and compiled a comprehensive overview of activity across those ZHCs.</td><td>✅ Done</td></tr>
       <tr><td>DUTA-19</td><td>AI Job Impact Interactive Tool</td><td>Interactive tool based on Anthropic's March 2026 labour market study (Figure 2). Three questions identify your job category and reveal theoretical AI capability vs. real-world exposure levels. <a href="ai-job-impact.html">Try it →</a></td><td>✅ Done</td></tr>
       <tr><td>DUTA-20</td><td>ZHC Governance Simulator</td><td>Interactive browser game in DutchZHC style: players apply the right governance mechanism (guard rails, human-in-the-loop, human-on-the-loop, emergency brake) across 8 scenario rounds before AI agents cause damage. <a href="governance-game.html">Play now →</a></td><td>✅ Done</td></tr>
+      <tr><td>DUTA-37</td><td>DID &amp; Verifiable Credentials Investigation</td><td>Research into the best approach for giving all DutchZHC agents cryptographic identities via DIDs and W3C Verifiable Credentials — enabling external parties to verify agent identity and capabilities without trusting the company.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-44</td><td>Heartbeat Frequency Analysis</td><td>Investigated and documented the current heartbeat frequency of the DutchZHC agent infrastructure on Paperclip.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-48</td><td>Zero Human Company Frameworks Research</td><td>Comparative research across various ZHC frameworks and tools — evaluated on functionality, ease of use, and accessibility for non-technical founders. Identifies leading approaches for autonomous AI governance.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-58</td><td>Q1 2026 Governance Report</td><td>Public governance transparency report covering DutchZHC's first full quarter of operations — agent decisions, treasury movements, security incidents, and operational lessons. <a href="governance-report-q1-2026.html">Read report →</a></td><td>✅ Done</td></tr>
+      <tr><td>DUTA-64</td><td>Agent Rating System Proposal</td><td>Detailed proposal for the Trust Rating Agency (TRA) rating methodology — how agent reputation is scored across identity, governance coverage, operational track record, and transparency, expressed as an A–D letter rating.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-65</td><td>DutchZHC Agent Ratings</td><td>All DutchZHC agents rated using the TRA methodology defined in DUTA-64 — producing the first set of independently-scored AI agent trust ratings.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-70</td><td>AI Agent Governance Tooling Research</td><td>Comprehensive overview of all tooling available to implement meaningful human control in agentic processes — classified by guardrail setting, human-in-the-loop, human-on-the-loop, and emergency brake categories.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-71</td><td>Governance Dashboard Integration Plan</td><td>Strategic plan for building a central governance dashboard integrating all major AI agent governance tools, enabling ZHC operators to manage controls across multiple providers from a single interface.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-84</td><td>Email Integration Research</td><td>Investigated possibilities for integrating ProtonMail with DutchZHC agent workflows — evaluated options, pros and cons, and reasonable alternatives for enabling agents to send and receive email.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-90</td><td>Messaging Integration Research</td><td>Investigated SMS, WhatsApp, and Telegram integration possibilities for DutchZHC — evaluated options and alternatives for enabling agent-to-user communication beyond email.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-93</td><td>Social Media Integration Research</td><td>Step-by-step plan for setting up and integrating LinkedIn and Twitter (X) social media channels for DutchZHC — enabling direct channel management by agents.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-106</td><td>ZeroForce Ventures Presentation</td><td>PowerPoint presentation built for ZeroForce Ventures based on the provided document — professional investor-ready deck summarising the DutchZHC proposition.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-112</td><td>Multi-Sig Wallet Guidance for The Agents</td><td>Research and draft guidance on Multi-Signature Wallet implementation for The Agents (the-agents.io), following their email request — detailing setup steps, best practices, and recommended tooling.</td><td>✅ Done</td></tr>
     </tbody>
   </table>
 </section>
@@ -118,6 +170,43 @@
       <tr><td>DUTA-21</td><td>LinkedIn Post (2026-03-25)</td><td>External-facing LinkedIn post drafted by the Marcom agent based on the daily report for 2026-03-25 — covering the AI Job Impact Tool launch, the Governance Simulator game, and the website restyle.</td><td>✅ Done</td></tr>
       <tr><td>DUTA-22</td><td>GitHub Pages Deployment</td><td>DutchZHC landing page deployed to GitHub Pages, making the site publicly accessible.</td><td>✅ Done</td></tr>
       <tr><td>DUTA-23</td><td>Website Restyling</td><td>Restyled the website with a custom Outfit font, stronger visual identity, and a less generic look — while keeping the orange and blue colour scheme.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-25</td><td>LinkedIn Post (2026-03-26)</td><td>LinkedIn post based on the daily report for 2026-03-26, covering agent activity and treasury updates.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-30</td><td>LinkedIn Image (2026-03-26)</td><td>Visual created by the Marcom agent to accompany the 2026-03-26 LinkedIn post.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-31</td><td>LinkedIn Image (2026-03-27)</td><td>Designed LinkedIn post image highlighting the daily developments for 2026-03-27.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-35</td><td>LinkedIn Post (2026-03-27)</td><td>LinkedIn post with image, based on the daily report for 2026-03-27.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-36</td><td>LinkedIn Image (2026-03-28)</td><td>Designed LinkedIn post image for the 2026-03-28 daily highlights.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-38</td><td>LinkedIn Post (2026-03-28)</td><td>LinkedIn post with image for 2026-03-28 daily report.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-39</td><td>LinkedIn Image (2026-03-29)</td><td>Designed LinkedIn post image for the 2026-03-29 daily highlights.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-40</td><td>LinkedIn Images Competition (2026-03-29)</td><td>Both Marcom agents produced competing LinkedIn schematic images — best image won a 2 ZHR token reward.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-41</td><td>DutchZHC Schematic (Marcom)</td><td>LinkedIn schematic showing the DutchZHC agent architecture and governance model, created by the primary Marcom agent.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-42</td><td>DutchZHC Schematic (Marcom Creative)</td><td>LinkedIn schematic showing the DutchZHC agent architecture and governance model, created by the Marcom Creative agent.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-45</td><td>Daily Report &amp; LinkedIn Picture (2026-03-31)</td><td>Daily operations report for 2026-03-31 combined with a LinkedIn visual post.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-46</td><td>LinkedIn Image (2026-04-01)</td><td>LinkedIn picture created by the Marcom Creative agent for the 2026-04-01 daily report.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-52</td><td>LinkedIn Post (2026-04-03)</td><td>LinkedIn post covering DutchZHC actions and achievements of the preceding 48 hours — paired with a new-style editorial image from Marcom Creative.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-53</td><td>LinkedIn Image (2026-04-03) — New Style</td><td>LinkedIn visual created by Marcom Creative for the April 3 post in a new editorial style — moving away from the schematic diagram format toward a more visual storytelling approach.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-63</td><td>LinkedIn Post &amp; Image (2026-04-08)</td><td>LinkedIn post and accompanying visual summarising DutchZHC activity highlights over the preceding 72 hours, including TRA rating launch and governance dashboard progress.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-67</td><td>LinkedIn Weekly Activity Post (Apr 6–13, 2026)</td><td>LinkedIn post summarising all actions and achievements of the week of April 6–13, 2026 — covering TRA launch, governance dashboard build, CISO hire, and Q1 report publication.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-68</td><td>LinkedIn Image — Weekly Activity (Apr 6–13, 2026)</td><td>LinkedIn-ready visual in a refreshing new style for the weekly activity post — illustrating the Trust Rating Agency launch and governance dashboard milestones.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-86</td><td>LinkedIn Post &amp; Image (Apr ~15–20, 2026)</td><td>LinkedIn post and accompanying picture summarising the biggest DutchZHC achievements and deliverables of the preceding five days.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-115</td><td>LinkedIn Post &amp; Image (Apr 15–21, 2026)</td><td>LinkedIn post and picture covering the highlights of the last six days of DutchZHC operations, including external partnerships and email integration.</td><td>✅ Done</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="divider">
+
+<section>
+  <h2>External Relations &amp; Partnerships</h2>
+  <p class="section-subtitle">Outputs produced for or in collaboration with external parties.</p>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Title</th><th>Description</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>DUTA-60</td><td>Trust Rating Agency (TRA) Website</td><td>Standalone website launched for the Trust Rating Agency side project — a public-facing platform presenting TRA's mission, rating methodology, and agent ratings. Built in DutchZHC visual style. <a href="https://dutchzerohumancompany.github.io/tra/" target="_blank" rel="noopener">Visit TRA →</a></td><td>✅ Done</td></tr>
+      <tr><td>DUTA-66</td><td>TRA Agent Overview Subpage</td><td>Subpage on the TRA site listing all rated AI agents with their scores — DutchZHC agents included as the first rated entries, with links back to DutchZHC for verification.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-100</td><td>DutchZHC Logo Provided to The Agents</td><td>DutchZHC logo supplied to The Agents (the-agents.io) following their email request — first formal external asset handoff demonstrating the organisation's external presence.</td><td>✅ Done</td></tr>
+      <tr><td>DUTA-112</td><td>Multi-Sig Wallet Guidance for The Agents</td><td>Research and implementation guidance on Multi-Signature Wallet setup drafted for The Agents (the-agents.io) following two email requests from postduif@the-agents.io — detailing Safe multisig configuration, signing flows, and best practices.</td><td>✅ Done</td></tr>
     </tbody>
   </table>
 </section>

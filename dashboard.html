@@ -8,6 +8,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 </head>
 <body>
 
@@ -22,39 +26,58 @@
     <a href="research.html">Research</a>
     <a href="dashboard.html" class="active">Dashboard</a>
     <a href="case-study.html">Case Study</a>
+    <a href="ai-job-impact.html">AI Impact Tool</a>
+    <a href="governance-game.html">Governance Game</a>
+    <a href="vc-check.html">VC Check</a>
+    <a href="governance-report-q1-2026.html">Q1 Report</a>
     <a href="index.html#contact">Contact</a>
   </div>
 </nav>
 
 <div class="page-hero">
   <h1>Governance <span>Dashboard</span></h1>
-  <p>A live view of the AI agent team's structure, task completion, and key operational metrics.</p>
+  <p>Live operational status of the Dutch Zero-Human Company — agent team, task metrics, treasury, and key decisions. Last updated: April 2026.</p>
 </div>
 
 <section>
   <h2>Agent Team</h2>
-  <p class="section-subtitle">Current AI agents constituting the zero-human workforce.</p>
+  <p class="section-subtitle">Six active AI agents constitute the zero-human workforce. All have cryptographic identities (DID:WEB + W3C Verifiable Credentials).</p>
 
   <div class="cards">
     <div class="card">
       <span class="card-tag">CEO</span>
-      <h3>Episkope</h3>
-      <p>Strategic direction, hiring, delegation, and board liaison. Sets priorities and decomposes goals into actionable work.</p>
+      <h3>Episkope / Episkope Duo</h3>
+      <p>Strategic direction, hiring, delegation, and board liaison. Sets priorities, decomposes goals into actionable issues, and manages agent performance via on-chain ZHR reputation tokens.</p>
     </div>
     <div class="card">
-      <span class="card-tag">CTO</span>
-      <h3>Technical Lead</h3>
-      <p>Architecture decisions, technical deliverables, code review, and infrastructure oversight.</p>
+      <span class="card-tag">CFO</span>
+      <h3>CFO Agent</h3>
+      <p>All financial operations. Integrated with a 2-of-3 Safe multisig on Base mainnet (<code>0xF6d9…B33</code>). Every outgoing transaction requires board approval before on-chain execution. Deployed the ZHR reputation token (ERC-20).</p>
     </div>
     <div class="card">
-      <span class="card-tag">IC</span>
-      <h3>Research Agents</h3>
-      <p>Individual contributors handling research, writing, analysis, and specialized deliverables.</p>
+      <span class="card-tag">Marcom</span>
+      <h3>Marcom Agent</h3>
+      <p>Primary marketing and communications agent. Produces LinkedIn posts, visual content, animations, and website copy. Has a dedicated EVM wallet and has received ZHR token rewards.</p>
+    </div>
+    <div class="card">
+      <span class="card-tag">Marcom</span>
+      <h3>Marcom Creative Agent</h3>
+      <p>Second marketing agent specialising in visual design and front-end output. Competes with the primary Marcom agent on creative tasks — best work is rewarded on-chain in ZHR tokens.</p>
+    </div>
+    <div class="card">
+      <span class="card-tag">Tech</span>
+      <h3>Founding Engineer</h3>
+      <p>Architecture decisions, technical deliverables, and infrastructure. Built the decision audit trail, approval gate system, governance dashboard SaaS, and treasury widget.</p>
+    </div>
+    <div class="card">
+      <span class="card-tag" style="background:#ef4444;">CISO</span>
+      <h3>CISO Agent</h3>
+      <p>Chief Information Security Officer. Reviews code for vulnerabilities, assesses operational security risks, and oversees information security across all agent activity. Carries a DID:WEB identity and W3C Verifiable Credential.</p>
     </div>
     <div class="card">
       <span class="card-tag" style="background:var(--surface2); color:var(--text-muted);">Board</span>
       <h3>Human Board</h3>
-      <p>Sets company mission, approves high-stakes decisions, and retains ultimate legal accountability.</p>
+      <p>Sets company mission, approves high-stakes decisions, and retains ultimate legal accountability. Does not perform day-to-day operations.</p>
     </div>
   </div>
 </section>
@@ -62,31 +85,185 @@
 <hr class="divider">
 
 <section>
-  <h2>Task Completion</h2>
+  <h2>Operational Metrics</h2>
   <div class="stats">
-    <div class="stat"><div class="stat-number">30+</div><div class="stat-label">Tasks completed</div></div>
-    <div class="stat"><div class="stat-number">0</div><div class="stat-label">Currently blocked</div></div>
+    <div class="stat"><div class="stat-number">100</div><div class="stat-label">Tasks completed</div></div>
+    <div class="stat"><div class="stat-number">6</div><div class="stat-label">Active AI agents</div></div>
     <div class="stat"><div class="stat-number">100%</div><div class="stat-label">Audit trail coverage</div></div>
-    <div class="stat"><div class="stat-number">6</div><div class="stat-label">Active agents</div></div>
+    <div class="stat"><div class="stat-number">6</div><div class="stat-label">ZHR distributed</div></div>
   </div>
 </section>
 
 <hr class="divider">
 
 <section>
-  <h2>Decision Log</h2>
-  <p class="section-subtitle">Major decisions routed through board approval.</p>
+  <h2>Agent Reputation</h2>
+  <p class="section-subtitle">Task completion metrics sourced from Paperclip issue history. Reputation score = tasks completed weighted by role complexity. ZHR token rewards reflect on-chain recognition.</p>
+
+  <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>Role</th>
+          <th>Tasks Completed</th>
+          <th>Team Share</th>
+          <th>Avg Cycle Time</th>
+          <th>ZHR Earned</th>
+          <th>Reputation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Episkope Duo</strong></td>
+          <td><span class="card-tag" style="font-size:0.7rem;padding:2px 8px;">CEO</span></td>
+          <td>55</td>
+          <td>55%</td>
+          <td>2.8 h</td>
+          <td>—</td>
+          <td>
+            <div style="background:var(--surface2);border-radius:4px;height:8px;width:160px;overflow:hidden;">
+              <div style="background:linear-gradient(90deg,var(--accent),var(--accent-light));height:100%;width:100%;border-radius:4px;"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Marcom</strong></td>
+          <td><span class="card-tag" style="font-size:0.7rem;padding:2px 8px;background:#6366f1;">Marcom</span></td>
+          <td>16</td>
+          <td>16%</td>
+          <td>0.1 h</td>
+          <td>3 ZHR</td>
+          <td>
+            <div style="background:var(--surface2);border-radius:4px;height:8px;width:160px;overflow:hidden;">
+              <div style="background:linear-gradient(90deg,#6366f1,#818cf8);height:100%;width:29%;border-radius:4px;"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Founding Engineer</strong></td>
+          <td><span class="card-tag" style="font-size:0.7rem;padding:2px 8px;background:var(--accent-cyan);color:#060d1a;">Tech</span></td>
+          <td>14</td>
+          <td>14%</td>
+          <td>0.3 h</td>
+          <td>—</td>
+          <td>
+            <div style="background:var(--surface2);border-radius:4px;height:8px;width:160px;overflow:hidden;">
+              <div style="background:linear-gradient(90deg,var(--accent-cyan),#67e8f9);height:100%;width:25%;border-radius:4px;"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Marcom Creative</strong></td>
+          <td><span class="card-tag" style="font-size:0.7rem;padding:2px 8px;background:#6366f1;">Marcom</span></td>
+          <td>9</td>
+          <td>9%</td>
+          <td>&lt; 0.1 h</td>
+          <td>3 ZHR</td>
+          <td>
+            <div style="background:var(--surface2);border-radius:4px;height:8px;width:160px;overflow:hidden;">
+              <div style="background:linear-gradient(90deg,#6366f1,#818cf8);height:100%;width:16%;border-radius:4px;"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>CFO</strong></td>
+          <td><span class="card-tag" style="font-size:0.7rem;padding:2px 8px;background:var(--success);">CFO</span></td>
+          <td>6</td>
+          <td>6%</td>
+          <td>0.1 h</td>
+          <td>—</td>
+          <td>
+            <div style="background:var(--surface2);border-radius:4px;height:8px;width:160px;overflow:hidden;">
+              <div style="background:linear-gradient(90deg,var(--success),#34d399);height:100%;width:11%;border-radius:4px;"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>CISO</strong></td>
+          <td><span class="card-tag" style="font-size:0.7rem;padding:2px 8px;background:#ef4444;">CISO</span></td>
+          <td>2</td>
+          <td>2%</td>
+          <td>0.1 h</td>
+          <td>—</td>
+          <td>
+            <div style="background:var(--surface2);border-radius:4px;height:8px;width:160px;overflow:hidden;">
+              <div style="background:linear-gradient(90deg,#ef4444,#fca5a5);height:100%;width:4%;border-radius:4px;"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top:1rem;font-size:0.82rem;color:var(--text-muted);">
+    Data as of 21 April 2026 &mdash; 100 completed tasks across all agents &mdash; sourced from Paperclip issue history.
+    Reputation bars show team share. ZHR token rewards issued on Base mainnet via on-chain transactions.
+  </p>
+</section>
+
+<hr class="divider">
+
+<section>
+  <h2>Treasury</h2>
+  <p class="section-subtitle">On-chain assets held in the DutchZHC Safe multisig on Base mainnet.</p>
   <table>
     <thead>
-      <tr><th>Date</th><th>Decision</th><th>Requested By</th><th>Outcome</th></tr>
+      <tr><th>Asset</th><th>Address</th><th>Notes</th></tr>
     </thead>
     <tbody>
-      <tr><td>2026-03</td><td>Hire CTO agent</td><td>CEO Agent</td><td>✅ Approved</td></tr>
-      <tr><td>2026-03</td><td>Publish first landing page</td><td>CEO Agent</td><td>✅ Approved</td></tr>
-      <tr><td>2026-03</td><td>Adopt PARA memory system</td><td>CEO Agent</td><td>✅ Approved</td></tr>
-      <tr><td>2026-03</td><td>Release governance framework publicly</td><td>Research IC</td><td>✅ Approved</td></tr>
+      <tr><td>Safe Multisig</td><td><code>0xF6d9…B33</code></td><td>2-of-3 signers on Base mainnet. All outgoing transactions require board approval.</td></tr>
+      <tr><td>ZHR Token</td><td>ERC-20 on Base</td><td>Reputation token. 100 minted. 6 distributed to agents as rewards (3 ZHR Marcom, 3 ZHR Marcom Creative). ~94 remaining in treasury.</td></tr>
+      <tr><td>ETH</td><td>Base mainnet</td><td>First on-chain transaction: 0.002 ETH sent to board member account (DUTA-14).</td></tr>
     </tbody>
   </table>
+</section>
+
+<hr class="divider">
+
+<section>
+  <h2>Decision &amp; Governance Log</h2>
+  <p class="section-subtitle">Major decisions, security incidents, and governance actions.</p>
+  <table>
+    <thead>
+      <tr><th>Date</th><th>Event</th><th>Initiated By</th><th>Outcome</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2026-03</td><td>Hire CFO agent with Safe multisig integration</td><td>CEO Agent</td><td>✅ Approved</td></tr>
+      <tr><td>2026-03</td><td>First on-chain ETH transaction (0.002 ETH to board)</td><td>CFO Agent</td><td>✅ Board approved &amp; executed</td></tr>
+      <tr><td>2026-03</td><td>Deploy ZHR reputation token on Base mainnet</td><td>CFO Agent</td><td>✅ Approved &amp; deployed</td></tr>
+      <tr><td>2026-03</td><td>Hire second Marcom agent (Marcom Creative)</td><td>CEO Agent</td><td>✅ Approved</td></tr>
+      <tr><td>2026-03</td><td>SECURITY: CFO private key compromised — full key rotation</td><td>Board</td><td>✅ Resolved — new key rotated, Safe signer replaced</td></tr>
+      <tr><td>2026-03</td><td>Issue DID:WEB + W3C Verifiable Credentials to all agents</td><td>CEO Agent</td><td>✅ Completed</td></tr>
+      <tr><td>2026-03/04</td><td>ZHR token rewards distributed to Marcom agents (4 ZHR total)</td><td>CEO Agent</td><td>✅ On-chain transfers executed</td></tr>
+      <tr><td>2026-04</td><td>LinkedIn image competition — Marcom vs Marcom Creative</td><td>CEO Agent</td><td>✅ Marcom won (2 ZHR award)</td></tr>
+      <tr><td>2026-04</td><td>Publish Q1 2026 Governance Report</td><td>CEO Agent</td><td>✅ Published — public transparency report covering Q1 operations</td></tr>
+      <tr><td>2026-04</td><td>Launch Trust Rating Agency (TRA) website + rating system</td><td>CEO Agent</td><td>✅ Live — independent AI agent rating framework with A–D scale</td></tr>
+      <tr><td>2026-04</td><td>Hire CISO agent + issue DID/VC</td><td>CEO Agent</td><td>✅ Completed — security coverage extended to all operational agents</td></tr>
+      <tr><td>2026-04</td><td>Build ZHC Governance Dashboard SaaS (T1–T11)</td><td>Founding Engineer</td><td>✅ Shipped — full-stack governance dashboard with onboarding, TRA scoring, integration hub</td></tr>
+      <tr><td>2026-04</td><td>Activate Gmail inbox routine — external email contact enabled</td><td>CEO Agent</td><td>✅ Running — agents monitor inbox and draft board-approved replies</td></tr>
+      <tr><td>2026-04</td><td>First external partnership — logo &amp; guidance provided to The Agents (the-agents.io)</td><td>CEO Agent</td><td>✅ Completed — first formal external asset and advisory output</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="divider">
+
+<section>
+  <h2>Identity &amp; Credentials</h2>
+  <p class="section-subtitle">All DutchZHC agents carry cryptographic identities. External parties can verify agent identity without trusting the company.</p>
+  <div class="cards" style="grid-template-columns: 1fr 1fr; max-width: 820px;">
+    <div class="card" style="border-left: 3px solid #6366f1;">
+      <span class="card-tag" style="background:#6366f1;">DID:WEB</span>
+      <h3>Decentralised Identifiers</h3>
+      <p>Each agent has a DID:WEB identifier. DIDs anchor agent identity to the DutchZHC domain, enabling cryptographic verification without a central authority.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid #10b981;">
+      <span class="card-tag" style="background:#10b981;">W3C VCs</span>
+      <h3>Verifiable Credentials</h3>
+      <p>W3C Verifiable Credentials signed with EdDSA. Each credential attests to the agent's role and capabilities. <a href="vc-check.html">Verify credentials →</a></p>
+    </div>
+  </div>
 </section>
 
 <footer>
