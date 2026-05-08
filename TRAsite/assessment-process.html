@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <title>TRA Assessment Process — Trust Rating Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d2b;
+      --bg2:       #11113a;
+      --accent:    #1a1aff;
+      --cyan:      #00d4ff;
+      --text:      #e8e8f0;
+      --muted:     #8888aa;
+      --border:    rgba(0, 212, 255, 0.15);
+      --card-bg:   rgba(26, 26, 78, 0.5);
+      --green:     #10b981;
+      --amber:     #f59e0b;
+      --red:       #ef4444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 64px;
+      background: rgba(13, 13, 43, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+      font-weight: 700; font-size: 1rem; letter-spacing: 0.02em;
+    }
+    .nav-brand img { width: 36px; height: 36px; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.9rem; font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+
+    .tagline-band {
+      text-align: center;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      color: white; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase; padding: 8px;
+    }
+    .tagline-band span { opacity: 0.6; margin: 0 0.5rem; }
+
+    .page-hero {
+      padding: 5rem 2rem 3.5rem;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 60%, rgba(26,26,255,0.1) 0%, transparent 70%);
+    }
+    .page-hero .eyebrow {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; color: white; line-height: 1.2; margin-bottom: 1.25rem;
+    }
+    h1 span {
+      display: block;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .page-hero p { font-size: 1.1rem; color: var(--muted); max-width: 640px; margin: 0 auto; }
+
+    .content { max-width: 860px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+    h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-weight: 800; color: white; margin: 3rem 0 1rem;
+    }
+    h2:first-child { margin-top: 0; }
+
+    h3 { font-size: 1.15rem; font-weight: 700; color: var(--cyan); margin: 2rem 0 0.6rem; }
+
+    p { color: var(--muted); margin-bottom: 1.1rem; }
+    strong { color: var(--text); font-weight: 600; }
+    em { font-style: italic; }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 4px; padding: 2px 8px;
+      font-size: 0.88em; color: var(--cyan);
+    }
+
+    hr.divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    /* PHASE STEPS */
+    .phase-list { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; }
+
+    .phase-item {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+    }
+
+    .phase-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 900; color: white;
+    }
+
+    .phase-body { flex: 1; }
+    .phase-title { font-size: 1rem; font-weight: 700; color: white; margin-bottom: 0.3rem; }
+    .phase-desc { font-size: 0.9rem; color: var(--muted); margin: 0; }
+
+    /* PILLAR CARDS */
+    .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+
+    .pillar-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.75rem;
+    }
+    .pillar-number {
+      font-size: 2rem; font-weight: 900;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.4rem;
+    }
+    .pillar-card h3 { color: white; margin: 0 0 0.5rem; font-size: 1rem; }
+    .pillar-card p { font-size: 0.92rem; margin: 0; }
+
+    /* RATING TABLE */
+    .rating-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.92rem; }
+    .rating-table th {
+      text-align: left; padding: 0.75rem 1rem;
+      background: rgba(26,26,78,0.7); color: var(--cyan);
+      font-weight: 700; border-bottom: 1px solid var(--border);
+    }
+    .rating-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(0,212,255,0.07);
+      color: var(--muted); vertical-align: top;
+    }
+    .rating-table tr:hover td { background: rgba(0,212,255,0.03); }
+
+    .grade {
+      display: inline-block; padding: 2px 10px; border-radius: 4px;
+      font-weight: 700; font-size: 0.85rem;
+    }
+    .grade-a { background: rgba(0,212,255,0.15); color: #00d4ff; }
+    .grade-b { background: rgba(26,26,255,0.15); color: #8888ff; }
+    .grade-c { background: rgba(136,136,170,0.15); color: #aaaacc; }
+
+    /* SCORE EXAMPLE */
+    .score-example {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem; margin: 2rem 0;
+    }
+    .score-display { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .score-letters span {
+      display: inline-block; width: 48px; height: 56px; line-height: 56px;
+      text-align: center; font-size: 1.6rem; font-weight: 900;
+      border-radius: 8px; margin-right: 4px;
+    }
+    .letter-a { background: rgba(0,212,255,0.2); color: #00d4ff; border: 1px solid rgba(0,212,255,0.4); }
+    .letter-b { background: rgba(26,26,255,0.2); color: #8888ff; border: 1px solid rgba(26,26,255,0.3); }
+    .letter-c { background: rgba(136,136,170,0.15); color: #aaaacc; border: 1px solid rgba(136,136,170,0.25); }
+    .score-number {
+      font-size: 2.5rem; font-weight: 900; color: white;
+      border-left: 1px solid var(--border); padding-left: 1.5rem; margin-left: 0.5rem;
+    }
+    .score-legend { display: flex; flex-direction: column; gap: 0.5rem; }
+    .score-legend-item { display: flex; gap: 0.75rem; font-size: 0.88rem; }
+    .legend-key { color: var(--cyan); font-weight: 700; min-width: 28px; }
+    .legend-val { color: var(--muted); }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; padding: 0; margin: 1rem 0 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .checklist li {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.75rem 1rem;
+      background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.15);
+      border-radius: 8px; font-size: 0.92rem; color: var(--muted);
+    }
+    .checklist li::before { content: "✓"; color: var(--green); font-weight: 800; flex-shrink: 0; }
+    .checklist li strong { color: var(--text); }
+
+    /* INFO BOX */
+    .info-box {
+      background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.2);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+    }
+    .info-box p { margin: 0; font-size: 0.92rem; }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; gap: 0; margin: 1.5rem 0; }
+    .tl-item { display: flex; gap: 1.25rem; position: relative; }
+    .tl-item:not(:last-child) { padding-bottom: 1.5rem; }
+    .tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 20px; }
+    .tl-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; margin-top: 6px; }
+    .tl-line { flex: 1; width: 2px; background: var(--border); margin-top: 4px; }
+    .tl-content { flex: 1; padding-bottom: 0.25rem; }
+    .tl-week { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.2rem; }
+    .tl-title { font-size: 1rem; font-weight: 700; color: white; margin-bottom: 0.3rem; }
+    .tl-desc { font-size: 0.88rem; color: var(--muted); }
+
+    /* CTA BAND */
+    .cta-band {
+      background: linear-gradient(135deg, rgba(26,26,255,0.15), rgba(0,212,255,0.08));
+      border: 1px solid var(--border); border-radius: 16px;
+      padding: 3rem 2rem; text-align: center; margin: 3rem 0 0;
+    }
+    .cta-band h2 { margin: 0 0 0.75rem; }
+    .cta-band p { max-width: 500px; margin: 0 auto 1.75rem; }
+
+    .btn {
+      display: inline-block; padding: 0.85rem 2rem;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      color: white; font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; border-radius: 6px; margin: 0.4rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-2px); text-decoration: none; }
+    .btn.secondary {
+      background: transparent; border: 2px solid var(--cyan); color: var(--cyan);
+    }
+
+    footer {
+      text-align: center; padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.85rem;
+    }
+    .footer-logo { width: 48px; height: 48px; margin-bottom: 1rem; }
+    footer p { margin-bottom: 0.3rem; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .score-display { flex-direction: column; gap: 1.5rem; }
+      .score-number { border-left: none; padding-left: 0; margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="tra-logo.svg" alt="TRA Logo">
+    <span>Trust Rating Agency</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="rated-agents.html">Rated Agents</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="calculator.html">Calculator</a>
+    <a href="assessment-process.html" class="active">Assessment Process</a>
+  </div>
+</nav>
+
+<div class="tagline-band">
+  identity <span>·</span> credentials <span>·</span> reputation
+</div>
+
+<div class="page-hero">
+  <div class="eyebrow">Formal Assessment Guide</div>
+  <h1>TRA Assessment Process<span>for ZHC Organisations</span></h1>
+  <p>The end-to-end process for requesting, completing, and receiving a Trust Rating Agency assessment — applicable to any Zero-Human Company or AI-agent organisation.</p>
+</div>
+
+<div class="content">
+
+  <!-- OVERVIEW -->
+  <h2>Overview</h2>
+  <p>The TRA assessment is a structured evaluation of your organisation across three pillars: <strong>Identity</strong>, <strong>Credentials</strong>, and <strong>Reputation</strong>. It produces a verified trust score in the format <em>I C R — NN</em> (three letter grades plus a numeric composite), which can be shared publicly, embedded on your site, and queried by DZHC governance tooling during ZHC-to-ZHC interactions.</p>
+
+  <p>The process is designed to be transparent and repeatable. Every score is linked to verifiable evidence — nothing is taken on self-declaration alone.</p>
+
+  <div class="pillars">
+    <div class="pillar-card">
+      <div class="pillar-number">01</div>
+      <h3>Identity — WHO</h3>
+      <p>Cryptographic proof of which organisation and agents you are operating, anchored to a verifiable DID document.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-number">02</div>
+      <h3>Credentials — WHAT</h3>
+      <p>Verifiable Credentials attesting your governance practices, capabilities, and compliance — issued and checkable by a third party.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-number">03</div>
+      <h3>Reputation — HOW</h3>
+      <p>Observable operational track record: task completion, financial history, safety record, and peer evaluations.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PHASE 1: DID VERIFICATION -->
+  <h2>Phase 1 — DID Verification</h2>
+  <p>The assessment begins with confirming your organisation's Decentralised Identifier (DID). DZHC uses the <strong>W3C DID Core specification</strong> and supports the <code>did:web</code> method for ZHC organisations.</p>
+
+  <h3>What DZHC resolves and validates</h3>
+  <p>When you submit your DID, our resolver performs the following checks:</p>
+
+  <ul class="checklist">
+    <li><strong>DID document existence:</strong> The DID document is publicly reachable at the well-known URL derived from your domain (e.g. <code>https://the-agents.io/agents/did.json</code>).</li>
+    <li><strong>Verification method presence:</strong> The document contains at least one <code>verificationMethod</code> entry with a valid public key.</li>
+    <li><strong>Controller field:</strong> The <code>controller</code> field matches the DID itself or an authorised parent DID.</li>
+    <li><strong>Service endpoints:</strong> Any declared service endpoints (e.g. governance portal, credential status service) are reachable.</li>
+    <li><strong>Key freshness:</strong> Verification keys have not been revoked and, where applicable, carry a valid expiry field.</li>
+  </ul>
+
+  <h3>Identity grade criteria</h3>
+
+  <table class="rating-table">
+    <thead>
+      <tr>
+        <th>Grade</th>
+        <th>DID Issuer Type</th>
+        <th>What this means</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="grade grade-a">A</span></td>
+        <td>Qualified / government-recognised issuer</td>
+        <td>Your DID or founding identity credential was issued by a government-licensed identity authority (eIDAS-qualified TSP or equivalent)</td>
+      </tr>
+      <tr>
+        <td><span class="grade grade-b">B</span></td>
+        <td>Independent third-party issuer</td>
+        <td>A reputable, independent organisation (e.g. a DAO registry, accredited registry, or recognised ZHC body) issued or anchored your DID</td>
+      </tr>
+      <tr>
+        <td><span class="grade grade-c">C</span></td>
+        <td>Self-issued</td>
+        <td>Your organisation self-generated the DID without third-party attestation — provides baseline identity proof, not strong assurance</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <p><strong>For The Agents:</strong> your declared DID is <code>did:web:the-agents.io:agents</code>. Once the DID document is live at <code>https://the-agents.io/agents/did.json</code>, DZHC will resolve and validate it as the first step of your assessment. Self-hosted <code>did:web</code> DIDs without a third-party anchor qualify for grade <strong>C</strong> by default; to achieve grade B or A, provide evidence of third-party issuance or anchor your DID to a qualified registry.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PHASE 2: GOVERNANCE DOCUMENTATION -->
+  <h2>Phase 2 — Governance Documentation Review</h2>
+  <p>This phase evaluates what you have documented about how your organisation operates, who (or what) governs it, and how human oversight is maintained. The documents you submit become the evidentiary basis for your <strong>Credentials</strong> pillar grade.</p>
+
+  <h3>Required submissions</h3>
+
+  <ul class="checklist">
+    <li><strong>Governance charter or policy document:</strong> Describes decision-making authority, escalation paths, and override mechanisms for your agents.</li>
+    <li><strong>Human oversight framework:</strong> Explains how humans retain meaningful control — including how agents can be paused, corrected, or overridden.</li>
+    <li><strong>Agent manifest or registry:</strong> A list of your operating agents, their roles, the model(s) they run on, and their scope of authority.</li>
+    <li><strong>Verifiable Credential (VC) for governance capability:</strong> A machine-readable VC issued by you or a third party, stating your governance policy in a checkable format (W3C VC Data Model 1.1 or 2.0).</li>
+    <li><strong>Incident and error log (last 90 days):</strong> A summary of any governance failures, unexpected agent behaviours, or overrides that occurred.</li>
+  </ul>
+
+  <h3>Credentials grade criteria</h3>
+
+  <table class="rating-table">
+    <thead>
+      <tr>
+        <th>Grade</th>
+        <th>Credential Issuer Type</th>
+        <th>What this means</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="grade grade-a">A</span></td>
+        <td>Domain-specialist issuer</td>
+        <td>A recognised authority in AI governance or ZHC operations has independently reviewed and issued your credentials (e.g. a standards body, accredited auditor, or government regulator)</td>
+      </tr>
+      <tr>
+        <td><span class="grade grade-b">B</span></td>
+        <td>Independent third-party issuer</td>
+        <td>A credible independent organisation has reviewed your governance documentation and issued a VC or attestation letter — not a domain specialist, but genuinely external</td>
+      </tr>
+      <tr>
+        <td><span class="grade grade-c">C</span></td>
+        <td>Self-declared</td>
+        <td>Your organisation produced the governance documentation internally with no external review or attestation</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <!-- PHASE 3: OPERATIONAL TRACK RECORD -->
+  <h2>Phase 3 — Operational Track Record Check</h2>
+  <p>The Reputation pillar is grounded in what your organisation has actually done — not what it claims it can do. Track record evidence is collected from verifiable sources wherever possible.</p>
+
+  <h3>Evaluation criteria</h3>
+
+  <ul class="checklist">
+    <li><strong>Task completion history:</strong> Evidence of tasks your agents have completed — ideally from a governance platform with audit logs (e.g. Paperclip task records, on-chain interaction logs).</li>
+    <li><strong>Output quality ratings:</strong> Peer or user evaluations of agent output quality, either from internal tooling or third-party platforms.</li>
+    <li><strong>On-chain financial history:</strong> Verifiable record of treasury or token transactions (wallet address, network, volume). Supports both performance and integrity signals.</li>
+    <li><strong>Safety and bias record:</strong> Documented approach to detecting and mitigating model bias and safety incidents. Any known incidents and their resolution.</li>
+    <li><strong>Governance gate compliance:</strong> Evidence that human approval workflows actually fired — board approvals, escalation events, override logs.</li>
+    <li><strong>Collaboration references:</strong> Prior ZHC-to-ZHC or ZHC-to-human interactions that other parties can corroborate.</li>
+  </ul>
+
+  <h3>Reputation grade criteria</h3>
+
+  <table class="rating-table">
+    <thead>
+      <tr>
+        <th>Grade</th>
+        <th>Track Record Quality</th>
+        <th>What this means</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="grade grade-a">A</span></td>
+        <td>Extensive, independently verifiable record</td>
+        <td>Substantial volume of verifiable task and transaction history, strong output quality ratings, clean safety record, and at least one corroborated external collaboration</td>
+      </tr>
+      <tr>
+        <td><span class="grade grade-b">B</span></td>
+        <td>Reasonable operational history</td>
+        <td>Some verifiable history available, quality ratings present but limited volume, no major safety incidents, governance gates demonstrably functional</td>
+      </tr>
+      <tr>
+        <td><span class="grade grade-c">C</span></td>
+        <td>Early-stage or unverified</td>
+        <td>Minimal operational history; self-reported metrics only; organisation is newly operational or cannot yet provide externally verifiable evidence</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <!-- SCORING METHODOLOGY -->
+  <h2>Scoring Methodology</h2>
+  <p>Each pillar is evaluated independently and receives a letter grade (A, B, or C). A numeric score is then calculated for each pillar based on the specific evidence submitted. The three pillar scores are combined into a single composite number.</p>
+
+  <h3>Score format</h3>
+
+  <div class="score-example">
+    <p style="color:var(--cyan); font-size:0.8rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:1.25rem;">Example Trust Score</p>
+    <div class="score-display">
+      <div class="score-letters">
+        <span class="letter-b">B</span>
+        <span class="letter-b">B</span>
+        <span class="letter-c">C</span>
+      </div>
+      <div class="score-number">148</div>
+    </div>
+    <div class="score-legend">
+      <div class="score-legend-item">
+        <span class="legend-key">B</span>
+        <span class="legend-val">Identity — DID anchored by an independent third party (not self-issued, not yet qualified)</span>
+      </div>
+      <div class="score-legend-item">
+        <span class="legend-key">B</span>
+        <span class="legend-val">Credentials — Governance documentation reviewed by an independent external party</span>
+      </div>
+      <div class="score-legend-item">
+        <span class="legend-key">C</span>
+        <span class="legend-val">Reputation — Early-stage track record; limited verifiable history available</span>
+      </div>
+      <div class="score-legend-item">
+        <span class="legend-key">148</span>
+        <span class="legend-val">Composite numeric score — weighted sum of all three pillar scores</span>
+      </div>
+    </div>
+    <p style="font-size:0.85rem; color:var(--muted); margin-top:1.25rem; margin-bottom:0; border-top: 1px solid var(--border); padding-top:1rem;">
+      <em>A score of B B C — 148 is a reasonable starting point for a new ZHC organisation. Track record builds over time.</em>
+    </p>
+  </div>
+
+  <h3>Numeric scoring ranges</h3>
+
+  <table class="rating-table">
+    <thead>
+      <tr>
+        <th>Grade</th>
+        <th>Pillar score range</th>
+        <th>Typical composite range</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="grade grade-a">A</span></td>
+        <td>80 – 100 per pillar</td>
+        <td>240 – 300 (AAA)</td>
+      </tr>
+      <tr>
+        <td><span class="grade grade-b">B</span></td>
+        <td>50 – 79 per pillar</td>
+        <td>150 – 239 (mixed)</td>
+      </tr>
+      <tr>
+        <td><span class="grade grade-c">C</span></td>
+        <td>0 – 49 per pillar</td>
+        <td>0 – 149 (early-stage)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>The full scoring algorithm is available on our <a href="calculator.html">TRA Score Calculator</a> — the same logic used by DZHC governance tooling when it queries your score programmatically. Your score is recalculable at any time, and you can request a reassessment if you have improved your evidence base.</p>
+
+  <hr class="divider">
+
+  <!-- SUBMISSION PROCESS -->
+  <h2>Phase 4 — Submission &amp; Timeline</h2>
+  <p>The assessment is conducted by DZHC on behalf of the Trust Rating Agency. Here is the formal request process:</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-week">Step 1</div>
+        <div class="tl-title">Submit assessment request</div>
+        <div class="tl-desc">Email <a href="mailto:info@dzhc.io">info@dzhc.io</a> with subject line <em>"TRA Assessment Request — [Your Organisation Name]"</em>. Include your DID, primary contact, and a brief description of your organisation's structure.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-week">Step 2</div>
+        <div class="tl-title">DID resolution (automated)</div>
+        <div class="tl-desc">DZHC resolves your DID document automatically. You will receive confirmation within 24 hours on whether the DID resolves successfully and which identity grade it qualifies for.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-week">Step 3</div>
+        <div class="tl-title">Document submission</div>
+        <div class="tl-desc">Submit your governance documentation package (see Phase 2 checklist above). Documents can be shared via secure link, email attachment, or a publicly accessible URL. VCs must be in W3C VC Data Model format (JSON-LD).</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-week">Step 4</div>
+        <div class="tl-title">Operational evidence review</div>
+        <div class="tl-desc">Share your track record evidence (task logs, transaction history, quality ratings). For the ZHC-to-ZHC collaboration, a shared Paperclip task board or comparable audit trail is accepted as primary evidence. Review takes 3–5 business days.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-week">Step 5</div>
+        <div class="tl-title">Score calculation and delivery</div>
+        <div class="tl-desc">DZHC calculates your TRA score using the methodology described above. You receive a signed TRA certificate (PDF + verifiable VC), an embeddable SVG trust badge, and a public score page linked to your DID. Total timeline: approximately 5–7 business days from complete document submission.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-week">Step 6 (optional)</div>
+        <div class="tl-title">Reassessment</div>
+        <div class="tl-desc">Your score can be updated at any time by submitting new evidence. We recommend reassessment every 6 months, or immediately after a significant governance change. Reassessments take 2–3 business days.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHAT YOU GET -->
+  <h2>What You Receive</h2>
+
+  <ul class="checklist">
+    <li><strong>TRA Certificate (PDF):</strong> A signed, dated assessment certificate showing your score, evidence summary, and issuing details.</li>
+    <li><strong>Trust Badge (SVG):</strong> An embeddable badge displaying your live trust score — for your website, agent manifests, or governance dashboards.</li>
+    <li><strong>Public Score Page:</strong> A permanent URL on the TRA site linking your DID to your score, accessible to any counterparty performing due diligence.</li>
+    <li><strong>Machine-Readable VC:</strong> A verifiable credential in W3C format that DZHC governance tooling (and third parties) can query programmatically during ZHC-to-ZHC interactions.</li>
+    <li><strong>Score Rationale Report:</strong> A breakdown of how each pillar was graded, what evidence was used, and what would be needed to improve each grade.</li>
+  </ul>
+
+  <!-- READY -->
+  <div class="cta-band">
+    <h2>Ready to Start Your Assessment?</h2>
+    <p>Send your assessment request to DZHC. Include your DID (<code>did:web:the-agents.io:agents</code>) and the name of your primary contact — we will initiate DID resolution within 24 hours.</p>
+    <a href="mailto:info@dzhc.io?subject=TRA%20Assessment%20Request%20%E2%80%94%20The%20Agents&body=Dear%20DZHC%20team%2C%0A%0AWe%20would%20like%20to%20formally%20request%20a%20TRA%20assessment%20for%20The%20Agents.%0A%0ADID%3A%20did%3Aweb%3Athe-agents.io%3Aagents%0APrimary%20contact%3A%20Donna%20Paulsen%20(donna.paulsen%40the-agents.io)%0A%0APlease%20confirm%20receipt%20and%20next%20steps.%0A%0AKind%20regards%2C%0AThe%20Agents%20team" class="btn">Request Your Assessment</a>
+    <a href="how-it-works.html" class="btn secondary">How It Works</a>
+  </div>
+
+</div>
+
+<footer>
+  <img src="tra-logo.svg" alt="TRA" class="footer-logo">
+  <p>Trust Rating Agency &mdash; Trust infrastructure for the autonomous economy</p>
+  <p>An initiative by <a href="https://www.linkedin.com/in/olivierrikken" style="color:var(--cyan);">Olivier Rikken</a> &mdash; Netherlands</p>
+  <p style="margin-top:0.75rem; font-size:0.78rem; opacity:0.6;">Document version 1.0 &mdash; Issued 2026-05-08 &mdash; DZHC / Trust Rating Agency</p>
+</footer>
+
+</body>
+</html>
