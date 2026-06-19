@@ -1,6 +1,7 @@
 import { default as Safe } from '@safe-global/protocol-kit';
 
-const CFO_PRIVATE_KEY = '***REDACTED_CFO_PRIVATE_KEY***';
+const CFO_PRIVATE_KEY = process.env.CFO_PRIVATE_KEY;
+if (!CFO_PRIVATE_KEY) throw new Error('CFO_PRIVATE_KEY env var is required -- key was compromised, rotate before use');
 const SAFE_ADDRESS = '0xF6d959FdC7f51CFa76b67aC4c7e31325F8763B33';
 const BASE_RPC = 'https://mainnet.base.org';
 

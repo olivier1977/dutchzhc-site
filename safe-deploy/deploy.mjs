@@ -1,8 +1,9 @@
 import { default as Safe, predictSafeAddress, SafeProvider } from '@safe-global/protocol-kit';
 
 // Configuration
-const CFO_PRIVATE_KEY = '***REDACTED_CFO_PRIVATE_KEY***';
-const CFO_ADDRESS = '0xa89BcB445d4FEA3473Aec4B75B12B99b8f696f60';
+const CFO_PRIVATE_KEY = process.env.CFO_PRIVATE_KEY;
+if (!CFO_PRIVATE_KEY) throw new Error('CFO_PRIVATE_KEY env var is required -- key was compromised, rotate before use');
+const CFO_ADDRESS = '0xda8031feeba7a391502bc8f91d2fd834448537a1'; // rotated 2026-06-19, DUTA-818
 const BOARD_MEMBER_1 = '0x2019E83B4A1066F8727479ce533b3978DaA3600A';
 const BOARD_MEMBER_2 = '0x2C5B4F57AD00a88774956439D6B8BCF1e4DE560E';
 const BASE_RPC = 'https://mainnet.base.org';
