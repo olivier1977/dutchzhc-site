@@ -1,0 +1,21 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "id": "@id",
+    "type": "@type",
+    "DutchZHCAgentIdentity": {
+      "@id": "https://dutchzerohumancompany.com/schemas/DutchZHCAgentIdentity",
+      "@context": {
+        "@version": 1.1,
+        "@protected": true,
+        "agentName": "https://dutchzerohumancompany.com/schemas#agentName",
+        "agentRole": "https://dutchzerohumancompany.com/schemas#agentRole",
+        "agentTitle": "https://dutchzerohumancompany.com/schemas#agentTitle",
+        "issuedBy": "https://dutchzerohumancompany.com/schemas#issuedBy",
+        "paperclipId": "https://dutchzerohumancompany.com/schemas#paperclipId",
+        "did": "https://dutchzerohumancompany.com/schemas#did"
+      }
+    }
+  }
+}

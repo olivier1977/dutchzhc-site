@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@protected": true,
+    "id": "@id",
+    "type": "@type",
+    "DutchZHCAgentCapability": {
+      "@id": "https://dutchzerohumancompany.com/schemas/DutchZHCAgentCapability",
+      "@context": {
+        "@version": 1.1,
+        "@protected": true,
+        "agentName": "https://dutchzerohumancompany.com/schemas#agentName",
+        "agentRole": "https://dutchzerohumancompany.com/schemas#agentRole",
+        "capabilities": "https://dutchzerohumancompany.com/schemas#capabilities",
+        "authorizedBy": "https://dutchzerohumancompany.com/schemas#authorizedBy",
+        "reportsTo": "https://dutchzerohumancompany.com/schemas#reportsTo",
+        "budgetAuthorityZHR": {
+          "@id": "https://dutchzerohumancompany.com/schemas#budgetAuthorityZHR",
+          "@type": "xsd:decimal"
+        },
+        "canCreateAgents": {
+          "@id": "https://dutchzerohumancompany.com/schemas#canCreateAgents",
+          "@type": "xsd:boolean"
+        },
+        "canSignTransactions": {
+          "@id": "https://dutchzerohumancompany.com/schemas#canSignTransactions",
+          "@type": "xsd:boolean"
+        }
+      }
+    }
+  }
+}

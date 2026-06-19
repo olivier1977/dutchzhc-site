@@ -1,0 +1,34 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:dutchzerohumancompany.com",
+  "verificationMethod": [
+    {
+      "id": "did:web:dutchzerohumancompany.com#key-1",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:dutchzerohumancompany.com",
+      "publicKeyJwk": {
+        "crv": "Ed25519",
+        "x": "qTDk5lN19cHSVtnrHwDXgti-lBtLW8uhdnttBPHw1mE",
+        "kty": "OKP"
+      }
+    }
+  ],
+  "authentication": [
+    "did:web:dutchzerohumancompany.com#key-1"
+  ],
+  "assertionMethod": [
+    "did:web:dutchzerohumancompany.com#key-1"
+  ],
+  "capabilityDelegation": [
+    "did:web:dutchzerohumancompany.com#key-1"
+  ],
+  "capabilityInvocation": [
+    "did:web:dutchzerohumancompany.com#key-1"
+  ],
+  "alsoKnownAs": [
+    "did:ethr:0x89:0x2e34bdb84444de13ab6b78322df3e08d26c9807e"
+  ]
+}
