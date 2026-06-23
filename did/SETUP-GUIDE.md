@@ -352,9 +352,10 @@ node did/issue-credentials.mjs
 Then redeploy the updated `.jwt` files.
 
 ### Revoking a credential
-1. Set the bit at the credential's `statusListIndex` to `1` in `status-list-2021.json`
-2. Redeploy the status list
-3. Re-issue a replacement credential if needed
+```bash
+node tools/revoke-credential.mjs --status-list did/status-list/status-list-2021.json --index <N> --action revoke
+```
+Then redeploy the updated status list file to the webserver. Re-issue a replacement credential if needed.
 
 ### Key rotation
 1. Generate a new Ed25519 key pair (Step 2)
@@ -490,3 +491,101 @@ EthereumDIDRegistry for each entity.
 ---
 
 _For operational procedures (re-issuing, revoking, key rotation, webserver config), see `RUNBOOK.md` in the same folder._
+
+---
+
+## Client-Managed Credential Revocation
+
+_Added 2026-06-23. DUTA-887._
+
+Clients who receive credentials from DZHC can host their own Status List 2021 and manage
+revocations autonomously using the tooling in `tools/`.
+
+### Deliverables for client engagements
+
+| Tool | Purpose |
+|---|---|
+| `tools/status-list-init.mjs` | Initialize a fresh status list for a new client |
+| `tools/revoke-credential.mjs` | Revoke or restore individual credential entries |
+
+### Step A — Initialize the client status list
+
+Run once when onboarding a new client:
+
+```bash
+node tools/status-list-init.mjs --domain client.example.com --output ./client-status-list.json
+```
+
+Options:
+
+| Flag | Default | Description |
+|---|---|---|
+| `--domain` | (required) | Client domain — drives the status list URL |
+| `--output` | `./status-list.json` | Output file path |
+| `--issuer` | `did:web:<domain>` | Override the issuer DID |
+| `--purpose` | `revocation` | `revocation` or `suspension` |
+
+The generated file is a valid W3C Status List 2021 JSON with a 16,384-byte (131,072-bit) all-zero
+bitstring, supporting up to 131,072 credential slots.
+
+### Step B — Host the status list
+
+The client must serve the JSON file publicly at:
+
+```
+https://<domain>/status-list/status-list-2021.json
+```
+
+Serve with `Content-Type: application/json`. Verifiers fetch this URL to check revocation status.
+
+### Step C — Reference the status list in issued credentials
+
+When DZHC issues credentials to the client's agents, include a `credentialStatus` field:
+
+```json
+"credentialStatus": {
+  "id": "https://client.example.com/status-list/status-list-2021.json#5",
+  "type": "StatusList2021Entry",
+  "statusPurpose": "revocation",
+  "statusListIndex": "5",
+  "statusListCredential": "https://client.example.com/status-list/status-list-2021.json"
+}
+```
+
+Assign each credential a unique, sequential `statusListIndex` starting at 0.
+
+### Step D — Revoke or restore a credential
+
+```bash
+# Check current status
+node tools/revoke-credential.mjs --status-list ./client-status-list.json --index 5 --action check
+
+# Revoke
+node tools/revoke-credential.mjs --status-list ./client-status-list.json --index 5 --action revoke
+
+# Restore
+node tools/revoke-credential.mjs --status-list ./client-status-list.json --index 5 --action restore
+```
+
+After every change, redeploy the updated `status-list.json` to the hosting URL.
+
+Options:
+
+| Flag | Description |
+|---|---|
+| `--status-list` | Path to the Status List 2021 JSON file (required) |
+| `--index` | 0-based credential index (required) |
+| `--action` | `revoke`, `restore`, or `check` (required) |
+| `--output` | Write to a different file instead of updating in place |
+
+### How revocation works (W3C Status List 2021)
+
+The `encodedList` field in the JSON is a GZIP-compressed bitstring encoded as base64url.
+Each bit position corresponds to one credential's `statusListIndex`. A bit value of `1` means
+revoked; `0` means active. Verifiers decompress the list, look up the bit at the credential's
+index, and reject the credential if the bit is set.
+
+Bit ordering follows the W3C spec: MSB-first within each byte (index 0 = bit 7 of byte 0,
+index 7 = bit 0 of byte 0, index 8 = bit 7 of byte 1, etc.).
+
+No private keys are needed to update the status list — the client controls it entirely.

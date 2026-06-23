@@ -126,15 +126,31 @@ All files must be served with `Content-Type: application/json` (or `application/
 
 ## Revoking a Credential
 
-Currently using a static Status List 2021 file (`did/status-list/status-list-2021.json`).
+Using the `tools/revoke-credential.mjs` CLI. Each credential's `credentialStatus.statusListIndex`
+tells you which bit to flip.
 
-To revoke an agent's credential:
-1. Update the `encodedList` bitstring in `status-list/status-list-2021.json`
-   (bit at the credential's `statusListIndex` set to `1` = revoked)
-2. Re-sign the status list credential and deploy to the webserver
-3. Re-issue a new credential for the agent if needed (e.g. after role change)
+**Check current status:**
+```bash
+node tools/revoke-credential.mjs --status-list <path/to/status-list.json> --index <N> --action check
+```
 
-For programmatic revocation tooling, deploy walt.id — see **Future: walt.id** below.
+**Revoke (set bit to 1):**
+```bash
+node tools/revoke-credential.mjs --status-list <path/to/status-list.json> --index <N> --action revoke
+```
+
+**Restore (set bit to 0):**
+```bash
+node tools/revoke-credential.mjs --status-list <path/to/status-list.json> --index <N> --action restore
+```
+
+After updating the file, redeploy it to the webserver so verifiers pick up the change.
+To re-issue a replacement credential after revocation run `node did/issue-credentials.mjs`.
+
+> **Note:** The DZHC internal status list (`did/status-list/status-list-2021.json`) was
+> generated with a legacy tool that produced a malformed GZIP stream (truncated deflate block).
+> Use `tools/status-list-init.mjs` to generate a fresh, spec-compliant list for any new
+> client engagement. The revocation tool is designed for lists produced by that script.
 
 ---
 
