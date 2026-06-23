@@ -1,0 +1,50 @@
+{
+  "companyName": "Example Corp",
+  "agents": [
+    {
+      "name": "ceo-agent",
+      "displayName": "CEO Agent",
+      "role": "ceo",
+      "title": "Chief Executive Officer",
+      "capabilities": [
+        "strategic direction",
+        "hiring",
+        "governance",
+        "agent management",
+        "budget oversight"
+      ],
+      "reportsTo": null,
+      "canCreateAgents": true,
+      "canSignTransactions": false
+    },
+    {
+      "name": "engineer",
+      "displayName": "Engineer",
+      "role": "engineer",
+      "title": "Software Engineer",
+      "capabilities": [
+        "software development",
+        "architecture",
+        "web infrastructure"
+      ],
+      "reportsTo": "ceo-agent",
+      "canCreateAgents": false,
+      "canSignTransactions": false
+    },
+    {
+      "name": "cfo",
+      "displayName": "CFO",
+      "role": "cfo",
+      "title": "Chief Financial Officer",
+      "capabilities": [
+        "financial operations",
+        "budgeting",
+        "accounting",
+        "treasury"
+      ],
+      "reportsTo": "ceo-agent",
+      "canCreateAgents": false,
+      "canSignTransactions": true
+    }
+  ]
+}
