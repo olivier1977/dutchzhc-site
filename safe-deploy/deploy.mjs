@@ -1,69 +1,143 @@
 import { default as Safe, predictSafeAddress, SafeProvider } from '@safe-global/protocol-kit';
 
-// Configuration
-const CFO_PRIVATE_KEY = process.env.CFO_PRIVATE_KEY;
-if (!CFO_PRIVATE_KEY) throw new Error('CFO_PRIVATE_KEY env var is required -- key was compromised, rotate before use');
-const CFO_ADDRESS = '0xda8031feeba7a391502bc8f91d2fd834448537a1'; // rotated 2026-06-19, DUTA-818
-const BOARD_MEMBER_1 = '0x2019E83B4A1066F8727479ce533b3978DaA3600A';
-const BOARD_MEMBER_2 = '0x2C5B4F57AD00a88774956439D6B8BCF1e4DE560E';
-const BASE_RPC = 'https://mainnet.base.org';
-const BASE_CHAIN_ID = 8453n;
+// ---------------------------------------------------------------------------
+// CLI argument parser: --key value  (flags without next value are ignored)
+// ---------------------------------------------------------------------------
+function parseArgs(argv) {
+  const args = {};
+  for (let i = 2; i < argv.length; i++) {
+    if (argv[i].startsWith('--') && argv[i + 1] && !argv[i + 1].startsWith('--')) {
+      args[argv[i].slice(2)] = argv[++i];
+    }
+  }
+  return args;
+}
 
+const cliArgs = parseArgs(process.argv);
+
+// ---------------------------------------------------------------------------
+// Network definitions
+// ---------------------------------------------------------------------------
+const NETWORKS = {
+  'base': {
+    rpc: 'https://mainnet.base.org',
+    chainId: 8453n,
+    viemChain: {
+      id: 8453,
+      name: 'base',
+      nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+      rpcUrls: { default: { http: ['https://mainnet.base.org'] } },
+    },
+  },
+  'base-sepolia': {
+    rpc: 'https://sepolia.base.org',
+    chainId: 84532n,
+    viemChain: {
+      id: 84532,
+      name: 'base-sepolia',
+      nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+      rpcUrls: { default: { http: ['https://sepolia.base.org'] } },
+    },
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Resolve config: CLI args > env vars > error
+// ---------------------------------------------------------------------------
+const networkKey = cliArgs.network || process.env.SAFE_NETWORK || 'base';
+const network = NETWORKS[networkKey];
+if (!network) {
+  throw new Error(
+    `Unknown network "${networkKey}". Valid options: ${Object.keys(NETWORKS).join(', ')}`
+  );
+}
+
+const signersRaw = cliArgs.signers || process.env.SAFE_SIGNERS;
+if (!signersRaw) {
+  throw new Error(
+    'Signer addresses are required.\n' +
+    '  CLI:  --signers 0xAaa...,0xBbb...,0xCcc...\n' +
+    '  Env:  SAFE_SIGNERS=0xAaa...,0xBbb...,0xCcc...'
+  );
+}
+const owners = signersRaw.split(',').map(s => s.trim()).filter(Boolean);
+if (owners.length < 1) throw new Error('At least one signer address is required.');
+
+const thresholdRaw = cliArgs.threshold || process.env.SAFE_THRESHOLD;
+if (!thresholdRaw) {
+  throw new Error(
+    'Threshold is required.\n' +
+    '  CLI:  --threshold 2\n' +
+    '  Env:  SAFE_THRESHOLD=2'
+  );
+}
+const threshold = parseInt(thresholdRaw, 10);
+if (isNaN(threshold) || threshold < 1 || threshold > owners.length) {
+  throw new Error(
+    `Threshold must be between 1 and ${owners.length} (the number of signers). Got: ${thresholdRaw}`
+  );
+}
+
+// DEPLOYER_PRIVATE_KEY is the EOA that pays gas for the factory call.
+// It does NOT need to be a Safe signer — any funded wallet works.
+const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY || process.env.CFO_PRIVATE_KEY;
+if (!DEPLOYER_PRIVATE_KEY) {
+  throw new Error(
+    'Deployer private key is required. Set DEPLOYER_PRIVATE_KEY (or legacy CFO_PRIVATE_KEY) env var.\n' +
+    'This key pays deployment gas but does NOT need to be one of the Safe signers.'
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Deploy
+// ---------------------------------------------------------------------------
 async function deploySafe() {
-  console.log('Initializing Safe on Base...');
+  console.log(`\nDeploying Safe on ${networkKey}...`);
+  console.log(`  Owners (${owners.length}): ${owners.join(', ')}`);
+  console.log(`  Threshold: ${threshold}-of-${owners.length}`);
+  console.log(`  RPC: ${network.rpc}\n`);
 
-  const safeAccountConfig = {
-    owners: [CFO_ADDRESS, BOARD_MEMBER_1, BOARD_MEMBER_2],
-    threshold: 2,
-  };
+  const safeAccountConfig = { owners, threshold };
 
   const safeProvider = new SafeProvider({
-    provider: BASE_RPC,
-    signer: CFO_PRIVATE_KEY,
+    provider: network.rpc,
+    signer: DEPLOYER_PRIVATE_KEY,
   });
 
-  // First predict the address
   const predictedAddress = await predictSafeAddress({
     safeProvider,
-    chainId: BASE_CHAIN_ID,
+    chainId: network.chainId,
     safeAccountConfig,
     safeDeploymentConfig: {},
   });
   console.log('Predicted Safe address:', predictedAddress);
 
-  // Init with predicted safe (not yet deployed)
   const protocolKit = await Safe.init({
-    provider: BASE_RPC,
-    signer: CFO_PRIVATE_KEY,
+    provider: network.rpc,
+    signer: DEPLOYER_PRIVATE_KEY,
     predictedSafe: {
       safeAccountConfig,
       safeDeploymentConfig: {},
     },
   });
 
-  console.log('Deploying Safe 2-of-3 multisig...');
-  console.log('Owners:', safeAccountConfig.owners);
-  console.log('Threshold:', safeAccountConfig.threshold);
-
   const deploymentTx = await protocolKit.createSafeDeploymentTransaction();
 
   const provider = protocolKit.getSafeProvider();
   const signer = await provider.getExternalSigner();
 
-  console.log('Signer type:', typeof signer, signer?.constructor?.name);
-  console.log('Signer keys:', signer ? Object.getOwnPropertyNames(Object.getPrototypeOf(signer)) : 'null');
-
   const txHash = await signer.sendTransaction({
     to: deploymentTx.to,
     value: BigInt(deploymentTx.value),
     data: deploymentTx.data,
-    chain: { id: 8453, name: 'base', nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }, rpcUrls: { default: { http: [BASE_RPC] } } },
+    chain: network.viemChain,
   });
 
-  console.log('Transaction result:', txHash);
-  console.log('Transaction result type:', typeof txHash);
+  console.log('\nDeployment transaction submitted:', txHash);
+  console.log('Safe address:', predictedAddress);
+  console.log(`\nVerify on-chain: https://${networkKey === 'base' ? '' : 'sepolia.'}basescan.org/address/${predictedAddress}`);
 
-  return { predictedAddress, txHash };
+  return { network: networkKey, safeAddress: predictedAddress, txHash };
 }
 
 deploySafe().catch(console.error);
