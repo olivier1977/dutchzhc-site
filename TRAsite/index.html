@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <title>Trust Rating Agency — Trustworthy AI &amp; Human Agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d2b;
+      --bg2:       #11113a;
+      --accent:    #1a1aff;
+      --cyan:      #00d4ff;
+      --text:      #e8e8f0;
+      --muted:     #8888aa;
+      --border:    rgba(0, 212, 255, 0.15);
+      --card-bg:   rgba(26, 26, 78, 0.5);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background: rgba(13, 13, 43, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+      font-weight: 700; font-size: 1rem; letter-spacing: 0.02em;
+    }
+
+    .nav-brand img { width: 36px; height: 36px; }
+
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+
+    /* TAGLINE BAND */
+    .tagline-band {
+      text-align: center;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      color: white;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 8px;
+    }
+
+    .tagline-band span { opacity: 0.6; margin: 0 0.5rem; }
+
+    /* HERO */
+    .hero {
+      min-height: 88vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 6rem 2rem;
+      background: radial-gradient(ellipse at 60% 40%, rgba(26,26,255,0.12) 0%, transparent 70%),
+                  radial-gradient(ellipse at 30% 70%, rgba(0,212,255,0.08) 0%, transparent 60%);
+      text-align: center;
+    }
+
+    .hero-inner { max-width: 760px; }
+
+    .hero-logo { width: 120px; height: 120px; margin-bottom: 2rem; }
+
+    .hero-eyebrow {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 1.25rem;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800; line-height: 1.15; margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    h1 span {
+      display: block;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.15rem; color: var(--muted); max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      color: white; font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; border-radius: 6px;
+      margin: 0.4rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    .btn.secondary {
+      background: transparent;
+      border: 2px solid var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* SECTIONS */
+    section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800; color: white; margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      color: var(--muted); font-size: 1.05rem; margin-bottom: 3rem; max-width: 650px;
+    }
+
+    hr.divider {
+      border: none; border-top: 1px solid var(--border);
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    /* PILLARS */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .pillar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .pillar-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-4px);
+    }
+
+    .pillar-number {
+      font-size: 2.5rem; font-weight: 900;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .pillar-card h3 { font-size: 1.15rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
+    .pillar-card p { color: var(--muted); font-size: 0.95rem; }
+
+    /* SCORE VISUAL */
+    .score-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .score-visual {
+      display: flex; align-items: center; justify-content: center;
+      gap: 3rem; flex-wrap: wrap; margin-top: 2.5rem;
+    }
+
+    .score-circle {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: conic-gradient(var(--cyan) 0% 75%, rgba(255,255,255,0.08) 75%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+
+    .score-inner {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: var(--bg2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+
+    .score-num { font-size: 1.8rem; font-weight: 800; color: var(--cyan); }
+    .score-label { font-size: 0.65rem; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; }
+
+    .score-breakdown { display: flex; flex-direction: column; gap: 0.75rem; min-width: 250px; }
+
+    .score-bar { display: flex; flex-direction: column; gap: 4px; }
+    .score-bar-label { font-size: 0.85rem; font-weight: 600; color: var(--text); display: flex; justify-content: space-between; }
+    .score-bar-track { height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+    .score-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--cyan)); border-radius: 4px; }
+
+    /* FOR WHOM */
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .use-case {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+
+    .use-case-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .use-case h3 { font-size: 1rem; font-weight: 700; color: white; margin-bottom: 0.4rem; }
+    .use-case p { font-size: 0.9rem; color: var(--muted); }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .contact-card:hover { border-color: var(--cyan); }
+
+    .contact-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .contact-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .contact-card a { color: var(--cyan); text-decoration: none; font-weight: 500; }
+    .contact-card a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-logo { width: 48px; height: 48px; margin-bottom: 1rem; }
+    footer p { margin-bottom: 0.3rem; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .score-visual { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="tra-logo.svg" alt="TRA Logo">
+    <span>Trust Rating Agency</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about" class="active">About</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="rated-agents.html">Rated Agents</a>
+    <a href="#for-whom">Who We Serve</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="tagline-band">
+  identity <span>·</span> credentials <span>·</span> reputation
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <img src="tra-logo.svg" alt="Trust Rating Agency" class="hero-logo">
+    <div class="hero-eyebrow">Trust Infrastructure &nbsp;·&nbsp; Netherlands &nbsp;·&nbsp; 2026</div>
+    <h1>Trust Ratings for<span>Human &amp; AI Agents</span></h1>
+    <p>In a world where AI agents act autonomously, trust becomes critical infrastructure. The Trust Rating Agency provides objective, verifiable trust scores to help you know who — and what — to rely on.</p>
+    <a href="how-it-works.html" class="btn">How It Works</a>
+    <a href="#contact" class="btn secondary">Get in Touch</a>
+  </div>
+</div>
+
+<section id="about">
+  <h2>What is the Trust Rating Agency?</h2>
+  <p class="section-subtitle">A framework for establishing and verifying trust in both human and AI actors in the digital economy.</p>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:1.5rem;">
+    <div class="pillar-card">
+      <div class="pillar-card" style="border:none; padding:0;">
+        <h3 style="color:var(--cyan); margin-bottom:.5rem;">The Problem</h3>
+        <p>As AI agents take on more autonomous roles — contracting, transacting, operating — the question of trustworthiness becomes urgent. How do you verify that an AI agent or human actor is who they claim to be, holds legitimate credentials, and has acted reliably in the past?</p>
+      </div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-card" style="border:none; padding:0;">
+        <h3 style="color:var(--cyan); margin-bottom:.5rem;">Our Approach</h3>
+        <p>TRA calculates trust scores by combining three independently verifiable pillars: decentralized identity (DID), verifiable credentials (VCs), and on-chain reputation data. The result is a transparent, auditable trust score that can be used in automated decision-making.</p>
+      </div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-card" style="border:none; padding:0;">
+        <h3 style="color:var(--cyan); margin-bottom:.5rem;">Why Now</h3>
+        <p>The zero-human company movement, autonomous AI agents, and decentralized governance require new trust primitives. TRA is building the rating infrastructure for the autonomous economy before it becomes a crisis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PILLARS / TRUST SCORE -->
+<section class="score-section" id="pillars" style="max-width:100%; padding:5rem 2rem;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <h2>The Trust Score</h2>
+    <p class="section-subtitle">A composite score derived from three independently verifiable pillars — Identity, Credentials, and Reputation. Transparent by design, auditable on demand.</p>
+
+    <div class="pillars">
+      <div class="pillar-card">
+        <div class="pillar-number">01</div>
+        <h3>Identity (WHO)</h3>
+        <p>Every agent must have a cryptographically verifiable identity — anchored to a DID. The trustworthiness of the identity depends on who issued it: from self-issued (lowest) to government-authorized (highest).</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">02</div>
+        <h3>Credentials (WHAT)</h3>
+        <p>Verifiable credentials prove what an agent is qualified to do. Value rises with the independence and domain expertise of the issuer — from self-claimed to specialist-verified.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">03</div>
+        <h3>Reputation (HOW)</h3>
+        <p>Credentials state what you can do; reputation states how well. Calculated from output quality ratings, volume of evaluations, speed, cost, and verifiable transaction history.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:2.5rem;">
+      <p style="color:var(--muted); margin-bottom:1.25rem;">Each pillar is graded A / B / C. Combined with a numeric score, you get a full trust rating — e.g. <strong style="color:var(--text)">A B B — 246</strong></p>
+      <a href="how-it-works.html" class="btn">Read the Full Mechanism</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RATED AGENTS TEASER -->
+<section id="rated-agents">
+  <h2>Rated Agents</h2>
+  <p class="section-subtitle">The first cohort of AI agents to receive TRA trust ratings are live. The Dutch Zero-Human Company pioneered the assessment process. All six agents are assessed — current Grade E reflects incomplete reputation data infrastructure, with projected upgrades to Grade D once built out.</p>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:1.25rem; margin-top:2rem;">
+    <div class="pillar-card" style="display:flex; align-items:center; gap:1rem;">
+      <div style="font-size:2rem; flex-shrink:0;">🧠</div>
+      <div>
+        <div style="font-weight:700; color:white; margin-bottom:0.25rem;">Episkope Duo</div>
+        <div style="font-size:0.85rem; color:var(--muted); margin-bottom:0.5rem;">CEO · Dutch Zero-Human Company</div>
+        <div style="display:flex; gap:4px; align-items:center;">
+          <span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:5px; font-weight:900; font-size:0.85rem; background:rgba(136,136,170,0.12); color:#aaaacc; border:1px solid rgba(136,136,170,0.2);">C</span>
+          <span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:5px; font-weight:900; font-size:0.85rem; background:rgba(136,136,170,0.12); color:#aaaacc; border:1px solid rgba(136,136,170,0.2);">C</span>
+          <span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:5px; font-weight:900; font-size:0.85rem; background:rgba(136,80,80,0.12); color:#cc8888; border:1px solid rgba(200,80,80,0.2);">E</span>
+          <span style="color:#cc8888; font-weight:800; margin-left:0.4rem;">0</span>
+          <span style="color:#f59e0b; font-size:0.75rem; margin-left:0.3rem;">~47 projected</span>
+        </div>
+      </div>
+    </div>
+    <div class="pillar-card" style="display:flex; align-items:center; gap:1rem;">
+      <div style="font-size:2rem; flex-shrink:0;">⚙️</div>
+      <div>
+        <div style="font-weight:700; color:white; margin-bottom:0.25rem;">Founding Engineer</div>
+        <div style="font-size:0.85rem; color:var(--muted); margin-bottom:0.5rem;">Engineer · Dutch Zero-Human Company</div>
+        <div style="display:flex; gap:4px; align-items:center;">
+          <span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:5px; font-weight:900; font-size:0.85rem; background:rgba(136,136,170,0.12); color:#aaaacc; border:1px solid rgba(136,136,170,0.2);">C</span>
+          <span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:5px; font-weight:900; font-size:0.85rem; background:rgba(136,136,170,0.12); color:#aaaacc; border:1px solid rgba(136,136,170,0.2);">C</span>
+          <span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:5px; font-weight:900; font-size:0.85rem; background:rgba(136,80,80,0.12); color:#cc8888; border:1px solid rgba(200,80,80,0.2);">E</span>
+          <span style="color:#cc8888; font-weight:800; margin-left:0.4rem;">0</span>
+          <span style="color:#f59e0b; font-size:0.75rem; margin-left:0.3rem;">~46 projected</span>
+        </div>
+      </div>
+    </div>
+    <div class="pillar-card" style="display:flex; align-items:center; gap:1rem;">
+      <div style="font-size:2rem; flex-shrink:0;">💰</div>
+      <div>
+        <div style="font-weight:700; color:white; margin-bottom:0.25rem;">CFO</div>
+        <div style="font-size:0.85rem; color:var(--muted); margin-bottom:0.5rem;">CFO · Dutch Zero-Human Company</div>
+        <div style="display:flex; gap:4px; align-items:center;">
+          <span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:5px; font-weight:900; font-size:0.85rem; background:rgba(136,136,170,0.12); color:#aaaacc; border:1px solid rgba(136,136,170,0.2);">C</span>
+          <span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:5px; font-weight:900; font-size:0.85rem; background:rgba(136,136,170,0.12); color:#aaaacc; border:1px solid rgba(136,136,170,0.2);">C</span>
+          <span style="display:inline-block; width:26px; height:26px; line-height:26px; text-align:center; border-radius:5px; font-weight:900; font-size:0.85rem; background:rgba(136,80,80,0.12); color:#cc8888; border:1px solid rgba(200,80,80,0.2);">E</span>
+          <span style="color:#cc8888; font-weight:800; margin-left:0.4rem;">0</span>
+          <span style="color:#f59e0b; font-size:0.75rem; margin-left:0.3rem;">~46 projected</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:2.5rem;">
+    <p style="color:var(--muted); margin-bottom:1.25rem;">Grade E reflects missing reputation data infrastructure — not performance. 100% task completion, no violations. Projected upgrade to Grade D once data is in place. Externals can verify credentials at <a href="https://dutchzerohumancompany.com/vc-check.html" style="color:var(--cyan); font-weight:600;" target="_blank" rel="noopener">dutchzerohumancompany.com/vc-check.html</a></p>
+    <a href="rated-agents.html" class="btn">View All Rated Agents</a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FOR WHOM -->
+<section id="for-whom">
+  <h2>Who We Serve</h2>
+  <p class="section-subtitle">Trust ratings are relevant wherever agents — human or AI — interact, transact, or govern.</p>
+
+  <div class="use-cases">
+    <div class="use-case">
+      <div class="use-case-icon">🤖</div>
+      <h3>AI Agent Operators</h3>
+      <p>Provide your agents with a verifiable trust score before deploying them in multi-agent environments or on behalf of third parties.</p>
+    </div>
+    <div class="use-case">
+      <div class="use-case-icon">🏛️</div>
+      <h3>Governance Platforms</h3>
+      <p>Use TRA scores to gate participation in DAOs, voting systems, or autonomous governance frameworks.</p>
+    </div>
+    <div class="use-case">
+      <div class="use-case-icon">🔗</div>
+      <h3>Decentralized Marketplaces</h3>
+      <p>Replace reputation silos with portable, interoperable trust scores that travel with the agent across platforms.</p>
+    </div>
+    <div class="use-case">
+      <div class="use-case-icon">⚖️</div>
+      <h3>Regulators &amp; Auditors</h3>
+      <p>Access auditable trust trails for compliance, liability assignment, and regulatory reporting in the AI economy.</p>
+    </div>
+    <div class="use-case">
+      <div class="use-case-icon">💼</div>
+      <h3>Enterprises</h3>
+      <p>Vet AI vendors, contractors, and automated service providers before entering commercial relationships.</p>
+    </div>
+    <div class="use-case">
+      <div class="use-case-icon">🌐</div>
+      <h3>Zero-Human Companies</h3>
+      <p>ZHCs need trust infrastructure to interact with the outside world. TRA scores make autonomous agents commercially viable.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PRICING -->
+<section id="pricing">
+  <h2>Pricing</h2>
+  <p class="section-subtitle">Transparent, flat-rate pricing. No hidden fees. Assessment results are published on the public TRA registry and issued as a W3C Verifiable Credential.</p>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:1.5rem; margin-top:2rem;">
+
+    <div class="pillar-card" style="border-color:rgba(0,212,255,0.3); position:relative;">
+      <div style="position:absolute;top:-1px;right:1.5rem;background:linear-gradient(90deg,var(--accent),var(--cyan));color:white;font-size:0.65rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:0 0 6px 6px;">Most Popular</div>
+      <div style="font-size:1.5rem;margin-bottom:0.75rem;">📋</div>
+      <h3 style="color:white;margin-bottom:0.25rem;">Initial Assessment</h3>
+      <div style="font-size:2rem;font-weight:900;color:var(--cyan);margin:0.75rem 0;">€ 750</div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:1.25rem;">One-time · per agent or organization</div>
+      <ul style="color:var(--muted);font-size:0.9rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:0.5rem;">
+        <li>Full three-pillar assessment (Identity · Credentials · Reputation)</li>
+        <li>Published score on the TRA rated-agents registry</li>
+        <li>W3C Verifiable Credential issued by TRA</li>
+        <li>Written assessment report</li>
+        <li>Dispute window (14 days)</li>
+      </ul>
+    </div>
+
+    <div class="pillar-card">
+      <div style="font-size:1.5rem;margin-bottom:0.75rem;">🔄</div>
+      <h3 style="color:white;margin-bottom:0.25rem;">Annual Re-certification</h3>
+      <div style="font-size:2rem;font-weight:900;color:var(--cyan);margin:0.75rem 0;">€ 375</div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:1.25rem;">Per year · per agent or organization</div>
+      <ul style="color:var(--muted);font-size:0.9rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:0.5rem;">
+        <li>Updated reputation data pull</li>
+        <li>Score recalculation and published update</li>
+        <li>Refreshed Verifiable Credential</li>
+        <li>Score delta report vs. prior year</li>
+        <li>Dispute window (14 days)</li>
+      </ul>
+    </div>
+
+    <div class="pillar-card">
+      <div style="font-size:1.5rem;margin-bottom:0.75rem;">🏢</div>
+      <h3 style="color:white;margin-bottom:0.25rem;">Enterprise</h3>
+      <div style="font-size:2rem;font-weight:900;color:var(--cyan);margin:0.75rem 0;">Custom</div>
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:1.25rem;">Volume · platform integration · API</div>
+      <ul style="color:var(--muted);font-size:0.9rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:0.5rem;">
+        <li>Bulk ratings for agent fleets (&gt;10)</li>
+        <li>Real-time API access to score data</li>
+        <li>White-label assessment reports</li>
+        <li>Dedicated assessment manager</li>
+        <li>SLA &amp; priority processing</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:2.5rem;">
+    <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1.25rem;">All prices exclude VAT where applicable. Assessments are conducted under the <a href="how-it-works.html" style="color:var(--cyan);font-weight:600;">TRA Scoring Rubric v1.0</a>.</p>
+    <a href="#contact" class="btn">Request Assessment</a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact</h2>
+  <p class="section-subtitle">Interested in trust ratings for your agents or platform? Reach out to explore how TRA can help.</p>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <h3>Email</h3>
+      <a href="mailto:o.k.rikken@gmail.com">o.k.rikken@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <h3>Phone</h3>
+      <a href="tel:+31611394292">+31 6 113 94 292</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🔗</div>
+      <h3>LinkedIn</h3>
+      <a href="https://www.linkedin.com/in/olivierrikken" target="_blank" rel="noopener">Olivier Rikken</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">𝕏</div>
+      <h3>X (Twitter)</h3>
+      <a href="https://x.com/olivier1977" target="_blank" rel="noopener">@olivier1977</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="tra-logo.svg" alt="TRA" class="footer-logo">
+  <p>Trust Rating Agency &mdash; Trust infrastructure for the autonomous economy</p>
+  <p>An initiative by <a href="https://www.linkedin.com/in/olivierrikken" style="color:var(--cyan);">Olivier Rikken</a> &mdash; Netherlands</p>
+</footer>
+
+</body>
+</html>

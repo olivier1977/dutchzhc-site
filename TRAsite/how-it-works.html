@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <title>How It Works — Trust Rating Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d2b;
+      --bg2:       #11113a;
+      --accent:    #1a1aff;
+      --cyan:      #00d4ff;
+      --text:      #e8e8f0;
+      --muted:     #8888aa;
+      --border:    rgba(0, 212, 255, 0.15);
+      --card-bg:   rgba(26, 26, 78, 0.5);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background: rgba(13, 13, 43, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+      font-weight: 700; font-size: 1rem; letter-spacing: 0.02em;
+    }
+
+    .nav-brand img { width: 36px; height: 36px; }
+
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+
+    /* TAGLINE BAND */
+    .tagline-band {
+      text-align: center;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      color: white;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 8px;
+    }
+    .tagline-band span { opacity: 0.6; margin: 0 0.5rem; }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 5rem 2rem 3.5rem;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 60%, rgba(26,26,255,0.1) 0%, transparent 70%);
+    }
+
+    .page-hero .eyebrow {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; color: white; line-height: 1.2; margin-bottom: 1.25rem;
+    }
+
+    h1 span {
+      display: block;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .page-hero p {
+      font-size: 1.1rem; color: var(--muted); max-width: 640px; margin: 0 auto;
+    }
+
+    /* CONTENT */
+    .content { max-width: 860px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+    h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-weight: 800; color: white; margin: 3rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.15rem; font-weight: 700; color: var(--cyan);
+      margin: 2rem 0 0.6rem;
+    }
+
+    p { color: var(--muted); margin-bottom: 1.1rem; }
+
+    strong { color: var(--text); font-weight: 600; }
+
+    hr.divider {
+      border: none; border-top: 1px solid var(--border); margin: 3rem 0;
+    }
+
+    /* THREE PILLARS CARDS */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    .pillar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .pillar-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+
+    .pillar-number {
+      font-size: 2rem; font-weight: 900;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.4rem;
+    }
+
+    .pillar-card h3 { color: white; margin: 0 0 0.5rem; font-size: 1rem; }
+    .pillar-card p { font-size: 0.92rem; margin: 0; }
+
+    /* SCORE EXAMPLE */
+    .score-example {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin: 2rem 0;
+    }
+
+    .score-display {
+      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .score-badge {
+      display: flex; align-items: baseline; gap: 0.5rem;
+    }
+
+    .score-letters span {
+      display: inline-block;
+      width: 48px; height: 56px; line-height: 56px;
+      text-align: center;
+      font-size: 1.6rem; font-weight: 900;
+      border-radius: 8px;
+      margin-right: 4px;
+    }
+
+    .letter-a { background: rgba(0,212,255,0.2); color: #00d4ff; border: 1px solid rgba(0,212,255,0.4); }
+    .letter-b { background: rgba(26,26,255,0.2); color: #8888ff; border: 1px solid rgba(26,26,255,0.3); }
+
+    .score-number {
+      font-size: 2.5rem; font-weight: 900; color: white;
+      border-left: 1px solid var(--border);
+      padding-left: 1.5rem;
+      margin-left: 0.5rem;
+    }
+
+    .score-legend { display: flex; flex-direction: column; gap: 0.5rem; }
+    .score-legend-item { display: flex; gap: 0.75rem; font-size: 0.88rem; }
+    .legend-key { color: var(--cyan); font-weight: 700; min-width: 28px; }
+    .legend-val { color: var(--muted); }
+
+    /* RATING TABLE */
+    .rating-table {
+      width: 100%; border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+    }
+
+    .rating-table th {
+      text-align: left; padding: 0.75rem 1rem;
+      background: rgba(26,26,78,0.7);
+      color: var(--cyan); font-weight: 700;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rating-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(0,212,255,0.07);
+      color: var(--muted);
+      vertical-align: top;
+    }
+
+    .rating-table tr:hover td { background: rgba(0,212,255,0.03); }
+
+    .grade {
+      display: inline-block;
+      padding: 2px 10px; border-radius: 4px;
+      font-weight: 700; font-size: 0.85rem;
+    }
+    .grade-a { background: rgba(0,212,255,0.15); color: #00d4ff; }
+    .grade-b { background: rgba(26,26,255,0.15); color: #8888ff; }
+    .grade-c { background: rgba(136,136,170,0.15); color: #aaaacc; }
+
+    /* CTA */
+    .cta-band {
+      background: linear-gradient(135deg, rgba(26,26,255,0.15), rgba(0,212,255,0.08));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 3rem 0 0;
+    }
+
+    .cta-band h2 { margin: 0 0 0.75rem; }
+    .cta-band p { max-width: 500px; margin: 0 auto 1.75rem; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      color: white; font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; border-radius: 6px;
+      margin: 0.4rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    .btn.secondary {
+      background: transparent;
+      border: 2px solid var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.85rem;
+    }
+
+    .footer-logo { width: 48px; height: 48px; margin-bottom: 1rem; }
+    footer p { margin-bottom: 0.3rem; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .score-display { flex-direction: column; gap: 1.5rem; }
+      .score-number { border-left: none; padding-left: 0; margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="tra-logo.svg" alt="TRA Logo">
+    <span>Trust Rating Agency</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="how-it-works.html" class="active">How It Works</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="tagline-band">
+  identity <span>·</span> credentials <span>·</span> reputation
+</div>
+
+<div class="page-hero">
+  <div class="eyebrow">Trust Mechanism</div>
+  <h1>How the Trust Score<span>Actually Works</span></h1>
+  <p>A deep dive into the three pillars of trust for AI agents — and how we turn them into a single, transparent rating you can act on.</p>
+  <div style="margin-top:1.5rem;">
+    <span style="display:inline-block;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);border-radius:6px;padding:0.4rem 1rem;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;color:var(--cyan);">TRA Scoring Rubric v1.0 &nbsp;·&nbsp; Published June 2026</span>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- INTRO -->
+  <h2>Dissecting Trust for AI Agents</h2>
+  <p>Trust might feel intangible — often little more than a feeling. Yet we have invented many tangible elements that generate that feeling. In professional services, the most important ones are the <strong>who</strong>, the <strong>what</strong>, and the <strong>how</strong>: who does something, what can they do, and how well can they do it.</p>
+  <p>These three questions map directly onto the three pillars of the TRA trust score for AI agents.</p>
+
+  <div class="pillars">
+    <div class="pillar-card">
+      <div class="pillar-number">01</div>
+      <h3>Identity — WHO</h3>
+      <p>Just as humans carry identity documents, AI agents need a verifiable identity so you always know which agent you are dealing with. No anonymous actors, no impersonation.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-number">02</div>
+      <h3>Credentials — WHAT</h3>
+      <p>Credentials provide proof of capability. Just as a university degree certifies a learned skill, a verifiable credential certifies what an AI agent is qualified to do.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-number">03</div>
+      <h3>Reputation — HOW</h3>
+      <p>Reputation extends credentials. Credentials state <em>what</em> you can do; reputation states <em>how well</em> you actually do it — based on observable, verifiable track record.</p>
+    </div>
+  </div>
+
+  <p>Having these three elements is necessary — but not sufficient. Each element has multiple layers, and the combination of those layers determines the overall trust score of an AI agent.</p>
+
+  <hr class="divider">
+
+  <!-- IDENTITY -->
+  <h2>Pillar 1: Identity</h2>
+  <p>Identity for AI agents relies on two sub-elements:</p>
+
+  <h3>The Identifier</h3>
+  <p>A unique, cryptographic code that prevents duplication or impersonation. TRA uses <strong>Decentralized Identifiers (DIDs)</strong> — a W3C standard that anchors identity to a verifiable, tamper-proof registry without relying on a central authority.</p>
+
+  <h3>The Issuer of the Identity</h3>
+  <p>Not all identities are equal. The trustworthiness of an identity depends heavily on <strong>who issued it</strong>:</p>
+
+  <table class="rating-table">
+    <thead>
+      <tr>
+        <th>Issuer Type</th>
+        <th>Grade</th>
+        <th>Explanation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Self-issued by the agent itself</td>
+        <td><span class="grade grade-c">C</span></td>
+        <td>Anyone can claim any identity — provides minimal assurance</td>
+      </tr>
+      <tr>
+        <td>Third-party issued</td>
+        <td><span class="grade grade-b">B</span></td>
+        <td>An independent party has verified and issued the identity</td>
+      </tr>
+      <tr>
+        <td>Qualified / government-authorized issuer</td>
+        <td><span class="grade grade-a">A</span></td>
+        <td>A recognized authority (e.g. a government-licensed identity provider) issues and backs the identity</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <!-- CREDENTIALS -->
+  <h2>Pillar 2: Verifiable Credentials</h2>
+  <p>Many AI agents can share the same capability (image generation, code writing, strategy) — so uniqueness of the credential itself is less important than the <strong>verifiability of its origin</strong>.</p>
+
+  <h3>The Issuer of the Credential</h3>
+  <p>The value of a credential rises with the reputation and independence of its issuer:</p>
+
+  <table class="rating-table">
+    <thead>
+      <tr>
+        <th>Issuer Type</th>
+        <th>Grade</th>
+        <th>Explanation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Self-claimed by the agent</td>
+        <td><span class="grade grade-c">C</span></td>
+        <td>The agent declares its own capabilities — no independent verification</td>
+      </tr>
+      <tr>
+        <td>Third-party verified</td>
+        <td><span class="grade grade-b">B</span></td>
+        <td>An independent party has issued and can verify the credential</td>
+      </tr>
+      <tr>
+        <td>Domain-specialist issuer</td>
+        <td><span class="grade grade-a">A</span></td>
+        <td>A recognized authority in the specific field issues the credential — highest assurance</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Verifiability is key: a credential only has value if a relying party can check it with the issuer — just like calling a university to confirm a degree.</p>
+
+  <hr class="divider">
+
+  <!-- REPUTATION -->
+  <h2>Pillar 3: Reputation</h2>
+  <p>Reputation is the hardest pillar to measure objectively — and arguably the most important. It answers the question: <strong>how well</strong> does this agent actually perform?</p>
+
+  <h3>What Goes Into Reputation?</h3>
+  <p>Reputation is inherently multi-dimensional. Factors include:</p>
+  <ul style="color: var(--muted); padding-left: 1.5rem; margin-bottom: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+    <li><strong style="color:var(--text)">Output quality ratings</strong> — peer or user evaluations of the agent's actual output</li>
+    <li><strong style="color:var(--text)">Volume of ratings</strong> — the more evaluations, the more reliable the score</li>
+    <li><strong style="color:var(--text)">Speed &amp; cost</strong> — efficiency benchmarks for the task type</li>
+    <li><strong style="color:var(--text)">Bias &amp; safety track record</strong> — known biases or safety incidents associated with the underlying model</li>
+    <li><strong style="color:var(--text)">On-chain transaction history</strong> — verifiable record of past interactions and outcomes</li>
+  </ul>
+  <p>The subjectivity of reputation is addressed by combining multiple objective metrics and weighting them transparently — so the methodology can be audited and disputed.</p>
+
+  <hr class="divider">
+
+  <!-- INTEGRATED SCORE -->
+  <h2>The Integrated Trust Score</h2>
+  <p>Taking inspiration from classical financial rating agencies (where AAA is the highest rating), TRA combines all three pillars into a single, readable trust score: <strong>three letters plus a numeric value</strong>.</p>
+
+  <p>Each letter represents the overall grade on one pillar:</p>
+  <ul style="color: var(--muted); padding-left: 1.5rem; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.4rem;">
+    <li><strong style="color:var(--cyan)">A</strong> — highest grade (qualified/specialist issuer, strong reputation)</li>
+    <li><strong style="color:#8888ff)">B</strong> — mid grade (independent third-party, reasonable track record)</li>
+    <li><strong style="color:var(--muted)">C</strong> — baseline grade (self-issued, unverified)</li>
+  </ul>
+
+  <div class="score-example">
+    <p style="color:var(--cyan); font-size:0.8rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:1.25rem;">Example Score</p>
+    <div class="score-display">
+      <div class="score-letters">
+        <span class="letter-a">A</span>
+        <span class="letter-b">B</span>
+        <span class="letter-b">B</span>
+      </div>
+      <div class="score-number">246</div>
+    </div>
+    <div class="score-legend">
+      <div class="score-legend-item">
+        <span class="legend-key">A</span>
+        <span class="legend-val">Identity issued by a qualified, government-authorized party</span>
+      </div>
+      <div class="score-legend-item">
+        <span class="legend-key">B</span>
+        <span class="legend-val">Credentials verified by a third party — but not a domain specialist in strategy</span>
+      </div>
+      <div class="score-legend-item">
+        <span class="legend-key">B</span>
+        <span class="legend-val">Reasonable reputation based on underlying metrics</span>
+      </div>
+      <div class="score-legend-item">
+        <span class="legend-key">246</span>
+        <span class="legend-val">Composite numeric score (higher = more trustworthy overall)</span>
+      </div>
+    </div>
+    <p style="font-size:0.85rem; color:var(--muted); margin-top:1.25rem; margin-bottom:0; border-top: 1px solid var(--border); padding-top:1rem;">
+      <em>Trust Score for Agent Olivier (strategy): <strong style="color:var(--text)">A B B — 246</strong></em>
+    </p>
+  </div>
+
+  <p>This format makes trust immediately legible. At a glance, you know the identity quality, the credential quality, and the reputation quality — and the numeric score gives you a single comparable number for ranking or filtering.</p>
+  <p>Because trust is ultimately an emotion, it is hard to reduce to a single hard number. But by making the underlying pillars and grades transparent, TRA lets you form your own informed judgment — supported by objective, verifiable data.</p>
+
+  <hr class="divider">
+
+  <!-- SCORING RUBRIC v1.0 -->
+  <h2 id="rubric">Scoring Rubric <span style="font-size:1rem;font-weight:600;color:var(--cyan);">v1.0 &nbsp;·&nbsp; June 2026</span></h2>
+  <p>The rubric below defines the exact point values and grade thresholds used by TRA assessors and the automated scoring engine. Scores are reproducible: given the same input data, the same score is always produced. Clients may dispute a score within 14 days of publication by submitting data corrections.</p>
+
+  <h3>Pillar Weights</h3>
+  <table class="rating-table">
+    <thead><tr><th>Pillar</th><th>Weight</th><th>Max Points</th></tr></thead>
+    <tbody>
+      <tr><td>Identity (I)</td><td>30%</td><td>100</td></tr>
+      <tr><td>Credentials (C)</td><td>30%</td><td>100</td></tr>
+      <tr><td>Reputation (R)</td><td>40%</td><td>100</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.88rem;">Composite = (Identity_pts × 0.30) + (Credentials_pts × 0.30) + (Reputation_pts × 0.40). Auto-E rule: if any required data field for Reputation (R2, R3, R5, or R6) is unavailable, the composite score is 0 and overall grade is E.</p>
+
+  <h3>Identity &amp; Credentials Grade Points</h3>
+  <table class="rating-table">
+    <thead><tr><th>Issuer Tier</th><th>Grade</th><th>Points</th></tr></thead>
+    <tbody>
+      <tr><td>Qualified / government-authorized issuer</td><td><span class="grade grade-a">A</span></td><td>100</td></tr>
+      <tr><td>Independent third-party issuer</td><td><span class="grade grade-b">B</span></td><td>60</td></tr>
+      <tr><td>Self-issued / self-claimed</td><td><span class="grade grade-c">C</span></td><td>20</td></tr>
+      <tr><td>Data unavailable or rejected</td><td><span class="grade" style="background:rgba(136,80,80,0.12);color:#cc8888;">E</span></td><td>0</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Reputation Sub-scores (combined to 100 pts)</h3>
+  <table class="rating-table">
+    <thead><tr><th>Code</th><th>Sub-score</th><th>Weight</th><th>Data Source</th><th>Required?</th></tr></thead>
+    <tbody>
+      <tr><td><strong>R1</strong></td><td>Task Completion Rate</td><td>20%</td><td>Paperclip task ledger</td><td>No — scored 0 if absent</td></tr>
+      <tr><td><strong>R2</strong></td><td>Output Quality Reviews</td><td>20%</td><td>Peer/user review comments</td><td><strong style="color:#f59e0b;">Yes — auto-E if missing</strong></td></tr>
+      <tr><td><strong>R3</strong></td><td>Deadline Adherence</td><td>15%</td><td>Task timestamps vs. due dates</td><td><strong style="color:#f59e0b;">Yes — auto-E if missing</strong></td></tr>
+      <tr><td><strong>R4</strong></td><td>Governance Compliance</td><td>15%</td><td>Audit log / violation records</td><td>No — scored 0 if absent</td></tr>
+      <tr><td><strong>R5</strong></td><td>Escalation Accuracy</td><td>15%</td><td>Escalation log &amp; outcomes</td><td><strong style="color:#f59e0b;">Yes — auto-E if missing</strong></td></tr>
+      <tr><td><strong>R6</strong></td><td>Consistency (score variance)</td><td>10%</td><td>Derived from R1–R5 over time</td><td><strong style="color:#f59e0b;">Yes — auto-E if missing</strong></td></tr>
+      <tr><td><strong>R7</strong></td><td>Longevity / Track Record</td><td>5%</td><td>Days since first recorded task</td><td>No — scored 0 if absent</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Composite Grade Thresholds</h3>
+  <table class="rating-table">
+    <thead><tr><th>Composite Score</th><th>Grade</th><th>Label</th></tr></thead>
+    <tbody>
+      <tr><td>85 – 100</td><td><span class="grade grade-a">A</span></td><td>Exemplary</td></tr>
+      <tr><td>70 – 84</td><td><span class="grade grade-b">B</span></td><td>Strong</td></tr>
+      <tr><td>50 – 69</td><td><span class="grade grade-c">C</span></td><td>Established</td></tr>
+      <tr><td>30 – 49</td><td><span class="grade" style="background:rgba(136,136,170,0.1);color:#9999bb;">D</span></td><td>Developing</td></tr>
+      <tr><td>1 – 29</td><td><span class="grade" style="background:rgba(136,136,170,0.1);color:#9999bb;">F</span></td><td>Minimal</td></tr>
+      <tr><td>0 / auto-E trigger</td><td><span class="grade" style="background:rgba(136,80,80,0.12);color:#cc8888;">E</span></td><td>Incomplete data</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:0.85rem;background:rgba(26,26,78,0.4);border:1px solid var(--border);border-left:3px solid var(--cyan);border-radius:0 8px 8px 0;padding:1rem 1.25rem;">
+    <strong style="color:var(--text);">Version history:</strong><br>
+    v1.0 (2026-06-23) — Initial published rubric. Organizational assessments use a separate 130-point framework (see assessment-process.html). Rubric revisions will be published with a new version number; existing scores are annotated with the rubric version under which they were issued.
+  </p>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <h2>Interested in a Trust Rating?</h2>
+    <p>Whether you operate AI agents, govern a DAO, or evaluate AI vendors — get in touch to explore how TRA can provide trust ratings for your use case.</p>
+    <a href="index.html#contact" class="btn">Contact Us</a>
+    <a href="index.html" class="btn secondary">Back to Home</a>
+  </div>
+
+</div>
+
+<footer>
+  <img src="tra-logo.svg" alt="TRA" class="footer-logo">
+  <p>Trust Rating Agency &mdash; Trust infrastructure for the autonomous economy</p>
+  <p>An initiative by <a href="https://www.linkedin.com/in/olivierrikken" style="color:var(--cyan);">Olivier Rikken</a> &mdash; Netherlands</p>
+</footer>
+
+</body>
+</html>
