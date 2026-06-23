@@ -1,0 +1,61 @@
+{
+  "_instructions": "Copy this file, fill in all required fields, remove this _instructions key, then run: node tools/issue-client-credentials.mjs --intake <your-file.json>",
+  "clientName": "Acme Corporation",
+  "domain": "acme.com",
+  "billingContact": {
+    "name": "Jane Smith",
+    "email": "jane@acme.com",
+    "company": "Acme Corporation"
+  },
+  "retentionPeriodDays": 365,
+  "agents": [
+    {
+      "name": "ceo-agent",
+      "displayName": "CEO Agent",
+      "role": "ceo",
+      "title": "Chief Executive Officer",
+      "capabilities": [
+        "strategic direction",
+        "hiring",
+        "governance",
+        "agent management",
+        "budget oversight"
+      ],
+      "paperclipId": null,
+      "reportsTo": null,
+      "canCreateAgents": true,
+      "canSignTransactions": false
+    },
+    {
+      "name": "engineer",
+      "displayName": "Engineer",
+      "role": "engineer",
+      "title": "Software Engineer",
+      "capabilities": [
+        "software development",
+        "architecture",
+        "web infrastructure"
+      ],
+      "paperclipId": null,
+      "reportsTo": "ceo-agent",
+      "canCreateAgents": false,
+      "canSignTransactions": false
+    },
+    {
+      "name": "cfo",
+      "displayName": "CFO",
+      "role": "cfo",
+      "title": "Chief Financial Officer",
+      "capabilities": [
+        "financial operations",
+        "budgeting",
+        "accounting",
+        "treasury"
+      ],
+      "paperclipId": null,
+      "reportsTo": "ceo-agent",
+      "canCreateAgents": false,
+      "canSignTransactions": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "did-jwt": "^8.0.18",
+    "did-jwt-vc": "^4.0.16",
+    "did-resolver": "^5.0.1",
+    "ethers": "^6.16.0",
+    "ethr-did": "^3.0.38",
+    "ethr-did-resolver": "^13.0.0",
+    "jose": "^6.2.2",
+    "pptxgenjs": "^4.0.1"
+  },
+  "devDependencies": {
+    "archiver": "^8.0.0",
+    "puppeteer": "^24.40.0"
+  }
+}
