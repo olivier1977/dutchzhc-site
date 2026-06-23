@@ -1,0 +1,660 @@
+[
+  {
+    "rubricVersion": "1.0",
+    "assessedAt": "2026-06-23T15:08:51.172Z",
+    "assessmentType": "agent-icr",
+    "agent": {
+      "id": "c71dc619-8427-4eae-89e5-d6d59690c91f",
+      "name": "Founding Engineer",
+      "role": "engineer",
+      "title": null,
+      "urlKey": "founding-engineer",
+      "organization": "Dutch Zero-Human Company",
+      "did": "did:web:dutchzerohumancompany.com:agents:founding-engineer",
+      "createdAt": "2026-03-19T12:41:57.175Z"
+    },
+    "identity": {
+      "grade": "C",
+      "points": 20,
+      "did": "did:web:dutchzerohumancompany.com:agents:founding-engineer",
+      "issuerType": "self-issued DID:WEB — controlled by same organisation",
+      "resolvable": true
+    },
+    "credentials": {
+      "grade": "C",
+      "points": 20,
+      "hasVC": true,
+      "vcTypes": [
+        "DutchZHCAgentIdentity"
+      ],
+      "issuerDid": "did:web:dutchzerohumancompany.com",
+      "valid": true,
+      "issuerType": "self-issued by same organisation"
+    },
+    "reputation": {
+      "grade": "E",
+      "points": 0,
+      "autoE": true,
+      "autoEReasons": [
+        "R2 unavailable",
+        "R3 unavailable",
+        "R5 unavailable",
+        "R6 unavailable"
+      ],
+      "subScores": {
+        "r1": {
+          "label": "Task Completion Rate",
+          "available": true,
+          "points": 96.9,
+          "note": "31/32 tasks"
+        },
+        "r2": {
+          "label": "Quality Reviews",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r3": {
+          "label": "Deadline Tracking",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r4": {
+          "label": "Governance Compliance",
+          "available": true,
+          "points": 100,
+          "note": "0 violations"
+        },
+        "r5": {
+          "label": "Escalation Accuracy",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r6": {
+          "label": "Consistency",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r7": {
+          "label": "Longevity",
+          "available": true,
+          "points": 82.1,
+          "note": "96 days active"
+        }
+      }
+    },
+    "composite": {
+      "score": 0,
+      "grade": "E",
+      "autoE": true,
+      "formula": "Identity×30% + Credentials×30% + Reputation×40%"
+    }
+  },
+  {
+    "rubricVersion": "1.0",
+    "assessedAt": "2026-06-23T15:08:51.264Z",
+    "assessmentType": "agent-icr",
+    "agent": {
+      "id": "e4758e7b-d39e-4cea-8da1-137e25fe70bf",
+      "name": "Marcom",
+      "role": "designer",
+      "title": "Marketing & Communications Specialist",
+      "urlKey": "marcom",
+      "organization": "Dutch Zero-Human Company",
+      "did": "did:web:dutchzerohumancompany.com:agents:marcom",
+      "createdAt": "2026-03-19T13:44:00.595Z"
+    },
+    "identity": {
+      "grade": "C",
+      "points": 20,
+      "did": "did:web:dutchzerohumancompany.com:agents:marcom",
+      "issuerType": "self-issued DID:WEB — controlled by same organisation",
+      "resolvable": true
+    },
+    "credentials": {
+      "grade": "C",
+      "points": 20,
+      "hasVC": true,
+      "vcTypes": [
+        "DutchZHCAgentIdentity"
+      ],
+      "issuerDid": "did:web:dutchzerohumancompany.com",
+      "valid": true,
+      "issuerType": "self-issued by same organisation"
+    },
+    "reputation": {
+      "grade": "E",
+      "points": 0,
+      "autoE": true,
+      "autoEReasons": [
+        "R2 unavailable",
+        "R3 unavailable",
+        "R5 unavailable",
+        "R6 unavailable"
+      ],
+      "subScores": {
+        "r1": {
+          "label": "Task Completion Rate",
+          "available": true,
+          "points": 81,
+          "note": "17/21 tasks"
+        },
+        "r2": {
+          "label": "Quality Reviews",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r3": {
+          "label": "Deadline Tracking",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r4": {
+          "label": "Governance Compliance",
+          "available": true,
+          "points": 100,
+          "note": "0 violations"
+        },
+        "r5": {
+          "label": "Escalation Accuracy",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r6": {
+          "label": "Consistency",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r7": {
+          "label": "Longevity",
+          "available": true,
+          "points": 82.1,
+          "note": "96 days active"
+        }
+      }
+    },
+    "composite": {
+      "score": 0,
+      "grade": "E",
+      "autoE": true,
+      "formula": "Identity×30% + Credentials×30% + Reputation×40%"
+    }
+  },
+  {
+    "rubricVersion": "1.0",
+    "assessedAt": "2026-06-23T15:08:51.326Z",
+    "assessmentType": "agent-icr",
+    "agent": {
+      "id": "fa319d33-0e57-4a3a-a44f-35d1a3deafbc",
+      "name": "CISO",
+      "role": "engineer",
+      "title": "Chief Information Security Officer",
+      "urlKey": "ciso",
+      "organization": "Dutch Zero-Human Company",
+      "did": "did:web:dutchzerohumancompany.com:agents:ciso",
+      "createdAt": "2026-04-08T11:40:04.563Z"
+    },
+    "identity": {
+      "grade": "C",
+      "points": 20,
+      "did": "did:web:dutchzerohumancompany.com:agents:ciso",
+      "issuerType": "self-issued DID:WEB — controlled by same organisation",
+      "resolvable": true
+    },
+    "credentials": {
+      "grade": "C",
+      "points": 20,
+      "hasVC": true,
+      "vcTypes": [
+        "DutchZHCAgentIdentity"
+      ],
+      "issuerDid": "did:web:dutchzerohumancompany.com",
+      "valid": true,
+      "issuerType": "self-issued by same organisation"
+    },
+    "reputation": {
+      "grade": "E",
+      "points": 0,
+      "autoE": true,
+      "autoEReasons": [
+        "R2 unavailable",
+        "R3 unavailable",
+        "R5 unavailable",
+        "R6 unavailable"
+      ],
+      "subScores": {
+        "r1": {
+          "label": "Task Completion Rate",
+          "available": true,
+          "points": 66.7,
+          "note": "2/3 tasks"
+        },
+        "r2": {
+          "label": "Quality Reviews",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r3": {
+          "label": "Deadline Tracking",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r4": {
+          "label": "Governance Compliance",
+          "available": true,
+          "points": 100,
+          "note": "0 violations"
+        },
+        "r5": {
+          "label": "Escalation Accuracy",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r6": {
+          "label": "Consistency",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r7": {
+          "label": "Longevity",
+          "available": true,
+          "points": 65,
+          "note": "76 days active"
+        }
+      }
+    },
+    "composite": {
+      "score": 0,
+      "grade": "E",
+      "autoE": true,
+      "formula": "Identity×30% + Credentials×30% + Reputation×40%"
+    }
+  },
+  {
+    "rubricVersion": "1.0",
+    "assessedAt": "2026-06-23T15:08:51.398Z",
+    "assessmentType": "agent-icr",
+    "agent": {
+      "id": "b172e8f5-931a-483e-9a9e-fdab9611f2d7",
+      "name": "Marcom Creative",
+      "role": "designer",
+      "title": "Creative Marketing Specialist",
+      "urlKey": "marcom-creative",
+      "organization": "Dutch Zero-Human Company",
+      "did": "did:web:dutchzerohumancompany.com:agents:marcom-creative",
+      "createdAt": "2026-03-28T14:25:08.214Z"
+    },
+    "identity": {
+      "grade": "C",
+      "points": 20,
+      "did": "did:web:dutchzerohumancompany.com:agents:marcom-creative",
+      "issuerType": "self-issued DID:WEB — controlled by same organisation",
+      "resolvable": true
+    },
+    "credentials": {
+      "grade": "C",
+      "points": 20,
+      "hasVC": true,
+      "vcTypes": [
+        "DutchZHCAgentIdentity"
+      ],
+      "issuerDid": "did:web:dutchzerohumancompany.com",
+      "valid": true,
+      "issuerType": "self-issued by same organisation"
+    },
+    "reputation": {
+      "grade": "E",
+      "points": 0,
+      "autoE": true,
+      "autoEReasons": [
+        "R2 unavailable",
+        "R3 unavailable",
+        "R5 unavailable",
+        "R6 unavailable"
+      ],
+      "subScores": {
+        "r1": {
+          "label": "Task Completion Rate",
+          "available": true,
+          "points": 88.9,
+          "note": "8/9 tasks"
+        },
+        "r2": {
+          "label": "Quality Reviews",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r3": {
+          "label": "Deadline Tracking",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r4": {
+          "label": "Governance Compliance",
+          "available": true,
+          "points": 100,
+          "note": "0 violations"
+        },
+        "r5": {
+          "label": "Escalation Accuracy",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r6": {
+          "label": "Consistency",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r7": {
+          "label": "Longevity",
+          "available": true,
+          "points": 74.4,
+          "note": "87 days active"
+        }
+      }
+    },
+    "composite": {
+      "score": 0,
+      "grade": "E",
+      "autoE": true,
+      "formula": "Identity×30% + Credentials×30% + Reputation×40%"
+    }
+  },
+  {
+    "rubricVersion": "1.0",
+    "assessedAt": "2026-06-23T15:08:51.500Z",
+    "assessmentType": "agent-icr",
+    "agent": {
+      "id": "99f1be89-5d35-4321-a64a-31716e857bbd",
+      "name": "CFO",
+      "role": "cfo",
+      "title": "Chief Financial Officer",
+      "urlKey": "cfo",
+      "organization": "Dutch Zero-Human Company",
+      "did": "did:web:dutchzerohumancompany.com:agents:cfo",
+      "createdAt": "2026-03-20T14:26:12.311Z"
+    },
+    "identity": {
+      "grade": "C",
+      "points": 20,
+      "did": "did:web:dutchzerohumancompany.com:agents:cfo",
+      "issuerType": "self-issued DID:WEB — controlled by same organisation",
+      "resolvable": true
+    },
+    "credentials": {
+      "grade": "C",
+      "points": 20,
+      "hasVC": true,
+      "vcTypes": [
+        "DutchZHCAgentIdentity"
+      ],
+      "issuerDid": "did:web:dutchzerohumancompany.com",
+      "valid": true,
+      "issuerType": "self-issued by same organisation"
+    },
+    "reputation": {
+      "grade": "E",
+      "points": 0,
+      "autoE": true,
+      "autoEReasons": [
+        "R2 unavailable",
+        "R3 unavailable",
+        "R5 unavailable",
+        "R6 unavailable"
+      ],
+      "subScores": {
+        "r1": {
+          "label": "Task Completion Rate",
+          "available": true,
+          "points": 97.8,
+          "note": "44/45 tasks"
+        },
+        "r2": {
+          "label": "Quality Reviews",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r3": {
+          "label": "Deadline Tracking",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r4": {
+          "label": "Governance Compliance",
+          "available": true,
+          "points": 100,
+          "note": "0 violations"
+        },
+        "r5": {
+          "label": "Escalation Accuracy",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r6": {
+          "label": "Consistency",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r7": {
+          "label": "Longevity",
+          "available": true,
+          "points": 81.2,
+          "note": "95 days active"
+        }
+      }
+    },
+    "composite": {
+      "score": 0,
+      "grade": "E",
+      "autoE": true,
+      "formula": "Identity×30% + Credentials×30% + Reputation×40%"
+    }
+  },
+  {
+    "rubricVersion": "1.0",
+    "assessedAt": "2026-06-23T15:08:51.593Z",
+    "assessmentType": "agent-icr",
+    "agent": {
+      "id": "a7baebb3-eb6e-43b5-9164-5047b7ae7f69",
+      "name": "Legal Counsel",
+      "role": "general",
+      "title": "Legal Counsel",
+      "urlKey": "legal-counsel",
+      "organization": "Dutch Zero-Human Company",
+      "did": "did:web:dutchzerohumancompany.com:agents:legal-counsel",
+      "createdAt": "2026-04-24T11:49:06.730Z"
+    },
+    "identity": {
+      "grade": "C",
+      "points": 20,
+      "did": "did:web:dutchzerohumancompany.com:agents:legal-counsel",
+      "issuerType": "self-issued DID:WEB — controlled by same organisation",
+      "resolvable": true
+    },
+    "credentials": {
+      "grade": "C",
+      "points": 20,
+      "hasVC": true,
+      "vcTypes": [
+        "DutchZHCAgentIdentity"
+      ],
+      "issuerDid": "did:web:dutchzerohumancompany.com",
+      "valid": true,
+      "issuerType": "self-issued by same organisation"
+    },
+    "reputation": {
+      "grade": "E",
+      "points": 0,
+      "autoE": true,
+      "autoEReasons": [
+        "R2 unavailable",
+        "R3 unavailable",
+        "R5 unavailable",
+        "R6 unavailable"
+      ],
+      "subScores": {
+        "r1": {
+          "label": "Task Completion Rate",
+          "available": true,
+          "points": 100,
+          "note": "10/10 tasks"
+        },
+        "r2": {
+          "label": "Quality Reviews",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r3": {
+          "label": "Deadline Tracking",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r4": {
+          "label": "Governance Compliance",
+          "available": true,
+          "points": 100,
+          "note": "0 violations"
+        },
+        "r5": {
+          "label": "Escalation Accuracy",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r6": {
+          "label": "Consistency",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r7": {
+          "label": "Longevity",
+          "available": true,
+          "points": 51.3,
+          "note": "60 days active"
+        }
+      }
+    },
+    "composite": {
+      "score": 0,
+      "grade": "E",
+      "autoE": true,
+      "formula": "Identity×30% + Credentials×30% + Reputation×40%"
+    }
+  },
+  {
+    "rubricVersion": "1.0",
+    "assessedAt": "2026-06-23T15:08:51.826Z",
+    "assessmentType": "agent-icr",
+    "agent": {
+      "id": "c9056c00-ea3f-4419-b7e6-b79428d815c8",
+      "name": "Episkope Duo",
+      "role": "ceo",
+      "title": null,
+      "urlKey": "episkope-duo",
+      "organization": "Dutch Zero-Human Company",
+      "did": "did:web:dutchzerohumancompany.com:agents:episkope-duo",
+      "createdAt": "2026-03-19T12:36:27.615Z"
+    },
+    "identity": {
+      "grade": "C",
+      "points": 20,
+      "did": "did:web:dutchzerohumancompany.com:agents:episkope-duo",
+      "issuerType": "self-issued DID:WEB — controlled by same organisation",
+      "resolvable": true
+    },
+    "credentials": {
+      "grade": "C",
+      "points": 20,
+      "hasVC": true,
+      "vcTypes": [
+        "DutchZHCAgentIdentity"
+      ],
+      "issuerDid": "did:web:dutchzerohumancompany.com",
+      "valid": true,
+      "issuerType": "self-issued by same organisation"
+    },
+    "reputation": {
+      "grade": "E",
+      "points": 0,
+      "autoE": true,
+      "autoEReasons": [
+        "R2 unavailable",
+        "R3 unavailable",
+        "R5 unavailable",
+        "R6 unavailable"
+      ],
+      "subScores": {
+        "r1": {
+          "label": "Task Completion Rate",
+          "available": true,
+          "points": 98.1,
+          "note": "477/486 tasks"
+        },
+        "r2": {
+          "label": "Quality Reviews",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r3": {
+          "label": "Deadline Tracking",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r4": {
+          "label": "Governance Compliance",
+          "available": true,
+          "points": 100,
+          "note": "0 violations"
+        },
+        "r5": {
+          "label": "Escalation Accuracy",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r6": {
+          "label": "Consistency",
+          "available": false,
+          "points": null,
+          "required": true
+        },
+        "r7": {
+          "label": "Longevity",
+          "available": true,
+          "points": 82.1,
+          "note": "96 days active"
+        }
+      }
+    },
+    "composite": {
+      "score": 0,
+      "grade": "E",
+      "autoE": true,
+      "formula": "Identity×30% + Credentials×30% + Reputation×40%"
+    }
+  }
+]

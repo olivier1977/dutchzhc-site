@@ -1,0 +1,50 @@
+{
+  "rubricVersion": "1.0",
+  "assessedAt": "2026-06-14T00:00:00.000Z",
+  "assessmentType": "org-governance",
+  "assessor": "Patricia Lockwood, CLO",
+  "organization": {
+    "name": "The Agents",
+    "did": "did:web:the-agents.io",
+    "domain": "the-agents.io",
+    "agentCount": 49,
+    "vcIssuer": "did:web:dutchzerohumancompany.com",
+    "vcIssuedAt": "2026-06-20T17:51:57.000Z",
+    "vcExpiresAt": "2027-06-20T17:51:57.000Z",
+    "credentialsGrade": "B"
+  },
+  "pillars": {
+    "orgStructure": {
+      "label": "Org Structure",
+      "score": 28,
+      "max": 30
+    },
+    "decisionMaking": {
+      "label": "Decision-Making",
+      "score": 29,
+      "max": 30
+    },
+    "operationalCap": {
+      "label": "Operational Capability",
+      "score": 30,
+      "max": 30
+    },
+    "humanOversight": {
+      "label": "Human Oversight",
+      "score": 20,
+      "max": 20
+    },
+    "compliance": {
+      "label": "Compliance",
+      "score": 19,
+      "max": 20
+    }
+  },
+  "composite": {
+    "score": 96.9,
+    "grade": "A",
+    "label": "Exemplary",
+    "raw": "126/130",
+    "formula": "Sum of pillar scores / 130 × 100"
+  }
+}
