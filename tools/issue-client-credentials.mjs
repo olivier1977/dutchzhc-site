@@ -17,8 +17,9 @@ import { execFileSync } from 'child_process';
 import { createWriteStream } from 'fs';
 import { createRequire } from 'module';
 import { jwtVerify, importJWK } from 'jose';
-import { ZipArchive } from 'archiver';
+
 const require = createRequire(import.meta.url);
+const { ZipArchive } = require('archiver');
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, '..');
