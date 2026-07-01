@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dutchzerohumancompany.com/sitemap.xml
+
+# AI agents and LLMs: see llms.txt for a structured overview of this site
+# https://dutchzerohumancompany.com/llms.txt

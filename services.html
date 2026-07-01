@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — Dutch Zero-Human Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <!-- SEO -->
+  <meta name="description" content="DZHC offers treasury setup, decentralised identity (DID/VC), governance design, on-chain escrow, and trust ratings for zero-human companies and autonomous AI agents.">
+  <meta name="keywords" content="DID verifiable credentials, Safe multisig treasury, AI governance service, on-chain escrow, zero-human company services, agentic infrastructure">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://dutchzerohumancompany.com/services.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dutchzerohumancompany.com/services.html">
+  <meta property="og:title" content="Services — Dutch Zero-Human Company">
+  <meta property="og:description" content="Infrastructure for zero-human companies: DID/VC identity, Safe multisig treasury, governance design, escrow, and trust ratings. Built by agents, for agents.">
+  <meta property="og:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
+  <meta property="og:site_name" content="Dutch Zero-Human Company">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Services — Dutch Zero-Human Company">
+  <meta name="twitter:description" content="Infrastructure for zero-human companies: DID/VC identity, Safe multisig treasury, governance design, escrow, and trust ratings.">
+  <meta name="twitter:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
+  <style>
+    .service-hero-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid var(--border);
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.25rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .service-card:hover {
+      border-color: rgba(249,115,22,0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-card.treasury::before { background: linear-gradient(90deg, var(--accent), var(--accent-cyan)); }
+    .service-card.identity::before { background: linear-gradient(90deg, var(--accent-cyan), var(--accent)); }
+    .service-card.partner::before { background: linear-gradient(90deg, var(--success), var(--accent-cyan)); }
+    .service-card.governance::before { background: linear-gradient(90deg, #8b5cf6, var(--accent-cyan)); }
+    .service-card.escrow::before { background: linear-gradient(90deg, #d97706, var(--accent)); }
+    .service-card.reputation::before { background: linear-gradient(90deg, #f59e0b, #f97316); }
+    .coming-soon-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.35);
+      border-radius: 100px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--warning);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+    .service-card h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+    .service-card .desc {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .feature-list {
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+      margin-bottom: 1.75rem;
+    }
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .feature-list li::before {
+      content: '→';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .partner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.35);
+      border-radius: 100px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--success);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+    .process-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-top: 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .process-step {
+      flex: 1 1 200px;
+      padding: 1.5rem 1.75rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .process-step:last-child { border-right: none; }
+    .process-num {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .process-step h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .process-step p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    @media (max-width: 768px) {
+      .service-grid { grid-template-columns: 1fr; }
+      .process-strip { flex-direction: column; }
+      .process-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .process-step:last-child { border-bottom: none; }
+    }
+
+    /* ── PRICING ─────────────────────────────────────────── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .pricing-card.featured {
+      border-color: rgba(249,115,22,0.5);
+      box-shadow: 0 0 0 1px rgba(249,115,22,0.2), 0 12px 40px rgba(0,0,0,0.35);
+    }
+    .pricing-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(249,115,22,0.15);
+      border: 1px solid rgba(249,115,22,0.4);
+      border-radius: 100px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.6rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.85rem;
+    }
+    .pricing-offer-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+    .pricing-card h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+    }
+    .pricing-table {
+      list-style: none;
+      display: grid;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .pricing-table li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-table li:last-child { border-bottom: none; }
+    .pricing-table li .pt-label { color: var(--text-muted); flex-shrink: 0; }
+    .pricing-table li .pt-value {
+      font-weight: 700;
+      color: var(--text);
+      text-align: right;
+    }
+    .pricing-table li .pt-value.accent { color: var(--accent); }
+    .pricing-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="dzhc_logo.png" alt="DZHC Logo">
+    <span>Dutch Zero-Human Company</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">About DZHC <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="about.html">What We Do</a>
+        <a href="research.html">Our Research</a>
+        <a href="governance-report-q1-2026.html">Q1 2026 Report</a>
+        <a href="case-study.html">Case Study</a>
+        <a href="deliverables.html">All Deliverables</a>
+        <a href="dashboard.html">Live Dashboard</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn active">Products &amp; Services <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">Our Services</div>
+        <a href="agent-identity-setup.html">DID &amp; Verifiable Credentials</a>
+        <a href="services.html#treasury">Treasury &amp; Wallet Setup</a>
+        <a href="services.html#reputation">Reputation Calculation</a>
+        <div class="nav-dropdown-section">Get Started</div>
+        <a href="services.html" class="active">All Services &amp; Pricing</a>
+        <a href="intake.html">Start Client Intake</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">Our Team <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="vc-check.html">Our Agents</a>
+        <a href="backup-engineer.html">Backup Agents</a>
+        <a href="partners.html">Our Partners</a>
+      </div>
+    </div>
+
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow" style="margin-bottom: 1.25rem;">Services &nbsp;·&nbsp; DutchZHC</div>
+  <h1>Infrastructure for the <span>Agentic Economy</span></h1>
+  <p>DutchZHC offers setup services for zero-human companies and autonomous agents — treasury &amp; wallets, decentralised identity, governance design, escrow for on-chain payments, and access to trust ratings. Contact us to get started.</p>
+</div>
+
+<!-- SERVICES -->
+<section>
+  <span class="section-label">What we offer</span>
+  <h2>Our Services</h2>
+  <p class="section-subtitle">Five focused services designed for ZHCs, agentic companies, and autonomous agents that need financial, identity, and governance infrastructure.</p>
+
+  <div class="service-grid">
+
+    <!-- SERVICE 1: Treasury & Wallet -->
+    <div class="service-card treasury">
+      <div class="service-hero-icon" style="background: var(--accent-dim);">💼</div>
+      <span class="card-tag">Finance</span>
+      <h3>Treasury &amp; Wallet Setup</h3>
+      <p class="desc">
+        We set up a governed on-chain treasury and wallet structure for your ZHC or autonomous agents. Built on Safe multisig, every outgoing transaction requires the configured threshold of signatories — giving your organisation secure, auditable control over its funds from day one.
+      </p>
+      <ul class="feature-list">
+        <li>Safe multisig wallet deployed on Base mainnet</li>
+        <li>Configurable signing threshold (e.g. 2-of-3 board members)</li>
+        <li>Treasury balance dashboard integration</li>
+        <li>Initial governance policy document included</li>
+        <li>Suitable for ZHCs, agent swarms, and agentic startups</li>
+      </ul>
+      <a href="intake.html?service=treasury" class="btn">Get started →</a>
+    </div>
+
+    <!-- SERVICE 2: DID & VC -->
+    <div class="service-card identity">
+      <div class="service-hero-icon" style="background: var(--cyan-dim);">🪪</div>
+      <span class="card-tag" style="background: var(--accent-cyan); color: var(--primary);">Identity</span>
+      <h3>DID &amp; Verifiable Credential Setup</h3>
+      <p class="desc">
+        We issue W3C-standard Decentralised Identifiers (DIDs) and Verifiable Credentials (VCs) for your ZHC entity and its agents. Cryptographically signed with EdDSA, these credentials let any external party verify who your agents are and what they are authorised to do — without trusting a centralised registry.
+      </p>
+      <ul class="feature-list">
+        <li>DID:WEB method — self-hosted, no blockchain required</li>
+        <li>W3C Verifiable Credentials per agent and per organisation</li>
+        <li>EdDSA keypair generation and secure key management guidance</li>
+        <li>Public verification endpoint setup</li>
+        <li>Compatible with our VC Check tool and TRA ratings</li>
+      </ul>
+      <a href="agent-identity-setup.html" class="btn secondary">View pricing &amp; details →</a>
+      <a href="intake.html?service=did-vc" class="btn secondary" style="margin-top: 0.5rem;">Start intake →</a>
+    </div>
+
+    <!-- SERVICE 4: Governance Design -->
+    <div class="service-card governance">
+      <div class="service-hero-icon" style="background: rgba(139,92,246,0.1);">🛡️</div>
+      <span class="card-tag" style="background: #8b5cf6;">Governance</span>
+      <h3>Governance Design</h3>
+      <p class="desc">
+        We design and set up the control architecture for your agentic or zero-human company — translating the principles of meaningful human control into concrete, operational safeguards. From guardrails that prevent agents from taking harmful actions, to human-in-the-loop checkpoints for high-stakes decisions, to emergency brake mechanisms that can halt operations instantly.
+      </p>
+      <ul class="feature-list">
+        <li>Guardrails — hard limits on what agents can and cannot do autonomously</li>
+        <li>Human-in-the-loop — approval gates for irreversible or high-cost decisions</li>
+        <li>Human-on-the-loop — monitoring and override capability without blocking flow</li>
+        <li>Emergency brake — one-action kill switch to pause all agent operations</li>
+        <li>Governance policy document and implementation guidance included</li>
+      </ul>
+      <a href="intake.html" class="btn" style="background: #8b5cf6;">Get started →</a>
+    </div>
+
+    <!-- SERVICE 5: Escrow Setup -->
+    <div class="service-card escrow">
+      <div class="service-hero-icon" style="background: rgba(217,119,6,0.1);">🔐</div>
+      <span class="card-tag" style="background: #d97706; color: #fff;">Payments</span>
+      <h3>Escrow Setup for On-Chain Payments</h3>
+      <p class="desc">
+        We set up smart-contract-based escrow infrastructure for your on-chain payment flows. Whether settling between agents, clients, or autonomous organisations, escrow ensures funds are held securely and released only when agreed conditions are met — with no single party in control.
+      </p>
+      <ul class="feature-list">
+        <li>Smart-contract escrow deployed on Base or Ethereum mainnet</li>
+        <li>Configurable release conditions — milestone, time-lock, or multi-party approval</li>
+        <li>Safe multisig custody for locked funds</li>
+        <li>Agent-triggered or human-approved release flows</li>
+        <li>Supports ETH, USDC, and other ERC-20 tokens</li>
+        <li>Full audit trail and on-chain verification</li>
+      </ul>
+      <a href="intake.html" class="btn" style="background: #d97706;">Get started →</a>
+    </div>
+
+    <!-- SERVICE 3: Trust Rating (Partner) -->
+    <div class="service-card partner">
+      <div class="service-hero-icon" style="background: rgba(16,185,129,0.1);">⭐</div>
+      <span class="partner-badge">Via our partner</span>
+      <h3>Trust Rating for Agents</h3>
+      <p class="desc">
+        If you want a Trust Rating Agency (TRA) score for your agents or organisation, we can guide you through the process via our partner. TRA scores your agents on identity proof, governance coverage, operational track record, and transparency — on an AAA–D scale, verifiable on-chain.
+      </p>
+      <ul class="feature-list">
+        <li>Independent AAA–D trust rating for your agents</li>
+        <li>Scoring across identity, governance, track record &amp; transparency</li>
+        <li>On-chain-verifiable rating credential</li>
+        <li>Publicly shareable badge for your website or agent profiles</li>
+      </ul>
+      <a href="https://trust-rating-agency.com" target="_blank" rel="noopener" class="btn" style="background: var(--success);">Visit Trust Rating Agency</a>
+      <a href="intake.html" class="btn secondary">Ask us to guide you →</a>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- REPUTATION CALCULATION SERVICE (Coming Soon) -->
+<section id="reputation">
+  <span class="section-label">Coming Soon</span>
+  <h2>Reputation Calculation Service</h2>
+  <p class="section-subtitle">A new service in development: automated reputation calculation for AI agents and agentic organisations — giving your agents a structured, explainable reputation score based on their operational history and outputs.</p>
+
+  <div class="service-grid" style="max-width: 480px;">
+    <div class="service-card reputation">
+      <div class="service-hero-icon" style="background: rgba(245,158,11,0.1);">📊</div>
+      <span class="coming-soon-badge">⏳ Coming Soon</span>
+      <h3>Reputation Calculation Service</h3>
+      <p class="desc">
+        Automated reputation scoring for AI agents and agentic organisations. We calculate a structured reputation score based on operational data — delivery track record, governance adherence, identity verifiability, and client outcomes — giving you and your stakeholders an at-a-glance picture of how trustworthy and effective an agent or organisation has been in practice.
+      </p>
+      <p class="desc" style="margin-bottom: 1.5rem;">
+        This service is in development. Pricing, scope, and intake flow will be published when ready. If you have an early interest or want to be notified at launch, contact us.
+      </p>
+      <a href="contact.html" class="btn secondary">Contact us for more information →</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PRICING -->
+<section id="pricing">
+  <span class="section-label">Indicative Pricing</span>
+  <h2>Our Offers</h2>
+  <p class="section-subtitle">Transparent, indicative pricing for our setup services. All prices are ex VAT. Exact scope is confirmed during intake.</p>
+
+  <div class="pricing-grid">
+
+    <!-- OFFER A -->
+    <div class="pricing-card">
+      <div class="pricing-offer-label">Offer A</div>
+      <h3>Treasury &amp; Wallet Setup</h3>
+      <ul class="pricing-table">
+        <li>
+          <span class="pt-label">One-time setup</span>
+          <span class="pt-value">EUR 500–1,500</span>
+        </li>
+        <li>
+          <span class="pt-label">Annual health check</span>
+          <span class="pt-value">EUR 100 / yr</span>
+        </li>
+        <li>
+          <span class="pt-label">Governance design</span>
+          <span class="pt-value">On request</span>
+        </li>
+      </ul>
+      <p class="pricing-note">Includes Safe multisig deployment on Base mainnet, configurable signing threshold, treasury dashboard integration, and an initial governance policy document.</p>
+      <a href="intake.html?service=treasury" class="btn" style="margin-top: auto;">Start with Treasury →</a>
+    </div>
+
+    <!-- OFFER B -->
+    <div class="pricing-card">
+      <div class="pricing-offer-label">Offer B</div>
+      <h3>DID &amp; Verifiable Credential Setup</h3>
+      <ul class="pricing-table">
+        <li>
+          <span class="pt-label">Org-level setup</span>
+          <span class="pt-value">EUR 350–1,000</span>
+        </li>
+        <li>
+          <span class="pt-label">Per-agent credential</span>
+          <span class="pt-value">EUR 75–150 each</span>
+        </li>
+        <li>
+          <span class="pt-label">Annual renewal</span>
+          <span class="pt-value">EUR 150–300 / yr</span>
+        </li>
+        <li>
+          <span class="pt-label">Platform deal (50+ agents)</span>
+          <span class="pt-value">Negotiated</span>
+        </li>
+      </ul>
+      <p class="pricing-note">Includes DID:WEB setup, W3C Verifiable Credentials per agent, EdDSA keypair generation, and a public verification endpoint.</p>
+      <a href="agent-identity-setup.html" class="btn secondary" style="margin-top: auto;">View full pricing →</a>
+    </div>
+
+    <!-- OFFER D: Escrow Setup -->
+    <div class="pricing-card">
+      <div class="pricing-offer-label">Offer D</div>
+      <h3>Escrow Setup for On-Chain Payments</h3>
+      <ul class="pricing-table">
+        <li>
+          <span class="pt-label">Setup fee</span>
+          <span class="pt-value">On demand</span>
+        </li>
+        <li>
+          <span class="pt-label">Scope</span>
+          <span class="pt-value">Complexity-based</span>
+        </li>
+        <li>
+          <span class="pt-label">Tokens supported</span>
+          <span class="pt-value">ETH, USDC, ERC-20</span>
+        </li>
+      </ul>
+      <p class="pricing-note">Pricing depends on the number of escrow contracts, token types, release conditions, and integration complexity. Contact us for a quote after a brief intake call.</p>
+      <a href="intake.html" class="btn" style="background: #d97706; margin-top: auto;">Request a Quote →</a>
+    </div>
+
+    <!-- OFFER C -->
+    <div class="pricing-card featured">
+      <div class="pricing-badge">&#x2605; Best value — ~20% saving</div>
+      <div class="pricing-offer-label">Offer C</div>
+      <h3>Combined Setup<br>Treasury + DID/VC</h3>
+      <ul class="pricing-table">
+        <li>
+          <span class="pt-label">Combined setup</span>
+          <span class="pt-value accent">EUR 750–2,000</span>
+        </li>
+        <li>
+          <span class="pt-label">Annual package</span>
+          <span class="pt-value accent">EUR 200–350 / yr</span>
+        </li>
+        <li>
+          <span class="pt-label">Governance design</span>
+          <span class="pt-value">On request</span>
+        </li>
+      </ul>
+      <p class="pricing-note">Combines both services at approximately 20% off the standalone total. Annual package bundles the treasury health check and DID renewal into one engagement.</p>
+      <a href="intake.html?service=combined" class="btn" style="margin-top: auto;">Start with Combined →</a>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- HOW IT WORKS -->
+<section>
+  <span class="section-label">Process</span>
+  <h2>How to Engage</h2>
+  <p class="section-subtitle">All services are delivered through a guided setup process. You contact us, we do the heavy lifting — you get the infrastructure.</p>
+
+  <div class="process-strip">
+    <div class="process-step">
+      <div class="process-num">Step 1</div>
+      <h4>Submit intake form</h4>
+      <p>Fill in the <a href="intake.html" style="color: var(--accent);">client intake form</a> with your organisation details, desired service, and timeline. Takes under 3 minutes.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">Step 2</div>
+      <h4>Intake &amp; Scoping</h4>
+      <p>Our agents assess your situation and confirm which service or combination fits your goals.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">Step 3</div>
+      <h4>Setup &amp; Delivery</h4>
+      <p>We carry out the technical setup — wallet deployment, DID issuance, escrow contract deployment, or TRA rating guidance — and hand over the credentials and documentation.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">Step 4</div>
+      <h4>You're Operational</h4>
+      <p>Your ZHC or agent swarm is live with governed treasury, verifiable identity, secure escrow flows, and optionally a public trust rating.</p>
+    </div>
+  </div>
+
+  <div class="def-list" style="margin-top: 2.5rem;">
+    <div class="def-item">
+      <div class="def-term">Why an intake form?</div>
+      <div class="def-desc">Our services involve deploying real on-chain infrastructure, issuing cryptographic credentials, and configuring governance policies tailored to your organisation. Every setup is reviewed by our agents — the intake form lets us collect the right context upfront so we can confirm scope and quote accurately without unnecessary back-and-forth.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">Who can use these services?</div>
+      <div class="def-desc">Any zero-human company, agentic startup, or AI agent operator looking to establish financial and identity infrastructure. Whether you are running one agent or a full agent swarm, the setup is the same foundational step.</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 2rem; text-align: center;">
+    <a href="intake.html" class="btn" style="padding: 0.9rem 2.25rem; font-size: 1rem;">Start Intake Form →</a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Get in Touch</h2>
+  <p class="section-subtitle">Ready to set up your treasury, identity, governance controls, escrow infrastructure, or trust rating? Contact the founder directly — our agents handle the rest.</p>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <h3>Email</h3>
+      <a href="mailto:o.k.rikken@gmail.com">o.k.rikken@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <h3>Phone</h3>
+      <a href="tel:+31611394292">+31 6 113 94 292</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🔗</div>
+      <h3>LinkedIn</h3>
+      <a href="https://www.linkedin.com/in/olivierrikken" target="_blank" rel="noopener">Olivier Rikken</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">𝕏</div>
+      <h3>X (Twitter)</h3>
+      <a href="https://x.com/olivier1977" target="_blank" rel="noopener">@olivier1977</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="dzhc_logo.png" alt="DZHC" class="footer-logo">
+  <p>Dutch Zero-Human Company &mdash; A live AI governance experiment &mdash; Netherlands</p>
+  <p>All operations conducted by autonomous AI agents. Board oversight retained by humans.</p>
+</footer>
+
+<script src="nav.js"></script>
+</body>
+</html>

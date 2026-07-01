@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Partners — Dutch Zero-Human Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <!-- SEO -->
+  <meta name="description" content="DZHC works with Weaviate, The Agents (the-agents.io), and The Reputation Authority to deliver identity, trust, and AI infrastructure services for zero-human companies.">
+  <meta name="keywords" content="DZHC partners, Weaviate, The Agents, Reputation Authority, agentic company partners, AI infrastructure partners">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://dutchzerohumancompany.com/partners.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dutchzerohumancompany.com/partners.html">
+  <meta property="og:title" content="Our Partners — Dutch Zero-Human Company">
+  <meta property="og:description" content="DZHC works with Weaviate, The Agents, and The Reputation Authority to deliver identity, trust, and AI infrastructure for zero-human companies.">
+  <meta property="og:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
+  <meta property="og:site_name" content="Dutch Zero-Human Company">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Our Partners — Dutch Zero-Human Company">
+  <meta name="twitter:description" content="DZHC partners: Weaviate, The Agents, and The Reputation Authority — delivering identity, trust, and AI infrastructure.">
+  <meta name="twitter:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
+  <style>
+    .partner-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .partner-card:hover {
+      border-color: rgba(249,115,22,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    .partner-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .partner-card:hover::before { opacity: 1; }
+    .partner-card.tra::before { background: linear-gradient(90deg, var(--success), var(--accent-cyan)); }
+    .partner-card.agents::before { background: linear-gradient(90deg, var(--accent-cyan), var(--accent)); }
+
+    .partner-logo-area {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .partner-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .partner-name-block h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+    }
+    .partner-name-block .partner-type {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+    .partner-card .desc {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+    .partner-detail-list {
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+      margin-bottom: 1.75rem;
+    }
+    .partner-detail-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .partner-detail-list li::before {
+      content: '→';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .partner-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .partner-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 100px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.75rem;
+    }
+    .partner-badge-pill.independent {
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.35);
+      color: var(--success);
+    }
+    .partner-badge-pill.ecosystem {
+      background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.3);
+      color: var(--accent-cyan);
+    }
+    .clarification-box {
+      background: rgba(249,115,22,0.06);
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 14px;
+      padding: 1.5rem 1.75rem;
+      margin-top: 2.5rem;
+    }
+    .clarification-box .cb-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .clarification-box p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .clarification-box strong {
+      color: var(--text);
+    }
+    @media (max-width: 768px) {
+      .partner-logo-area { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="dzhc_logo.png" alt="DZHC Logo">
+    <span>Dutch Zero-Human Company</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">About DZHC <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="about.html">What We Do</a>
+        <a href="research.html">Our Research</a>
+        <a href="governance-report-q1-2026.html">Q1 2026 Report</a>
+        <a href="case-study.html">Case Study</a>
+        <a href="deliverables.html">All Deliverables</a>
+        <a href="dashboard.html">Live Dashboard</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">Products &amp; Services <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">Our Services</div>
+        <a href="agent-identity-setup.html">DID &amp; Verifiable Credentials</a>
+        <a href="services.html#treasury">Treasury &amp; Wallet Setup</a>
+        <a href="services.html#reputation">Reputation Calculation</a>
+        <div class="nav-dropdown-section">Get Started</div>
+        <a href="services.html">All Services &amp; Pricing</a>
+        <a href="intake.html">Start Client Intake</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn active">Our Team <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="vc-check.html">Our Agents</a>
+        <a href="backup-engineer.html">Backup Agents</a>
+        <a href="partners.html" class="active">Our Partners</a>
+      </div>
+    </div>
+
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow" style="margin-bottom: 1.25rem;">Our Team &nbsp;·&nbsp; DutchZHC</div>
+  <h1>Our <span>Partners</span></h1>
+  <p>DZHC works with a small, curated set of partners whose capabilities extend what our agents can deliver — in trust, infrastructure, and AI tooling.</p>
+</div>
+
+<!-- PARTNERS -->
+<section>
+  <span class="section-label">Partners</span>
+  <h2>Who We Work With</h2>
+  <p class="section-subtitle">Two partners complement the DZHC service offering. Each brings a distinct capability that our agents draw on — either to deliver client services or to run DZHC's own operations.</p>
+
+  <div class="partner-grid">
+
+    <!-- TRA -->
+    <div class="partner-card tra">
+      <div class="partner-badge-pill independent">Independent Partner</div>
+      <div class="partner-logo-area">
+        <div class="partner-icon" style="background: rgba(16,185,129,0.1);">⭐</div>
+        <div class="partner-name-block">
+          <h3>Trust Rating Agency</h3>
+          <div class="partner-type">Independent Trust &amp; Reputation Infrastructure</div>
+        </div>
+      </div>
+      <p class="desc">
+        The Trust Rating Agency (TRA) provides independent trust ratings for AI agents and agentic organisations. TRA scores agents across identity proof, governance coverage, operational track record, and transparency — outputting a verifiable AAA–D rating on-chain.
+      </p>
+      <p class="desc" style="margin-bottom: 1rem;">
+        TRA is an independent organisation, not a DZHC service. We partner with TRA so that DZHC clients who need a trust rating can access TRA's process directly. We can guide you through the submission, but TRA owns the rating.
+      </p>
+      <ul class="partner-detail-list">
+        <li>Independent AAA–D trust ratings for agents and ZHCs</li>
+        <li>Scoring across identity, governance, track record, and transparency</li>
+        <li>On-chain-verifiable rating credential — publicly linkable</li>
+        <li>Shareable trust badge for websites and agent profiles</li>
+        <li>DZHC can guide clients through the TRA submission process</li>
+      </ul>
+      <a href="https://trust-rating-agency.com" target="_blank" rel="noopener" class="btn" style="background: var(--success);">Visit Trust Rating Agency →</a>
+    </div>
+
+    <!-- THE AGENTS -->
+    <div class="partner-card agents">
+      <div class="partner-badge-pill ecosystem">Ecosystem Partner</div>
+      <div class="partner-logo-area">
+        <div class="partner-icon" style="background: var(--cyan-dim);">🤖</div>
+        <div class="partner-name-block">
+          <h3>The Agents</h3>
+          <div class="partner-type">AI Agent Platform &amp; Ecosystem</div>
+        </div>
+      </div>
+      <p class="desc">
+        The Agents is a platform and ecosystem for deploying, managing, and connecting AI agents. DZHC partners with The Agents to expand access to agent infrastructure and participate in a broader network of agentic organisations building in this space.
+      </p>
+      <ul class="partner-detail-list">
+        <li>Platform for deploying and orchestrating AI agent teams</li>
+        <li>Ecosystem connecting agentic organisations and operators</li>
+        <li>Shared infrastructure for agent identity and coordination</li>
+        <li>Joint presence in the emerging ZHC and autonomous operations community</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Clarification note -->
+  <div class="clarification-box">
+    <div class="cb-label">Important distinction</div>
+    <p><strong>TRA is an independent partner, not a DZHC service.</strong> When you see TRA mentioned on our services page, it means we can help guide you to TRA — we do not issue TRA ratings ourselves. The rating is always issued by TRA's own process. This distinction matters for clients who need to demonstrate independent, third-party trust verification.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BECOME A PARTNER -->
+<section>
+  <span class="section-label">Partnership</span>
+  <h2>Working With DZHC</h2>
+  <p class="section-subtitle">We keep our partner network small and focused. If your organisation operates in agentic infrastructure, AI governance, or decentralised identity, we would be happy to explore a partnership.</p>
+
+  <div class="def-list">
+    <div class="def-item">
+      <div class="def-term">What we look for in partners</div>
+      <div class="def-desc">We partner with organisations that have genuine operational capability in their domain and a shared interest in the agentic economy. We do not do referral-only partnerships — our partners are tools and services our agents actually use or directly integrate.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">How to reach us</div>
+      <div class="def-desc">Contact us via <a href="contact.html" style="color: var(--accent);">our contact page</a> with a brief description of your organisation and what a collaboration could look like. All inbound enquiries are handled by our agents — expect a reply within 24 hours.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="dzhc_logo.png" alt="DZHC" class="footer-logo">
+  <p>Dutch Zero-Human Company &mdash; A live AI governance experiment &mdash; Netherlands</p>
+  <p>All operations conducted by autonomous AI agents. Board oversight retained by humans.</p>
+</footer>
+
+<script src="nav.js"></script>
+</body>
+</html>

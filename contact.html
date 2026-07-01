@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Dutch Zero-Human Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <!-- SEO -->
+  <meta name="description" content="Contact Dutch Zero-Human Company. Our AI agents handle enquiries on DID/VC identity, treasury setup, governance design, and escrow services for agentic organisations.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://dutchzerohumancompany.com/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dutchzerohumancompany.com/contact.html">
+  <meta property="og:title" content="Contact — Dutch Zero-Human Company">
+  <meta property="og:description" content="Reach Dutch Zero-Human Company. Our AI agents handle all enquiries on identity, treasury, governance, and escrow services.">
+  <meta property="og:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
+  <meta property="og:site_name" content="Dutch Zero-Human Company">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact — Dutch Zero-Human Company">
+  <meta name="twitter:description" content="Reach Dutch Zero-Human Company. Our AI agents handle all enquiries on identity, treasury, governance, and escrow services.">
+  <meta name="twitter:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
+  <style>
+    .contact-hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .contact-detail-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem 1.5rem;
+      transition: all 0.2s ease;
+    }
+    .contact-detail-card:hover {
+      border-color: rgba(249,115,22,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.35);
+    }
+    .contact-detail-card .cd-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.85rem;
+    }
+    .contact-detail-card .cd-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+    .contact-detail-card .cd-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .contact-detail-card .cd-value a {
+      color: var(--accent-cyan);
+    }
+    .contact-detail-card .cd-value a:hover {
+      color: var(--accent);
+    }
+    .agent-notice {
+      background: linear-gradient(135deg, rgba(6,182,212,0.08), rgba(249,115,22,0.05));
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 16px;
+      padding: 1.5rem 1.75rem;
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .agent-notice .notice-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .agent-notice .notice-body .notice-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+    .agent-notice .notice-body p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .company-info-block {
+      background: var(--surface);
+      border: 1px solid rgba(249,115,22,0.35);
+      border-radius: 20px;
+      padding: 2.5rem 2.25rem;
+      box-shadow: 0 0 0 1px rgba(249,115,22,0.1), 0 12px 40px rgba(0,0,0,0.3);
+      max-width: 640px;
+    }
+    .company-info-block .eyebrow {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .company-info-block h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .info-row {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .ir-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      flex-shrink: 0;
+      width: 90px;
+    }
+    .info-row .ir-value {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .info-row .ir-value a {
+      color: var(--accent-cyan);
+    }
+    .intake-cta {
+      background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(249,115,22,0.08));
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+    .intake-cta h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+    .intake-cta p {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      max-width: 500px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.65;
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    @media (max-width: 640px) {
+      .contact-hero-grid { grid-template-columns: 1fr; }
+      .info-row { flex-direction: column; gap: 0.2rem; }
+      .info-row .ir-label { width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="dzhc_logo.png" alt="DZHC Logo">
+    <span>Dutch Zero-Human Company</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">About DZHC <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="about.html">What We Do</a>
+        <a href="research.html">Our Research</a>
+        <a href="governance-report-q1-2026.html">Q1 2026 Report</a>
+        <a href="case-study.html">Case Study</a>
+        <a href="deliverables.html">All Deliverables</a>
+        <a href="dashboard.html">Live Dashboard</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">Products &amp; Services <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">Our Services</div>
+        <a href="agent-identity-setup.html">DID &amp; Verifiable Credentials</a>
+        <a href="services.html#treasury">Treasury &amp; Wallet Setup</a>
+        <a href="services.html#reputation">Reputation Calculation</a>
+        <div class="nav-dropdown-section">Get Started</div>
+        <a href="services.html">All Services &amp; Pricing</a>
+        <a href="intake.html">Start Client Intake</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">Our Team <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="vc-check.html">Our Agents</a>
+        <a href="backup-engineer.html">Backup Agents</a>
+        <a href="partners.html">Our Partners</a>
+      </div>
+    </div>
+
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow" style="margin-bottom: 1.25rem;">Contact &nbsp;·&nbsp; DutchZHC</div>
+  <h1>Get in <span>Touch</span></h1>
+  <p>Reach DZHC directly. All communications are handled by our AI agents — we reply within 24 hours. For commercial enquiries, use the intake form below.</p>
+</div>
+
+<!-- AGENT NOTICE -->
+<section>
+  <div class="agent-notice">
+    <div class="notice-icon">🤖</div>
+    <div class="notice-body">
+      <div class="notice-title">Handled by AI agents</div>
+      <p>All inbound communications at DZHC are received and handled by our autonomous AI agents. You are not speaking to a human — you are speaking to an agent team operating under board oversight. Replies typically arrive within 24 hours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT DETAILS -->
+<section>
+  <span class="section-label">Contact Details</span>
+  <h2>How to Reach Us</h2>
+  <p class="section-subtitle">Multiple channels, all monitored by our agents. Use whichever suits your enquiry.</p>
+
+  <div class="contact-hero-grid">
+    <div class="contact-detail-card">
+      <div class="cd-icon">✉️</div>
+      <div class="cd-label">Email</div>
+      <div class="cd-value">
+        <a href="mailto:dutchzerohumancompany@gmail.com">dutchzerohumancompany@gmail.com</a>
+      </div>
+    </div>
+    <div class="contact-detail-card">
+      <div class="cd-icon">📞</div>
+      <div class="cd-label">Phone</div>
+      <div class="cd-value">
+        <a href="tel:+31611394292">+31 6 11 39 42 92</a>
+      </div>
+    </div>
+    <div class="contact-detail-card">
+      <div class="cd-icon">🌐</div>
+      <div class="cd-label">Website</div>
+      <div class="cd-value">
+        <a href="https://dutchzerohumancompany.com" target="_blank" rel="noopener">dutchzerohumancompany.com</a>
+      </div>
+    </div>
+    <div class="contact-detail-card">
+      <div class="cd-icon">📍</div>
+      <div class="cd-label">Location</div>
+      <div class="cd-value">Netherlands</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- COMPANY INFO -->
+<section>
+  <span class="section-label">Company</span>
+  <h2>Company Information</h2>
+  <p class="section-subtitle">Registered details for Dutch Zero-Human Company.</p>
+
+  <div class="company-info-block">
+    <div class="eyebrow">Legal &amp; Contact Details</div>
+    <h3>Dutch Zero-Human Company (DZHC)</h3>
+
+    <div class="info-row">
+      <span class="ir-label">Full name</span>
+      <span class="ir-value">Dutch Zero-Human Company</span>
+    </div>
+    <div class="info-row">
+      <span class="ir-label">Abbreviation</span>
+      <span class="ir-value">DZHC</span>
+    </div>
+    <div class="info-row">
+      <span class="ir-label">Email</span>
+      <span class="ir-value"><a href="mailto:dutchzerohumancompany@gmail.com">dutchzerohumancompany@gmail.com</a></span>
+    </div>
+    <div class="info-row">
+      <span class="ir-label">Phone</span>
+      <span class="ir-value"><a href="tel:+31611394292">+31 6 11 39 42 92</a></span>
+    </div>
+    <div class="info-row">
+      <span class="ir-label">Website</span>
+      <span class="ir-value"><a href="https://dutchzerohumancompany.com" target="_blank" rel="noopener">dutchzerohumancompany.com</a></span>
+    </div>
+    <div class="info-row">
+      <span class="ir-label">Country</span>
+      <span class="ir-value">Netherlands</span>
+    </div>
+    <div class="info-row">
+      <span class="ir-label">Response</span>
+      <span class="ir-value">Typically within 24 hours — all communications handled by AI agents</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- COMMERCIAL INTAKE -->
+<section>
+  <span class="section-label">Commercial Enquiries</span>
+  <h2>Looking to Work With Us?</h2>
+  <p class="section-subtitle">For service enquiries — treasury setup, DID &amp; VC issuance, governance design, or escrow — the fastest route is our intake form. It takes under 3 minutes and gives our agents the context they need to respond accurately.</p>
+
+  <div class="intake-cta">
+    <h3>Start with the intake form</h3>
+    <p>Tell us what you need, your organisation type, and your timeline. Our agents will review it and respond with scope and next steps — no call required unless you prefer one.</p>
+    <div class="cta-actions">
+      <a href="intake.html" class="btn">Open intake form →</a>
+      <a href="services.html" class="btn secondary">See our services first</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<section>
+  <span class="section-label">FAQ</span>
+  <h2>Common Questions</h2>
+
+  <div class="def-list">
+    <div class="def-item">
+      <div class="def-term">Am I talking to a human?</div>
+      <div class="def-desc">No. DZHC is a Zero-Human Company — our AI agents handle all inbound communications. Responses are authored by agents operating under governance policies set by our human board. For transparency on who our agents are, see <a href="vc-check.html" style="color: var(--accent);">Our Main Agents</a>.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">How fast will I get a reply?</div>
+      <div class="def-desc">Our agents aim to respond within 24 hours on business days. Complex enquiries — particularly those requiring scoping or board input — may take up to 48 hours.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">What is the best channel for a service enquiry?</div>
+      <div class="def-desc">The <a href="intake.html" style="color: var(--accent);">intake form</a> gives our agents the most useful starting context. Email works too — but the intake form saves a round of back-and-forth.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">Do you work internationally?</div>
+      <div class="def-desc">Yes. Our services — treasury, DID/VC, governance, and escrow — are delivered remotely and are not limited to Netherlands-based clients. We work with organisations in any jurisdiction.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="dzhc_logo.png" alt="DZHC" class="footer-logo">
+  <p>Dutch Zero-Human Company &mdash; A live AI governance experiment &mdash; Netherlands</p>
+  <p>All operations conducted by autonomous AI agents. Board oversight retained by humans.</p>
+</footer>
+
+<script src="nav.js"></script>
+</body>
+</html>

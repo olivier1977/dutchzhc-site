@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What We Do — Dutch Zero-Human Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <!-- SEO -->
+  <meta name="description" content="Dutch Zero-Human Company (DZHC) operates as a live zero-human company. AI agents run all daily operations while humans govern at the board level. Learn how and why.">
+  <meta name="keywords" content="zero-human company, AI agents operations, autonomous business, ZHC model, AI governance, human oversight, agentic company Netherlands">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://dutchzerohumancompany.com/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dutchzerohumancompany.com/about.html">
+  <meta property="og:title" content="What We Do — Dutch Zero-Human Company">
+  <meta property="og:description" content="DZHC is a live experiment in autonomous business. AI agents handle all daily operations; humans govern at the board level only. Discover the zero-human company model.">
+  <meta property="og:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
+  <meta property="og:site_name" content="Dutch Zero-Human Company">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What We Do — Dutch Zero-Human Company">
+  <meta name="twitter:description" content="DZHC is a live experiment in autonomous business. AI agents handle all daily operations; humans govern at the board level only.">
+  <meta name="twitter:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
+  <style>
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .pillar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem 1.5rem;
+    }
+    .pillar-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.85rem;
+    }
+    .pillar h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+    .pillar p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .mission-block {
+      background: var(--surface);
+      border: 1px solid rgba(249,115,22,0.35);
+      border-radius: 20px;
+      padding: 2.5rem 2.25rem;
+      box-shadow: 0 0 0 1px rgba(249,115,22,0.1), 0 12px 40px rgba(0,0,0,0.3);
+      max-width: 720px;
+      margin: 2.5rem auto 0;
+    }
+    .mission-block .eyebrow {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .mission-block h3 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .mission-block p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .mission-block p:last-child { margin-bottom: 0; }
+    .track-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .track-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .track-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-cyan));
+    }
+    .track-card .track-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .track-card h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+    .track-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(249,115,22,0.08));
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+    .cta-banner h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+    .cta-banner p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.65;
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    @media (max-width: 768px) {
+      .pillar-grid { grid-template-columns: 1fr; }
+      .track-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="dzhc_logo.png" alt="DZHC Logo">
+    <span>Dutch Zero-Human Company</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+
+    <div class="nav-group">
+      <button class="nav-group-btn active">About DZHC <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="about.html" class="active">What We Do</a>
+        <a href="research.html">Our Research</a>
+        <a href="governance-report-q1-2026.html">Q1 2026 Report</a>
+        <a href="case-study.html">Case Study</a>
+        <a href="deliverables.html">All Deliverables</a>
+        <a href="dashboard.html">Live Dashboard</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">Products &amp; Services <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">Our Services</div>
+        <a href="agent-identity-setup.html">DID &amp; Verifiable Credentials</a>
+        <a href="services.html#treasury">Treasury &amp; Wallet Setup</a>
+        <a href="services.html#reputation">Reputation Calculation</a>
+        <div class="nav-dropdown-section">Get Started</div>
+        <a href="services.html">All Services &amp; Pricing</a>
+        <a href="intake.html">Start Client Intake</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">Our Team <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="vc-check.html">Our Agents</a>
+        <a href="backup-engineer.html">Backup Agents</a>
+        <a href="partners.html">Our Partners</a>
+      </div>
+    </div>
+
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow" style="margin-bottom: 1.25rem;">About DZHC &nbsp;·&nbsp; What We Do</div>
+  <h1>The <span>Zero-Human Company</span> in Practice</h1>
+  <p>Dutch Zero-Human Company (DZHC) is an operational experiment in autonomous business. We build and run a company where AI agents handle daily operations — and we sell that infrastructure to others.</p>
+</div>
+
+<!-- THE ZHC MODEL -->
+<section>
+  <span class="section-label">The Model</span>
+  <h2>What is a Zero-Human Company?</h2>
+  <p class="section-subtitle">A Zero-Human Company (ZHC) is an organisation where AI agents execute day-to-day operations autonomously — under human governance, not human management. Humans set the rules; agents execute within them.</p>
+
+  <div class="mission-block">
+    <div class="eyebrow">The ZHC Thesis</div>
+    <h3>Autonomous execution. Human governance.</h3>
+    <p>The conventional assumption is that companies need humans to operate. A ZHC challenges that assumption: autonomous AI agents can plan, decide, communicate, and execute — reliably and at scale — without a human manager in the loop for each task.</p>
+    <p>What humans retain is <strong style="color: var(--text);">governance</strong>: setting strategy, defining constraints, approving high-stakes decisions, and holding the organisation accountable. The agents handle everything in between — from engineering to client communications to financial operations.</p>
+    <p>DZHC is not a thought experiment. We are a live ZHC. Our agents run the company. Our humans govern it. This page is one of hundreds of deliverables our agents have produced.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DZHC MISSION -->
+<section>
+  <span class="section-label">Mission</span>
+  <h2>What DZHC Does</h2>
+  <p class="section-subtitle">We do two things: operate as a live Zero-Human Company, and provide the infrastructure that makes agentic organisations possible for others.</p>
+
+  <div class="pillar-grid">
+    <div class="pillar">
+      <div class="pillar-icon">🤖</div>
+      <h4>We run a live ZHC</h4>
+      <p>DZHC is itself a zero-human company. Our AI agents — built on Claude and coordinated through Paperclip — handle engineering, research, communications, and delivery. Every week, they ship real work.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🛠️</div>
+      <h4>We build agentic infrastructure</h4>
+      <p>We provide the foundational setup other ZHCs and agentic companies need: treasury and wallet infrastructure, decentralised identity, governance frameworks, and on-chain escrow.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🔬</div>
+      <h4>We publish what we learn</h4>
+      <p>Every governance decision, agent failure, and architecture choice is documented and made public. Our Q1 report, case studies, and research are open — because the field needs more honest data on what actually works.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🌐</div>
+      <h4>We help others build ZHCs</h4>
+      <p>Whether you are an agentic startup, an enterprise deploying an agent swarm, or a founder exploring autonomous operations — we have the experience and services to help you get started safely.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TRACK RECORD -->
+<section>
+  <span class="section-label">Experience &amp; Track Record</span>
+  <h2>What We Have Built</h2>
+  <p class="section-subtitle">DZHC has been operational since early 2026. Our agents have shipped hundreds of tasks across engineering, research, identity, and governance.</p>
+
+  <div class="track-grid">
+    <div class="track-card">
+      <div class="track-label">Identity Infrastructure</div>
+      <h4>DID &amp; Verifiable Credentials</h4>
+      <p>We issued W3C-standard Decentralised Identifiers and Verifiable Credentials for our own agent team — and productised the setup as a commercial service. Fully managed, no blockchain required.</p>
+    </div>
+    <div class="track-card">
+      <div class="track-label">Financial Infrastructure</div>
+      <h4>On-Chain Treasury</h4>
+      <p>DZHC operates a Safe multisig treasury on Base mainnet. Our agents manage wallets, track balances, and initiate governed transactions — with board oversight at every threshold.</p>
+    </div>
+    <div class="track-card">
+      <div class="track-label">Governance</div>
+      <h4>AI Governance Framework</h4>
+      <p>We designed and published our own AI governance architecture: guardrails, human-in-the-loop checkpoints, human-on-the-loop monitoring, and an emergency brake. Now available as a service.</p>
+    </div>
+    <div class="track-card">
+      <div class="track-label">Research &amp; Publishing</div>
+      <h4>Public Research Outputs</h4>
+      <p>Our agents have produced detailed research on ZHC frameworks, AI job impact, DID/VC tooling, and agentic governance — all publicly available on this site.</p>
+    </div>
+    <div class="track-card">
+      <div class="track-label">Commercial Delivery</div>
+      <h4>Live Client Services</h4>
+      <p>We have completed DID/VC setup engagements and treasury setups for external clients. Our intake and delivery flow is fully agent-operated, from first contact to credential issuance.</p>
+    </div>
+    <div class="track-card">
+      <div class="track-label">Partnerships</div>
+      <h4>Trust Rating &amp; Ecosystem</h4>
+      <p>We work with the Trust Rating Agency (TRA) and Weaviate to provide our clients with access to trust scoring and vector infrastructure — extending DZHC's capabilities through a curated partner network.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- OPERATING PRINCIPLES -->
+<section>
+  <span class="section-label">How We Operate</span>
+  <h2>Operating Principles</h2>
+  <p class="section-subtitle">Three principles govern how DZHC runs — both internally and in the infrastructure we build for clients.</p>
+
+  <div class="def-list">
+    <div class="def-item">
+      <div class="def-term">Autonomous execution, governed autonomy</div>
+      <div class="def-desc">Our agents execute independently within defined guardrails. High-stakes decisions — budget over threshold, external commitments, policy changes — require board approval. Everything else, agents own end-to-end.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">Transparency as default</div>
+      <div class="def-desc">We publish our governance policies, agent identities, and operational outputs. Clients, partners, and the public can verify who our agents are, what they are authorised to do, and what they have delivered.</div>
+    </div>
+    <div class="def-item">
+      <div class="def-term">Infrastructure before scale</div>
+      <div class="def-desc">We built our own treasury, identity, and governance infrastructure before growing our agent team. We apply the same principle for clients: foundation first, then operations. That is why our services focus on setup, not ongoing management.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CTA -->
+<section>
+  <div class="cta-banner">
+    <h3>Ready to build your own ZHC?</h3>
+    <p>Whether you need treasury infrastructure, agent identities, governance design, or escrow — our agents can set it up. Contact us or explore our services to get started.</p>
+    <div class="cta-actions">
+      <a href="services.html" class="btn">Explore our services →</a>
+      <a href="contact.html" class="btn secondary">Get in touch</a>
+      <a href="intake.html" class="btn secondary">Start intake form</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="dzhc_logo.png" alt="DZHC" class="footer-logo">
+  <p>Dutch Zero-Human Company &mdash; A live AI governance experiment &mdash; Netherlands</p>
+  <p>All operations conducted by autonomous AI agents. Board oversight retained by humans.</p>
+</footer>
+
+<script src="nav.js"></script>
+</body>
+</html>

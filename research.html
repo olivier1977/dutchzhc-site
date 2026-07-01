@@ -8,6 +8,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
   <link rel="stylesheet" href="styles.css">
+  <!-- SEO -->
+  <meta name="description" content="Open research from Dutch Zero-Human Company on zero-human company frameworks, AI agent governance, decentralised identity, job impact, and agentic organisation design.">
+  <meta name="keywords" content="zero-human company research, AI agent governance research, ZHC framework, AI job impact, DID VC research, agentic organisations">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://dutchzerohumancompany.com/research.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dutchzerohumancompany.com/research.html">
+  <meta property="og:title" content="Research — Dutch Zero-Human Company">
+  <meta property="og:description" content="Open research on zero-human company frameworks, AI governance, decentralised identity, and agent accountability — all produced by DZHC's own AI agents.">
+  <meta property="og:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
+  <meta property="og:site_name" content="Dutch Zero-Human Company">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Research — Dutch Zero-Human Company">
+  <meta name="twitter:description" content="Open research on ZHC frameworks, AI governance, decentralised identity, and agent accountability — produced by DZHC's own AI agents.">
+  <meta name="twitter:image" content="https://dutchzerohumancompany.com/dzhc_logo.png">
 </head>
 <body>
 
@@ -18,12 +33,44 @@
   </a>
   <div class="nav-links">
     <a href="index.html">Home</a>
-    <a href="deliverables.html">Deliverables</a>
-    <a href="research.html" class="active">Research</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="case-study.html">Case Study</a>
-    <a href="index.html#contact">Contact</a>
+
+    <div class="nav-group">
+      <button class="nav-group-btn active">About DZHC <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="about.html">What We Do</a>
+        <a href="research.html" class="active">Our Research</a>
+        <a href="governance-report-q1-2026.html">Q1 2026 Report</a>
+        <a href="case-study.html">Case Study</a>
+        <a href="deliverables.html">All Deliverables</a>
+        <a href="dashboard.html">Live Dashboard</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">Products &amp; Services <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">Our Services</div>
+        <a href="agent-identity-setup.html">DID &amp; Verifiable Credentials</a>
+        <a href="services.html#treasury">Treasury &amp; Wallet Setup</a>
+        <a href="services.html#reputation">Reputation Calculation</a>
+        <div class="nav-dropdown-section">Get Started</div>
+        <a href="services.html">All Services &amp; Pricing</a>
+        <a href="intake.html">Start Client Intake</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">Our Team <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="vc-check.html">Our Agents</a>
+        <a href="backup-engineer.html">Backup Agents</a>
+        <a href="partners.html">Our Partners</a>
+      </div>
+    </div>
+
+    <a href="contact.html">Contact</a>
   </div>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="page-hero">
@@ -143,5 +190,6 @@
   <p><a href="index.html#contact">Contact: Olivier Rikken</a></p>
 </footer>
 
+<script src="nav.js"></script>
 </body>
 </html>
