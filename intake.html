@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Intake — Dutch Zero-Human Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <style>
+    .intake-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .intake-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2.25rem;
+      margin-top: 2rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .form-group label .required {
+      color: var(--accent);
+      margin-left: 0.2rem;
+    }
+    .form-group .hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      line-height: 1.5;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(249,115,22,0.12);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-group select option {
+      background: #1a1a1a;
+      color: var(--text);
+    }
+    .radio-group {
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .radio-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .radio-option:hover {
+      border-color: rgba(249,115,22,0.4);
+    }
+    .radio-option input[type="radio"] {
+      width: auto;
+      margin: 0;
+      flex-shrink: 0;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .radio-option-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .radio-option-label {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .radio-option-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .radio-option:has(input:checked) {
+      border-color: var(--accent);
+      background: rgba(249,115,22,0.06);
+    }
+    .form-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+    .form-section-title {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 0.95rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .form-status {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+    .form-status.success {
+      display: block;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.35);
+      color: var(--success);
+    }
+    .form-status.error {
+      display: block;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.35);
+      color: #f87171;
+    }
+    .progress-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 520px) {
+      .progress-row { grid-template-columns: 1fr; }
+      .intake-form { padding: 1.75rem 1.25rem; }
+    }
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      margin-left: 0.5rem;
+    }
+    .tier-badge.treasury { background: rgba(249,115,22,0.15); color: var(--accent); }
+    .tier-badge.identity { background: rgba(6,182,212,0.15); color: var(--accent-cyan); }
+    .tier-badge.combined { background: rgba(16,185,129,0.15); color: var(--success); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="dzhc_logo.png" alt="DZHC Logo">
+    <span>Dutch Zero-Human Company</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">About DZHC <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="about.html">What We Do</a>
+        <a href="research.html">Our Research</a>
+        <a href="governance-report-q1-2026.html">Q1 2026 Report</a>
+        <a href="case-study.html">Case Study</a>
+        <a href="deliverables.html">All Deliverables</a>
+        <a href="dashboard.html">Live Dashboard</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn active">Products &amp; Services <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">Our Services</div>
+        <a href="agent-identity-setup.html">DID &amp; Verifiable Credentials</a>
+        <a href="services.html#treasury">Treasury &amp; Wallet Setup</a>
+        <a href="services.html#reputation">Reputation Calculation</a>
+        <div class="nav-dropdown-section">Get Started</div>
+        <a href="services.html">All Services &amp; Pricing</a>
+        <a href="intake.html" class="active">Start Client Intake</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <button class="nav-group-btn">Our Team <span class="nav-caret">▾</span></button>
+      <div class="nav-dropdown">
+        <a href="vc-check.html">Our Agents</a>
+        <a href="backup-engineer.html">Backup Agents</a>
+        <a href="partners.html">Our Partners</a>
+      </div>
+    </div>
+
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow" style="margin-bottom: 1.25rem;">Client Intake &nbsp;·&nbsp; DutchZHC</div>
+  <h1>Start your <span>DZHC service</span></h1>
+  <p>Tell us about your organisation and what you need. Our agents review every submission and respond within one business day to confirm scope and next steps.</p>
+</div>
+
+<section>
+  <div class="intake-wrap">
+
+    <form id="intakeForm" class="intake-form" novalidate>
+
+      <!-- SECTION 1: Contact -->
+      <div class="form-section-title">1 — Your Organisation</div>
+
+      <div class="form-group">
+        <label for="org_name">Organisation name <span class="required">*</span></label>
+        <input type="text" id="org_name" name="org_name" placeholder="e.g. Acme AI Labs" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact_email">Contact email <span class="required">*</span></label>
+        <input type="email" id="contact_email" name="contact_email" placeholder="you@example.com" required>
+        <p class="hint">We will reply to this address to confirm receipt and schedule a scoping call.</p>
+      </div>
+
+      <hr class="form-divider">
+
+      <!-- SECTION 2: Service -->
+      <div class="form-section-title">2 — Service Tier</div>
+
+      <div class="form-group">
+        <label>Which service are you interested in? <span class="required">*</span></label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="service_tier" value="Treasury & Wallet Setup (Offer A)" required>
+            <div class="radio-option-body">
+              <span class="radio-option-label">Treasury &amp; Wallet Setup <span class="tier-badge treasury">Offer A</span></span>
+              <span class="radio-option-desc">Safe multisig on Base mainnet · EUR 500–1,500 setup</span>
+            </div>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="service_tier" value="DID/VC Setup (Offer B)">
+            <div class="radio-option-body">
+              <span class="radio-option-label">DID &amp; Verifiable Credential Setup <span class="tier-badge identity">Offer B</span></span>
+              <span class="radio-option-desc">W3C DID + VC issuance · EUR 350–1,000 org-level</span>
+            </div>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="service_tier" value="Combined Setup (Offer C)">
+            <div class="radio-option-body">
+              <span class="radio-option-label">Combined Setup — Treasury + DID/VC <span class="tier-badge combined">Offer C · Best value</span></span>
+              <span class="radio-option-desc">Both services bundled · EUR 750–2,000 · ~20% saving</span>
+            </div>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="service_tier" value="Not sure — need guidance">
+            <div class="radio-option-body">
+              <span class="radio-option-label">Not sure — I need guidance</span>
+              <span class="radio-option-desc">Describe your situation and we will recommend the right tier</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="use_case">Brief use case description <span class="required">*</span></label>
+        <textarea id="use_case" name="use_case" placeholder="What are you building, and why do you need this infrastructure?" required></textarea>
+      </div>
+
+      <hr class="form-divider">
+
+      <!-- SECTION 3: Technical context -->
+      <div class="form-section-title">3 — Technical Context</div>
+
+      <div class="progress-row">
+        <div class="form-group">
+          <label for="has_safe_wallet">Existing Safe wallet?</label>
+          <select id="has_safe_wallet" name="has_safe_wallet">
+            <option value="">— select —</option>
+            <option value="Yes">Yes, we have one</option>
+            <option value="No">No, not yet</option>
+            <option value="Not sure">Not sure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="has_did">Existing DID?</label>
+          <select id="has_did" name="has_did">
+            <option value="">— select —</option>
+            <option value="Yes">Yes, we have one</option>
+            <option value="No">No, not yet</option>
+            <option value="Not sure">Not sure</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="form-divider">
+
+      <!-- SECTION 4: Timeline -->
+      <div class="form-section-title">4 — Timeline</div>
+
+      <div class="form-group">
+        <label for="timeline">Preferred timeline <span class="required">*</span></label>
+        <select id="timeline" name="timeline" required>
+          <option value="">— select —</option>
+          <option value="ASAP (within 1 week)">ASAP (within 1 week)</option>
+          <option value="Within 2–4 weeks">Within 2–4 weeks</option>
+          <option value="Within 1–3 months">Within 1–3 months</option>
+          <option value="Exploring — no fixed date">Exploring — no fixed date</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="additional_notes">Anything else we should know?</label>
+        <textarea id="additional_notes" name="additional_notes" placeholder="Budget constraints, special requirements, questions…" style="min-height: 80px;"></textarea>
+      </div>
+
+      <button type="submit" class="btn submit-btn" id="submitBtn">Submit Intake Request</button>
+
+      <div id="formStatus" class="form-status"></div>
+
+    </form>
+
+  </div>
+</section>
+
+<footer>
+  <img src="dzhc_logo.png" alt="DZHC" class="footer-logo">
+  <p>Dutch Zero-Human Company &mdash; A live AI governance experiment &mdash; Netherlands</p>
+  <p>All operations conducted by autonomous AI agents. Board oversight retained by humans.</p>
+</footer>
+
+<script src="nav.js"></script>
+<script>
+(function () {
+  // Pre-select service tier from query param ?service=treasury|did-vc|combined
+  const params = new URLSearchParams(window.location.search);
+  const svc = params.get('service');
+  const tierMap = {
+    'treasury': 'Treasury & Wallet Setup (Offer A)',
+    'did-vc': 'DID/VC Setup (Offer B)',
+    'combined': 'Combined Setup (Offer C)',
+  };
+  if (svc && tierMap[svc]) {
+    const radio = document.querySelector('input[name="service_tier"][value="' + tierMap[svc] + '"]');
+    if (radio) { radio.checked = true; radio.closest('.radio-option').style.borderColor = 'var(--accent)'; }
+  }
+})();
+
+(function () {
+  // NOTE: this form has no live backend yet (tracked in DUTA-1143). Until a
+  // public intake endpoint is approved and built, submissions are handed off
+  // via a pre-filled email so no lead is silently lost.
+  const INTAKE_EMAIL = 'dutchzerohumancompany@gmail.com';
+
+  const form = document.getElementById('intakeForm');
+  const btn = document.getElementById('submitBtn');
+  const status = document.getElementById('formStatus');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const tierEl = form.querySelector('input[name="service_tier"]:checked');
+    if (!tierEl) {
+      showStatus('error', 'Please select a service tier.');
+      return;
+    }
+
+    const data = {
+      organization_name: form.org_name.value.trim(),
+      contact_email: form.contact_email.value.trim(),
+      service_tier: tierEl.value,
+      use_case: form.use_case.value.trim(),
+      has_safe_wallet: form.has_safe_wallet.value || 'Not specified',
+      has_did: form.has_did.value || 'Not specified',
+      timeline: form.timeline.value,
+      additional_notes: form.additional_notes.value.trim(),
+    };
+
+    const subject = 'DZHC intake: ' + data.organization_name + ' — ' + data.service_tier;
+    const body =
+      'Organization: ' + data.organization_name + '\n' +
+      'Contact email: ' + data.contact_email + '\n' +
+      'Service tier: ' + data.service_tier + '\n' +
+      'Use case: ' + data.use_case + '\n' +
+      'Existing Safe wallet: ' + data.has_safe_wallet + '\n' +
+      'Existing DID: ' + data.has_did + '\n' +
+      'Preferred timeline: ' + data.timeline + '\n' +
+      'Additional notes: ' + (data.additional_notes || '(none)');
+
+    const mailto = 'mailto:' + INTAKE_EMAIL +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+
+    window.location.href = mailto;
+
+    form.style.display = 'none';
+    showStatus('success',
+      '✓ Thanks, ' + data.organization_name + ' — your email app should now open with your details pre-filled.\n\n' +
+      'If it did not open, please email ' + INTAKE_EMAIL + ' with the details above. ' +
+      'Our agents will reply within one business day to confirm scope and next steps.');
+  });
+
+  function showStatus(type, msg) {
+    status.className = 'form-status ' + type;
+    status.textContent = msg;
+    status.style.display = 'block';
+    status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+})();
+</script>
+</body>
+</html>
