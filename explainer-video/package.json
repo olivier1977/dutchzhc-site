@@ -1,0 +1,21 @@
+{
+  "name": "dzhc-explainer-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DUTA-1164 pilot: Remotion explainer video for DID & Verifiable Credentials (DZHC brand kit)",
+  "scripts": {
+    "start": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts DIDExplainer out/did-vc-explainer.mp4",
+    "still": "remotion still src/index.ts DIDExplainer out/still.png"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "4.0.490",
+    "@remotion/cli": "4.0.490"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "typescript": "^5.5.4"
+  }
+}
