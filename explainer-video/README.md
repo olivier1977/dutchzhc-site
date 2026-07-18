@@ -11,8 +11,9 @@ slated for voiceover. Output: a 33s branded MP4 for LinkedIn / Dev.to.
 - `src/components/*` — reusable node-network background, feature cards, captions, watermark
 - `src/theme.ts` — DZHC brand colors lifted from `create_linkedin_image_*.py`
   (navy `#1E3A5F`, gold `#F18F01`, blue `#2E86AB`, node-network motif)
-- `voiceover-script.md` — timestamped VO lines ready for ElevenLabs, not yet recorded
-- `out/did-vc-explainer.mp4` — rendered output (1920x1080, H.264, 33s, ~4MB)
+- `voiceover-script.md` — timestamped VO lines, recorded via ElevenLabs (see below)
+- `scripts/generate-voiceover.mjs` — regenerates `public/audio/line-0N.mp3` from the script
+- `out/did-vc-explainer.mp4` — rendered output (1920x1080, H.264, 33s, ~4MB, with narration)
 
 Subject chosen: **DID & Verifiable Credentials** (over Treasury/multisig or TRA) — it has the
 clearest 30-45s narrative arc and the most existing supporting content in this repo
@@ -30,12 +31,21 @@ npm start          # opens Remotion Studio for live preview/editing
 npm run render      # renders out/did-vc-explainer.mp4
 ```
 
-## Known limitation: no ElevenLabs voiceover yet
+## ElevenLabs voiceover (DUTA-1166)
 
-`ELEVENLABS_API_KEY` is not set in this environment, so this pilot ships with on-screen
-captions only — no recorded narration. `voiceover-script.md` has the full timestamped script
-ready to feed the ElevenLabs API the moment a key is provisioned. Wiring it in is additive
-(one `<Audio>` per `<Sequence>` in `src/Video.tsx`), not a rework.
+Narration is recorded and wired in: `public/audio/line-01.mp3` … `line-06.mp3`
+(voice `onwK4e9ZLuTAKqWW03F9`, "Daniel — Steady Broadcaster"), one `<Audio>` per `<Sequence>`
+in `src/Video.tsx`. `ELEVENLABS_API_KEY` lives in `explainer-video/.env` (gitignored, board-
+provisioned) — never commit it or paste it in plaintext elsewhere. Regenerate with:
+
+```bash
+node --env-file=.env scripts/generate-voiceover.mjs
+npm run render
+```
+
+**Publishing stays manual.** Per board direction (DUTA-1167 governance note), this pipeline
+only produces `out/did-vc-explainer.mp4` — no automated upload to LinkedIn/Dev.to/anywhere.
+A human on the board handles publishing.
 
 ## Windows-specific gotcha: bundled ffmpeg silently failing
 
