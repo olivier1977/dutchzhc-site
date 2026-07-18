@@ -13,6 +13,10 @@ export const Intro: React.FC = () => {
     fps,
     config: { damping: 200 },
   });
+  // Gentle continuous drift once settled, so the headline never goes fully static.
+  const settleFrame = Math.max(0, frame - 30);
+  const float = Math.sin(settleFrame / 24) * 3;
+  const underlinePulse = 0.75 + Math.sin(frame / 15) * 0.25;
 
   return (
     <AbsoluteFill>
@@ -39,7 +43,7 @@ export const Intro: React.FC = () => {
         </div>
         <div
           style={{
-            transform: `scale(${scale})`,
+            transform: `scale(${scale}) translateY(${float}px)`,
             color: COLORS.ink,
             fontSize: 88,
             fontWeight: 800,
@@ -55,6 +59,7 @@ export const Intro: React.FC = () => {
             height: 4,
             background: COLORS.gold,
             marginTop: 28,
+            opacity: underlinePulse,
             transform: `scaleX(${scale})`,
           }}
         />

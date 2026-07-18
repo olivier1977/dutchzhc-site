@@ -8,7 +8,8 @@ export const FeatureCard: React.FC<{
   lines: string[];
   accent: string;
   delay?: number;
-}> = ({ icon, title, lines, accent, delay = 0 }) => {
+  lineStagger?: number;
+}> = ({ icon, title, lines, accent, delay = 0, lineStagger = 0 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const enter = spring({ frame: frame - delay, fps, config: { damping: 18 } });
@@ -33,20 +34,31 @@ export const FeatureCard: React.FC<{
         </div>
       </div>
       <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 12 }}>
-        {lines.map((line, i) => (
-          <div
-            key={i}
-            style={{
-              fontSize: 24,
-              color: COLORS.inkDim,
-              display: "flex",
-              gap: 10,
-            }}
-          >
-            <span style={{ color: accent }}>→</span>
-            {line}
-          </div>
-        ))}
+        {lines.map((line, i) => {
+          const lineEnter = lineStagger
+            ? spring({
+                frame: frame - delay - i * lineStagger,
+                fps,
+                config: { damping: 18 },
+              })
+            : 1;
+          return (
+            <div
+              key={i}
+              style={{
+                opacity: lineEnter,
+                transform: `translateX(${(1 - lineEnter) * 16}px)`,
+                fontSize: 24,
+                color: COLORS.inkDim,
+                display: "flex",
+                gap: 10,
+              }}
+            >
+              <span style={{ color: accent }}>→</span>
+              {line}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

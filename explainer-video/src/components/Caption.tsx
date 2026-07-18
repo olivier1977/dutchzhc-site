@@ -4,16 +4,17 @@ import { COLORS, FONT_STACK } from "../theme";
 
 // On-screen subtitle synced to the ElevenLabs voiceover script (see voiceover-script.md).
 // Renders even without audio so the pilot is watchable muted (LinkedIn/Dev.to default).
-export const Caption: React.FC<{ text: string; fadeFrames?: number }> = ({
+export const Caption: React.FC<{ text: string; fadeFrames?: number; delay?: number }> = ({
   text,
   fadeFrames = 12,
+  delay = 0,
 }) => {
-  const frame = useCurrentFrame();
+  const frame = useCurrentFrame() - delay;
   const opacity = interpolate(
     frame,
     [0, fadeFrames],
     [0, 1],
-    { extrapolateRight: "clamp" }
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
 
   return (

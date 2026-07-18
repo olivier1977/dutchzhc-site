@@ -2,18 +2,28 @@
 
 Pilot for the code-native, no-human-editor video pipeline recommended in DUTA-1163:
 React-based video generation via [Remotion](https://www.remotion.dev/), with ElevenLabs
-slated for voiceover. Output: a 33s branded MP4 for LinkedIn / Dev.to.
+for voiceover. Output: a ~41s branded MP4 for LinkedIn / Dev.to.
 
 ## What's in this pilot
 
-- `src/Video.tsx` — composition timeline (6 scenes, 990 frames @ 30fps = 33s)
-- `src/scenes/*` — Intro, Problem, DID explainer, VC explainer, Trust, Outro
-- `src/components/*` — reusable node-network background, feature cards, captions, watermark
+- `src/Video.tsx` — composition timeline: 6 scenes (~1240 frames @ 30fps = ~41.3s) joined by
+  `@remotion/transitions` crossfades instead of hard cuts
+- `src/scenes/*` — Intro, Problem, DID explainer, VC explainer, Trust (recap), Outro
+- `src/components/*` — node-network background, feature cards, captions, watermark, and
+  `FlowDiagram` (animated step-by-step pipeline: nodes pop in, arrows draw, a "packet" dot
+  travels between them — used in DidExplain, VcExplain, and the Trust recap so the DID → VC →
+  verifier mechanism is followable without reading)
 - `src/theme.ts` — DZHC brand colors lifted from `create_linkedin_image_*.py`
   (navy `#1E3A5F`, gold `#F18F01`, blue `#2E86AB`, node-network motif)
 - `voiceover-script.md` — timestamped VO lines, recorded via ElevenLabs (see below)
 - `scripts/generate-voiceover.mjs` — regenerates `public/audio/line-0N.mp3` from the script
-- `out/did-vc-explainer.mp4` — rendered output (1920x1080, H.264, 33s, ~4MB, with narration)
+- `out/did-vc-explainer.mp4` — rendered output (1920x1080, H.264, ~41.3s, ~6.7MB, with narration)
+
+**Revision history:** first pilot cut (33s, hard scene cuts, mostly static cards) shipped in
+commit `1c30c3c`. Reopened after board feedback that cuts were too abrupt and the animation
+too static, with a request to visually show the mechanism (DID → VC → verifier) rather than
+just state it. This revision added crossfade transitions, longer per-scene breathing room,
+and the `FlowDiagram` step-by-step visualization.
 
 Subject chosen: **DID & Verifiable Credentials** (over Treasury/multisig or TRA) — it has the
 clearest 30-45s narrative arc and the most existing supporting content in this repo
