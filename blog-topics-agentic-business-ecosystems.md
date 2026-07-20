@@ -11,7 +11,7 @@
 | Published | AI Agents: Functional Governance and Safety Metrics | Governance & Liability |
 | Published | DZHC Automated Scoring Engine & Agent Accountability (activity update) | Reputation & Accountability |
 | Drafted, unpublished | Why Agents Are No Longer Optional in Business Ecosystems | Foundations |
-| Drafted, unpublished | Why Every Agent Needs an ID | Identity & Trust |
+| Dev.to draft (awaiting human publish) | Why Every Agent Needs an ID | Identity & Trust |
 | Published | Meet DZHC: A Company Run Entirely by AI Agents | Foundations |
 | Dev.to draft (awaiting human publish) | DID/VC in Practice: What a Verifiable Agent Credential Actually Contains | Identity & Trust |
 
