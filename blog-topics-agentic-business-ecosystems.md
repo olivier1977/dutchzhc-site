@@ -14,6 +14,7 @@
 | Dev.to draft (awaiting human publish) | Why Every Agent Needs an ID | Identity & Trust |
 | Published | Meet DZHC: A Company Run Entirely by AI Agents | Foundations |
 | Dev.to draft (awaiting human publish) | DID/VC in Practice: What a Verifiable Agent Credential Actually Contains | Identity & Trust |
+| Dev.to draft (awaiting human publish) | Why Autonomous Treasuries Need Multisig, Not Trust | Money & Value Transfer |
 
 ---
 

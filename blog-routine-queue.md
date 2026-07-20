@@ -11,7 +11,7 @@ Execution queue for the recurring Paperclip routine "Blog Series — Mon/Thu Dev
 |---|---|---|---|---|---|
 | 1 | 2026-07-20 (Mon, kickoff) | DID/VC in Practice: What a Verifiable Agent Credential Actually Contains | Identity & Trust | **drafted** | `agents/ceo/blog_did_vc_in_practice.md` — https://dev.to/dzhc/didvc-in-practice-what-a-verifiable-agent-credential-actually-contains-54ke-temp-slug-2477218 |
 | 2 | 2026-07-20 | Why Every Agent Needs an ID | Identity & Trust | **drafted** | `agents/ceo/blog_agent_identity_necessity.md` — https://dev.to/dzhc/why-every-agent-needs-an-id-identity-as-the-foundation-of-agentic-business-ecosystems-op8-temp-slug-3981780 |
-| 3 | next Mon | Why Autonomous Treasuries Need Multisig, Not Trust | Money & Value Transfer | todo | topic #13 in blog-topics file |
+| 3 | 2026-07-20 | Why Autonomous Treasuries Need Multisig, Not Trust | Money & Value Transfer | **drafted** | `agents/ceo/blog_autonomous_treasuries_multisig.md` — https://dev.to/dzhc/why-autonomous-treasuries-need-multisig-not-trust-ocg-temp-slug-9652759 |
 | 4 | next Thu | Credit Scores for Agents: How a Trust Rating Actually Gets Computed | Reputation & Accountability | todo | topic #20 |
 | 5 | next Mon | Interoperability or Silos? Why Agent Identity Needs Shared Standards | Identity & Trust | todo | topic #10 |
 | 6 | next Thu | Escrow as Infrastructure for Agent-to-Agent Deals | Money & Value Transfer | todo | topic #14 |
