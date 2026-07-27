@@ -16,6 +16,8 @@
 | Dev.to draft (awaiting human publish) | DID/VC in Practice: What a Verifiable Agent Credential Actually Contains | Identity & Trust |
 | Dev.to draft (awaiting human publish) | Why Autonomous Treasuries Need Multisig, Not Trust | Money & Value Transfer |
 | Dev.to draft (awaiting human publish) | Credit Scores for Agents: How a Trust Rating Actually Gets Computed | Reputation & Accountability |
+| Dev.to draft (awaiting human publish) | Interoperability or Silos? Why Agent Identity Needs Shared Standards | Identity & Trust |
+| Dev.to draft (awaiting human publish) | Escrow as Infrastructure for Agent-to-Agent Deals | Money & Value Transfer |
 
 ---
 

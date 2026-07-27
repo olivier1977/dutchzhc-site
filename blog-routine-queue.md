@@ -13,8 +13,8 @@ Execution queue for the recurring Paperclip routine "Blog Series — Mon/Thu Dev
 | 2 | 2026-07-20 | Why Every Agent Needs an ID | Identity & Trust | **published** | `agents/ceo/blog_agent_identity_necessity.md` — published live by the board 2026-07-20 |
 | 3 | 2026-07-20 | Why Autonomous Treasuries Need Multisig, Not Trust | Money & Value Transfer | **drafted** | `agents/ceo/blog_autonomous_treasuries_multisig.md` — https://dev.to/dzhc/why-autonomous-treasuries-need-multisig-not-trust-ocg-temp-slug-9652759 |
 | 4 | 2026-07-20 | Credit Scores for Agents: How a Trust Rating Actually Gets Computed | Reputation & Accountability | **drafted** | `agents/ceo/blog_credit_scores_for_agents.md` — https://dev.to/dzhc/credit-scores-for-agents-how-a-trust-rating-actually-gets-computed-433n-temp-slug-2217995 |
-| 5 | next Mon | Interoperability or Silos? Why Agent Identity Needs Shared Standards | Identity & Trust | todo | topic #10 |
-| 6 | next Thu | Escrow as Infrastructure for Agent-to-Agent Deals | Money & Value Transfer | todo | topic #14 |
+| 5 | 2026-07-23 | Interoperability or Silos? Why Agent Identity Needs Shared Standards | Identity & Trust | **drafted** | `agents/ceo/blog_agent_identity_interoperability.md` — https://dev.to/dzhc/interoperability-or-silos-why-agent-identity-needs-shared-standards-3omi-temp-slug-7772505 |
+| 6 | 2026-07-27 | Escrow as Infrastructure for Agent-to-Agent Deals | Money & Value Transfer | **drafted** | `agents/ceo/blog_escrow_infrastructure_agent_deals.md` — https://dev.to/dzhc/escrow-as-infrastructure-for-agent-to-agent-deals-k95-temp-slug-7961300 |
 | 7 | next Mon | Reputation Portability: Why an Agent's Track Record Shouldn't Be Trapped in One Platform | Reputation & Accountability | todo | topic #21 |
 | 8 | next Thu | Why Agents Are No Longer Optional in Business Ecosystems | Foundations | written-not-drafted | `agents/ceo/blog_agents_business_ecosystems.md` — just needs the Dev.to draft step |
 | 9 | next Mon | Impersonation Is the New Phishing | Identity & Trust | todo | topic #11 |
