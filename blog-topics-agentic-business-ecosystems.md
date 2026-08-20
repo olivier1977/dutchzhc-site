@@ -10,7 +10,7 @@
 | Published | AI Agents: Governance, Transparency and Liability | Governance & Liability |
 | Published | AI Agents: Functional Governance and Safety Metrics | Governance & Liability |
 | Published | DZHC Automated Scoring Engine & Agent Accountability (activity update) | Reputation & Accountability |
-| Drafted, unpublished | Why Agents Are No Longer Optional in Business Ecosystems | Foundations |
+| Dev.to draft (awaiting human publish) | Why Agents Are No Longer Optional in Business Ecosystems | Foundations |
 | Published | Why Every Agent Needs an ID | Identity & Trust |
 | Published | Meet DZHC: A Company Run Entirely by AI Agents | Foundations |
 | Dev.to draft (awaiting human publish) | DID/VC in Practice: What a Verifiable Agent Credential Actually Contains | Identity & Trust |
@@ -18,6 +18,10 @@
 | Dev.to draft (awaiting human publish) | Credit Scores for Agents: How a Trust Rating Actually Gets Computed | Reputation & Accountability |
 | Dev.to draft (awaiting human publish) | Interoperability or Silos? Why Agent Identity Needs Shared Standards | Identity & Trust |
 | Dev.to draft (awaiting human publish) | Escrow as Infrastructure for Agent-to-Agent Deals | Money & Value Transfer |
+| Dev.to draft (awaiting human publish) | Reputation Portability: Why an Agent's Track Record Shouldn't Be Trapped in One Platform | Reputation & Accountability |
+| Dev.to draft (awaiting human publish) | Impersonation Is the New Phishing | Identity & Trust |
+| Dev.to draft (awaiting human publish) | Stablecoins and the Plumbing of Machine-Speed Payments | Money & Value Transfer |
+| Dev.to draft (awaiting human publish) | What a Bad TRA Score Should Actually Cost an Agent (and Its Operator) | Reputation & Accountability |
 
 ---
 

@@ -25,12 +25,25 @@ Execution queue for the recurring Paperclip routine "Blog Series — Mon/Thu Dev
 | 8 | next Thu | Why Agents Are No Longer Optional in Business Ecosystems | Foundations | **drafted**, CTA retrofitted 2026-08-19 (DUTA-1351, slug `business-ecosystems`) | `agents/ceo/blog_agents_business_ecosystems.md` — https://dev.to/dzhc/why-agents-are-no-longer-optional-in-business-ecosystems-lhd-temp-slug-9555340 |
 | 9 | next Mon | Impersonation Is the New Phishing | Identity & Trust | **drafted**, CTA retrofitted 2026-08-19 (DUTA-1351, slug `impersonation`) | `agents/ceo/blog_impersonation_new_phishing.md` — https://dev.to/dzhc/impersonation-is-the-new-phishing-3ph5-temp-slug-3506021 |
 | 10 | next Thu | Stablecoins and the Plumbing of Machine-Speed Payments | Money & Value Transfer | **drafted**, CTA retrofitted 2026-08-19 (DUTA-1351, slug `stablecoins`) | `agents/ceo/blog_stablecoins_machine_speed_payments.md` — https://dev.to/dzhc/stablecoins-and-the-plumbing-of-machine-speed-payments-5005-temp-slug-7384121 |
-| 11 | next Mon | What a Bad TRA Score Should Actually Cost an Agent (and Its Operator) | Reputation & Accountability | todo | topic #22 |
+| 11 | next Mon | What a Bad TRA Score Should Actually Cost an Agent (and Its Operator) | Reputation & Accountability | **drafted** (2026-08-20, DUTA-1356, tracked CTA slug `tra-score-cost`) | `agents/ceo/blog_tra_score_cost.md` — https://dev.to/dzhc/what-a-bad-tra-score-should-actually-cost-an-agent-and-its-operator-2e73-temp-slug-2892550 |
 
 **2026-08-19 status audit (DUTA-1351):** cross-checked this table against the Dev.to API (`/api/articles/me/published` and `/me/unpublished`) rather than trusting the recorded statuses. Found rows 1 and 3 were actually already published live — the queue said `drafted` for both, which was stale (likely published directly by the board via the Dev.to UI without updating this file). Corrected above. All 6 other `drafted` rows (4–10, excluding row 6 which is also drafted) were confirmed still unpublished and had their CTA paragraph updated in place (local `.md` file edited, then pushed to the existing Dev.to draft via `update-devto-draft.mjs <id> <file>` — does not touch publish state). Rows 1–3 were **not** edited since they're already public; unilaterally changing live content wasn't in scope for this task.
 
 ## After row 11
 Queue is intentionally short so the priority ordering can be re-checked with the board once. Once exhausted, continue pulling from `blog-topics-agentic-business-ecosystems.md`'s remaining topics (Pillars 1, 2, 5, 7, 8 — Foundations, Governance, Liability/Regulation, Case Studies, Opportunity), alternating pillars per that file's "Suggested cadence" section, still giving Identity/Money/Reputation topics priority whenever one is available. Append new rows here in the same table format rather than starting a new file, and update `blog-topics-agentic-business-ecosystems.md`'s "Already in the pipeline" table when a post moves from `todo` to `drafted`.
+
+Row 11 drafted 2026-08-20 (DUTA-1356), so rows 12-19 appended below per this rule: remaining Identity (#12) and Money (#15) topics prioritized first since Reputation (Pillar 6) is now fully in the pipeline, then alternating Foundations → Governance → Liability → Case Study → Opportunity per the topic bank's cadence section.
+
+| # | Fire | Title | Pillar | Status | File / Draft |
+|---|---|---|---|---|---|
+| 12 | next Thu | Revocation in Real Time: What Happens the Moment an Agent Should No Longer Act | Identity & Trust | todo | topic #12 |
+| 13 | next Mon | What We Learned Rotating a Compromised Signing Key Under Live Governance | Money & Value Transfer | todo | topic #15 |
+| 14 | next Thu | The Economics of an Agentic Business Ecosystem | Foundations | todo | topic #1 |
+| 15 | next Mon | Human-in-the-Loop vs. Human-on-the-Loop: Picking the Right Oversight Model per Decision | Governance & Control | todo | topic #5 |
+| 16 | next Thu | Who's Liable When an Agent Signs the Contract? | Liability, Regulation & Risk | todo | topic #17 |
+| 17 | next Mon | 100 Days of Running a Zero-Human Company: What Actually Broke | Build-in-Public / Case Studies | todo | topic #23 |
+| 18 | next Thu | The Businesses That Will Win the Agentic Transition Aren't the Ones with the Most Agents | Opportunity / Forward-Looking | todo | topic #25 |
+| 19 | next Mon | Agent-to-Agent Commerce: The Missing Market Layer | Foundations | todo | topic #2 |
 
 ## Each firing, do this
 **One post per firing only — never batch multiple rows in one run.**
