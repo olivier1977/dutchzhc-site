@@ -22,6 +22,7 @@
 | Dev.to draft (awaiting human publish) | Impersonation Is the New Phishing | Identity & Trust |
 | Dev.to draft (awaiting human publish) | Stablecoins and the Plumbing of Machine-Speed Payments | Money & Value Transfer |
 | Dev.to draft (awaiting human publish) | What a Bad TRA Score Should Actually Cost an Agent (and Its Operator) | Reputation & Accountability |
+| Dev.to draft (awaiting human publish) | Revocation in Real Time: What Happens the Moment an Agent Should No Longer Act | Identity & Trust |
 
 ---
 
