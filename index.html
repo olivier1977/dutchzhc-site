@@ -127,6 +127,22 @@
       margin-bottom: 1rem;
     }
 
+    /* ── WHO IS THIS FOR? (personas) ───────────────────────── */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .persona-grid .home-service-card { padding: 1.75rem 1.5rem; }
+    .persona-grid .home-service-icon { width: 46px; height: 46px; font-size: 1.3rem; }
+    .persona-grid .home-service-card h3 { font-size: 1.02rem; }
+    .persona-grid .home-service-card .desc { font-size: 0.85rem; margin-bottom: 0; }
+    .home-service-card.persona-n8n::before { background: linear-gradient(90deg, var(--accent-cyan), var(--accent)); }
+    .home-service-card.persona-dao::before { background: linear-gradient(90deg, #a78bfa, var(--accent-cyan)); }
+    .home-service-card.persona-zhc::before { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+    .home-service-card.persona-agent::before { background: linear-gradient(90deg, #f59e0b, #f97316); }
+
     /* ── ZHC DEFINITION ───────────────────────────────────── */
     .zhc-def-strip {
       display: grid;
@@ -253,6 +269,7 @@
 
     @media (max-width: 900px) {
       .home-service-grid { grid-template-columns: 1fr; }
+      .persona-grid { grid-template-columns: 1fr 1fr; }
       .zhc-def-strip { grid-template-columns: 1fr; }
       .zhc-def-item { border-right: none; border-bottom: 1px solid var(--border); }
       .zhc-def-item:last-child { border-bottom: none; }
@@ -261,6 +278,7 @@
     }
     @media (max-width: 600px) {
       .partners-row { justify-content: flex-start; }
+      .persona-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -353,6 +371,47 @@
     </div>
   </div>
 
+</section>
+
+<hr class="divider">
+
+<!-- ── WHO IS THIS FOR? ─────────────────────────────────────── -->
+<section>
+  <span class="section-label">Who is this for?</span>
+  <h2>Built for the teams already working with agents</h2>
+  <p class="section-subtitle">We're actively working with — and building for — these segments today.</p>
+
+  <div class="persona-grid">
+
+    <div class="home-service-card persona-n8n">
+      <div class="home-service-icon" style="background: var(--cyan-dim);">🔗</div>
+      <span class="card-tag" style="background: var(--accent-cyan); color: var(--primary); margin-bottom: 0.75rem;">Automation</span>
+      <h3>n8n &amp; Workflow Builders</h3>
+      <p class="desc">You're automating processes with n8n or similar tools and want your workflow agent to hold a real, verifiable identity and a governed wallet — instead of a shared API key with no accountability trail.</p>
+    </div>
+
+    <div class="home-service-card persona-dao">
+      <div class="home-service-icon" style="background: rgba(167,139,250,0.1);">🏛️</div>
+      <span class="card-tag" style="background: #a78bfa; color: var(--primary); margin-bottom: 0.75rem;">DAOs</span>
+      <h3>DAOs &amp; On-chain Organisations</h3>
+      <p class="desc">You run a Moloch- or DAOHaus-style DAO and need governance guarantees that go beyond a bare multisig — verifiable identity for the organisation itself, plus an auditable decision trail for members and counterparties.</p>
+    </div>
+
+    <div class="home-service-card persona-zhc">
+      <div class="home-service-icon" style="background: var(--accent-dim);">🤖</div>
+      <span class="card-tag" style="margin-bottom: 0.75rem;">Zero-Human</span>
+      <h3>Other Zero-Human Companies</h3>
+      <p class="desc">You're building or running your own agent-operated company and need the same governance, identity, and treasury scaffolding we use on ourselves — before regulators, banks, or counterparties ask how it's controlled.</p>
+    </div>
+
+    <div class="home-service-card persona-agent">
+      <div class="home-service-icon" style="background: rgba(245,158,11,0.1);">🧩</div>
+      <span class="card-tag" style="background: var(--warning); color: var(--primary); margin-bottom: 0.75rem;">Agent Builders</span>
+      <h3>AI Agent Builders</h3>
+      <p class="desc">You're shipping autonomous agents that need to prove who they are, hold and move funds safely, and build a track record — without standing up your own DID, multisig, and reputation infrastructure from scratch.</p>
+    </div>
+
+  </div>
 </section>
 
 <hr class="divider">
