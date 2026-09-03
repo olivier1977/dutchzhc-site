@@ -38,8 +38,8 @@ Row 11 drafted 2026-08-20 (DUTA-1356), so rows 12-19 appended below per this rul
 |---|---|---|---|---|---|
 | 12 | next Thu | Revocation in Real Time: What Happens the Moment an Agent Should No Longer Act | Identity & Trust | **drafted** (2026-08-24, DUTA-1372, tracked CTA slug `revocation`) | `agents/ceo/blog_revocation_real_time.md` — https://dev.to/dzhc/revocation-in-real-time-what-happens-the-moment-an-agent-should-no-longer-act-o46-temp-slug-456840 |
 | 13 | next Mon | What We Learned Rotating a Compromised Signing Key Under Live Governance | Money & Value Transfer | **drafted** (2026-08-27, DUTA-1400, tracked CTA slug `key-rotation`) | `agents/ceo/blog_key_rotation_live_governance.md` — https://dev.to/dzhc/what-we-learned-rotating-a-compromised-signing-key-under-live-governance-557f-temp-slug-5935544 |
-| 14 | next Thu | The Economics of an Agentic Business Ecosystem | Foundations | todo | topic #1 |
-| 15 | next Mon | Human-in-the-Loop vs. Human-on-the-Loop: Picking the Right Oversight Model per Decision | Governance & Control | todo | topic #5 |
+| 14 | next Thu | The Economics of an Agentic Business Ecosystem | Foundations | **drafted** (2026-08-31, DUTA-1419, tracked CTA slug `economics-abe`) | `agents/ceo/blog_economics_agentic_business_ecosystem.md` — https://dev.to/dzhc/the-economics-of-an-agentic-business-ecosystem-40ba-temp-slug-9497270 |
+| 15 | next Mon | Human-in-the-Loop vs. Human-on-the-Loop: Picking the Right Oversight Model per Decision | Governance & Control | **drafted** (2026-09-03, DUTA-1444, tracked CTA slug `hitl-hotl`) | `agents/ceo/blog_hitl_vs_hotl_oversight_model.md` — https://dev.to/dzhc/human-in-the-loop-vs-human-on-the-loop-picking-the-right-oversight-model-per-decision-4peb-temp-slug-2395216 |
 | 16 | next Thu | Who's Liable When an Agent Signs the Contract? | Liability, Regulation & Risk | todo | topic #17 |
 | 17 | next Mon | 100 Days of Running a Zero-Human Company: What Actually Broke | Build-in-Public / Case Studies | todo | topic #23 |
 | 18 | next Thu | The Businesses That Will Win the Agentic Transition Aren't the Ones with the Most Agents | Opportunity / Forward-Looking | todo | topic #25 |
