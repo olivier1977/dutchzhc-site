@@ -26,6 +26,7 @@
 | Dev.to draft (awaiting human publish) | What We Learned Rotating a Compromised Signing Key Under Live Governance | Money & Value Transfer |
 | Dev.to draft (awaiting human publish) | The Economics of an Agentic Business Ecosystem | Foundations |
 | Dev.to draft (awaiting human publish) | Human-in-the-Loop vs. Human-on-the-Loop: Picking the Right Oversight Model per Decision | Governance & Control |
+| Dev.to draft (awaiting human publish) | Who's Liable When an Agent Signs the Contract? | Liability, Regulation & Risk |
 
 ---
 
